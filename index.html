@@ -8,7 +8,7 @@
   <link rel="canonical" href="https://www.legacyconciergemedicine.com/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Legacy Concierge Medicine | In-home concierge primary care">
-  <meta property="og:description" content="Medical care for the life you've built, and the legacy ahead. Private, in-home concierge primary care in Southwest Florida.">
+  <meta property="og:description" content="Personalized, in-home care for every stage of life. Private concierge primary care in Southwest Florida.">
   <meta property="og:url" content="https://www.legacyconciergemedicine.com/">
   <meta property="og:image" content="https://www.legacyconciergemedicine.com/assets/img/hero-09.jpg">
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -18,6 +18,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/home.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -33,6 +34,34 @@
     "medicalSpecialty": ["PrimaryCare", "Geriatric"],
     "areaServed": ["Sarasota FL", "Venice FL", "North Port FL", "Longboat Key FL", "Lakewood Ranch FL", "Bradenton FL", "Palmetto FL", "Parrish FL"],
     "founder": { "@type": "Physician", "name": "Dr. Pamela Chapman, DO" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is concierge primary care?",
+        "acceptedAnswer": { "@type": "Answer", "text": "It is a membership-based model where a physician intentionally limits how many patients they care for. That smaller panel gives you generous time, direct access, and a doctor who truly knows you." }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you really provide care at home?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Whenever it is appropriate, your care is delivered in the comfort of your home. Virtual visits are available when they serve you better, and a clinic setting when needed." }
+      },
+      {
+        "@type": "Question",
+        "name": "How does membership work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "You begin with a conversation, we make sure the practice is the right fit, and then you enroll. From there, your care is continuous, relationship-based, and directly accessible." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does membership replace my insurance?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. A concierge membership covers the primary care relationship; it is not insurance and does not replace it. We are glad to explain how it works alongside your existing coverage." }
+      }
+    ]
   }
   </script>
 </head>
@@ -60,193 +89,380 @@
 
   <main>
 
-    <!-- Hero -->
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <span class="eyebrow">In-home concierge primary care · Southwest Florida</span>
-          <h1>Medical care for the life you've built, and the legacy ahead.</h1>
-          <p class="lead">Personalized, in-home concierge primary care designed to help you protect your health, stay present for those you love, and navigate every stage of life with confidence.</p>
-          <div class="btn-row">
-            <a class="btn btn-primary" href="/contact">Begin the conversation</a>
-            <a class="btn btn-outline" href="tel:+19414011001">(941) 401-1001</a>
+    <!-- ============================ HERO ============================ -->
+    <section class="h-hero">
+      <div class="h-hero-bg">
+        <video data-parallax="0.13" src="/assets/video/hero-loop.mp4" poster="/assets/img/hero-poster.jpg"
+               autoplay loop muted playsinline preload="auto" aria-hidden="true"></video>
+        <div class="shade-a"></div>
+        <div class="shade-b"></div>
+      </div>
+
+      <div class="h-hero-inner">
+        <div class="h-wrap">
+          <div class="h-hero-grid">
+
+            <div class="h-hero-copy">
+              <span class="h-eyebrow">Concierge primary care</span>
+              <h1>Personalized, in-home care for every stage of life.</h1>
+              <p class="h-lead">Relationship-based medicine designed to help you protect your health, stay present for those you love, and navigate every stage of life with confidence.</p>
+              <div class="h-btn-row">
+                <a class="h-btn h-btn-primary" href="/contact">Request a consultation</a>
+                <a class="h-btn h-btn-ghost" href="/services">See the practice</a>
+              </div>
+              <div class="h-badges">
+                <div class="h-badge">
+                  <span class="icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"></path><path d="M5.5 10v9.5h13V10"></path><path d="M9.5 19.5v-5h5v5"></path></svg></span>
+                  <span>Home care</span>
+                </div>
+                <div class="h-badge">
+                  <span class="icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg></span>
+                  <span>Geriatrics</span>
+                </div>
+                <div class="h-badge">
+                  <span class="icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-9.2-8.3C1.3 8.9 3 5.8 6.2 5.8c2 0 3.2 1.2 3.8 2.2.6-1 1.8-2.2 3.8-2.2 3.2 0 4.9 3.1 3.4 5.9C19 15.6 12 20 12 20z"></path></svg></span>
+                  <span>Elder care</span>
+                </div>
+                <div class="h-badge">
+                  <span class="icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l7 2.5v5.5c0 4-2.9 6.8-7 8-4.1-1.2-7-4-7-8V6z"></path><path d="M9 11.8l2.2 2.2L15.5 9.7"></path></svg></span>
+                  <span>Preventive care</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="h-hero-card">
+              <div>
+                <h2>See if Legacy is right for you</h2>
+                <p>Answer a few quick questions and we will be in touch personally.</p>
+                <div class="frame">
+                  <iframe src="https://api.leadconnectorhq.com/widget/survey/sNCLpxKquCZJsq0TpyXh"
+                          title="See if Legacy is right for you" scrolling="no" loading="lazy"></iframe>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
-        <div class="hero-media">
-          <img src="/assets/img/hero-09.jpg" alt="A couple dancing together on the beach" width="1200" height="801" fetchpriority="high">
+      </div>
+
+      <div class="h-cred" aria-label="Practice credentials">
+        <div class="h-cred-track">
+          <div class="h-cred-group">
+            <span>Board-certified family medicine</span>
+            <span>Board-certified obesity medicine</span>
+            <span>Functional medicine</span>
+            <span>Geriatric &amp; skilled-nursing experience</span>
+            <span>Serving Sarasota &amp; Manatee counties</span>
+          </div>
+          <div class="h-cred-group" aria-hidden="true">
+            <span>Board-certified family medicine</span>
+            <span>Board-certified obesity medicine</span>
+            <span>Functional medicine</span>
+            <span>Geriatric &amp; skilled-nursing experience</span>
+            <span>Serving Sarasota &amp; Manatee counties</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- The legacy idea -->
-    <section class="section bg-sand">
-      <div class="container split reveal">
+    <!-- ========================== MANIFESTO ========================== -->
+    <section class="h-manifesto">
+      <div class="h-wrap grid reveal">
         <div>
-          <span class="eyebrow">What legacy means</span>
-          <h2>Your health is part of the legacy you leave.</h2>
-        </div>
-        <div>
-          <p>Your health determines your energy, independence, clarity, and capacity to care for others. When health is neglected, families feel the strain. When it is prioritized, it becomes a foundation for stability, presence, and peace of mind.</p>
-          <p>At Legacy Concierge Medicine, we believe that prioritizing your health is one of the most meaningful investments you can make for your family — today and in the years ahead.</p>
-          <p>Legacy is not just what you leave behind — it is how you show up for your family, your work, and the people who rely on you.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Foundation -->
-    <section class="section" id="foundation">
-      <div class="container split reverse reveal">
-        <div class="split-media">
-          <img src="/assets/img/photo-5.jpg" alt="Two people holding hands across a table" width="1200" height="800" loading="lazy">
-        </div>
-        <div>
-          <p class="subhead">This is not indulgent care.<br>This is responsible, forward-thinking medicine.</p>
-          <h2>Health as a foundation for family and future</h2>
-          <p>Proactive healthcare allows you to:</p>
-          <ul class="list">
-            <li>Stay engaged and present in your life</li>
-            <li>Maintain independence as you age</li>
-            <li>Reduce preventable medical crises</li>
-            <li>Make thoughtful, informed decisions</li>
-            <li>Protect your family from unnecessary stress and uncertainty</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- In your home -->
-    <section class="section bg-cream">
-      <div class="container split reveal">
-        <div class="split-media">
-          <img src="/assets/img/photo-2.jpg" alt="A woman relaxing in an armchair at home with a cup of tea" width="1200" height="800" loading="lazy">
+          <span class="h-eyebrow">What legacy means</span>
+          <h2 class="h-title">Legacy is not just what you leave behind. It is how you <em>show up</em>.</h2>
         </div>
         <div>
-          <span class="eyebrow">Concierge primary care — in your home</span>
-          <h2>Care that comes to you.</h2>
-          <p>Legacy Concierge Medicine provides concierge primary care for adults and families, delivered almost entirely in the comfort of your home. All routine visits, follow-ups, and care planning are conducted in-home whenever possible. This approach allows us to:</p>
-          <ul class="list">
-            <li>Remove barriers to care</li>
-            <li>Understand the real context of your life</li>
-            <li>Create personalized, sustainable medical plans</li>
-            <li>Offer convenience without compromising quality</li>
-          </ul>
-          <p class="muted">For patients requiring a higher level of care, including those in skilled nursing settings, care continues seamlessly within those environments — preserving trust and continuity.</p>
-          <div class="btn-row"><a class="btn-link" href="/services">Explore our services</a></div>
+          <p>For your health. For the people who depend on you. <strong>Prioritizing your health is one of the most meaningful investments you can make for your family.</strong></p>
+          <p>This is not indulgent care. This is responsible, forward-thinking medicine: steady, intentional, and deeply personal.</p>
         </div>
       </div>
     </section>
 
-    <!-- Five pillars -->
-    <section class="section bg-sand">
-      <div class="container">
-        <div class="center reveal">
-          <span class="eyebrow">A different standard of care</span>
-          <h2>Five ways private care is simply different.</h2>
+    <!-- ======================= WHAT WE PROVIDE ======================= -->
+    <section class="h-section h-provide">
+      <div class="h-wrap">
+        <div class="head">
+          <span class="h-pill">What we provide</span>
+          <h2 class="h-title">Health as a foundation for family and future.</h2>
+          <p>Concierge primary care for adults and families, delivered almost entirely where you live.</p>
         </div>
-        <div class="grid-5 reveal" style="margin-top:2.5rem">
-          <div class="pillar"><span class="num">01</span><h3>Access</h3><p>When something comes up, you call your physician. Not a call center.</p></div>
-          <div class="pillar"><span class="num">02</span><h3>Time</h3><p>Longer, unrushed visits that tell the whole story of your health.</p></div>
-          <div class="pillar"><span class="num">03</span><h3>Guidance</h3><p>Clarity and advocacy through every decision and transition.</p></div>
-          <div class="pillar"><span class="num">04</span><h3>Strategy</h3><p>Preventive, longevity-focused planning instead of reactive sick visits.</p></div>
-          <div class="pillar"><span class="num">05</span><h3>Continuity</h3><p>One care team that stays with you as your needs evolve.</p></div>
-        </div>
-      </div>
-    </section>
 
-    <!-- Continuity -->
-    <section class="section">
-      <div class="container split reveal">
-        <div>
-          <span class="eyebrow">Continuity through life's transitions</span>
-          <h2>You are never handed off to strangers.</h2>
-          <p class="subhead">Your care continues — with intention and advocacy.</p>
-        </div>
-        <div>
-          <p>A defining feature of Legacy Concierge Medicine is long-term continuity of care. We care for individuals living independently who want a medical team that remains with them as their needs evolve — including transitions into assisted living or skilled nursing, when safety or health requires it.</p>
-          <p>With extensive experience in these settings, our physician and nurse practitioner team helps patients and families:</p>
-          <ul class="list">
-            <li>Anticipate changes before crises occur</li>
-            <li>Navigate care transitions with clarity and compassion</li>
-            <li>Maintain a consistent medical relationship across settings</li>
-            <li>Reduce fragmentation and unnecessary stress</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- Belief / team -->
-    <section class="section bg-maroon">
-      <div class="container center reveal">
-        <span class="eyebrow">Legacy Concierge Medicine was built on a simple belief</span>
-        <p class="quote">The best healthcare happens within a relationship — one where your physician knows your history, your family, your goals, and the life you are working to protect.</p>
-      </div>
-    </section>
-
-    <section class="section" id="about">
-      <div class="container">
-        <div class="center reveal">
-          <span class="eyebrow">Meet your care team</span>
-          <h2>Decades of combined experience.<br>The same calm presence every time.</h2>
-          <p class="measure">Dr. Chapman and Emily Smith, APRN bring decades of combined experience in primary, functional, and geriatric medicine. They have worked alongside patients through independent living, care transitions, and complex health decisions — and they show up with the same calm, consistent presence every time.</p>
-        </div>
-        <div class="grid-2 reveal" style="margin-top:3rem; max-width: 900px; margin-left:auto; margin-right:auto">
-          <article class="team-card">
-            <a href="/about#dr-chapman"><img src="/assets/img/bellagena-spring-2026.jpg" alt="Dr. Pamela Chapman" width="1200" height="1800" loading="lazy"></a>
-            <h3>Dr. Pamela Chapman, DO</h3>
-            <p class="role">Founder · Board-certified physician</p>
-            <p>Board-certified in family medicine and obesity medicine, an expert in functional medicine, and former Medical Director for two of the region's most respected communities.</p>
-            <a class="btn-link" href="/about#dr-chapman">About Dr. Chapman</a>
-          </article>
-          <article class="team-card">
-            <a href="/about#emily"><img src="/assets/img/emily-white-wall.jpg" alt="Emily Smith, APRN" width="1200" height="1055" loading="lazy"></a>
-            <h3>Emily Smith, <span style="white-space:nowrap">APRN, FNP-C</span></h3>
-            <p class="role">Nurse practitioner</p>
-            <p>Eight years in adult and geriatric medicine, with a clinical focus on the unique complexities of aging and thoughtful medication management.</p>
-            <a class="btn-link" href="/about#emily">About Emily Smith</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Who it's for -->
-    <section class="section bg-sand">
-      <div class="container split reveal">
-        <div>
-          <span class="eyebrow">Who this practice is for</span>
-          <h2>Legacy Concierge Medicine is for individuals and families who:</h2>
-        </div>
-        <div>
-          <ul class="list">
-            <li>Want a true relationship with their physician</li>
-            <li>Feel underserved by rushed, traditional healthcare</li>
-            <li>Value prevention, planning, and long-term thinking</li>
-            <li>Desire continuity and guidance as life evolves</li>
-            <li>Want peace of mind for themselves and their loved ones</li>
-          </ul>
-          <p>Our patients are often professionals, caregivers, aging adults, and families planning ahead — people who understand that health supports everything else.</p>
-          <div class="btn-row"><a class="btn btn-outline" href="/contact">Begin the conversation</a></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Experience -->
-    <section class="section">
-      <div class="container center reveal">
-        <span class="eyebrow">The experience</span>
-        <h2>Medicine that feels steady, intentional, and deeply personal.</h2>
-        <p class="muted">Patients often describe the experience as:</p>
-        <ul class="words">
-          <li>Calm</li><li>Supportive</li><li>Protective</li><li>Empowering</li><li>Thoughtful</li>
+        <ul class="h-stack">
+          <li>
+            <div class="h-stack-card tone-1">
+              <div class="h-stack-body">
+                <span class="h-stack-icon" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"></path><path d="M5.5 10v9.5h13V10"></path></svg></span>
+                <div class="h-stack-kicker">In your home</div>
+                <h3>In-home primary care</h3>
+                <p>Routine visits, follow-ups, and care planning conducted in the comfort of your home whenever possible.</p>
+                <a class="h-link" href="/services">Learn more →</a>
+              </div>
+              <div class="h-stack-img">
+                <img src="/assets/img/photo-11.jpg" alt="A physician holding a patient's hand during a home visit" width="1200" height="800" loading="lazy">
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="h-stack-card tone-2">
+              <div class="h-stack-body">
+                <span class="h-stack-icon" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l7 2.5v5.5c0 4-2.9 6.8-7 8-4.1-1.2-7-4-7-8V6z"></path><path d="M9 11.8l2.2 2.2L15.5 9.7"></path></svg></span>
+                <div class="h-stack-kicker">Looking ahead</div>
+                <h3>Preventive healthcare</h3>
+                <p>Proactive, forward-thinking medicine that anticipates changes before they become crises.</p>
+                <a class="h-link" href="/services">Learn more →</a>
+              </div>
+              <div class="h-stack-img">
+                <img src="/assets/img/family-home.jpg" alt="A family together at home in the morning light" width="800" height="533" loading="lazy">
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="h-stack-card tone-3">
+              <div class="h-stack-body">
+                <span class="h-stack-icon" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"></circle><path d="M5 20c0-3.3 3.1-6 7-6s7 2.7 7 6"></path></svg></span>
+                <div class="h-stack-kicker">Built around you</div>
+                <h3>Personalized plans</h3>
+                <p>Sustainable medical plans shaped around the real context of your life, goals, and family.</p>
+                <a class="h-link" href="/services#membership">Learn more →</a>
+              </div>
+              <div class="h-stack-img">
+                <img src="/assets/img/photo-5.jpg" alt="Two people holding hands across a table" width="1200" height="800" loading="lazy">
+              </div>
+            </div>
+          </li>
         </ul>
       </div>
     </section>
 
-    <!-- CTA -->
+    <!-- ================= CARE MODEL + CONTINUITY (slides) ================ -->
+    <div class="h-slides">
+
+      <section class="h-slide">
+        <div class="h-slide-inner">
+          <div class="h-slide-left">
+            <span class="h-eyebrow on-dark">The care model</span>
+            <h2>Medicine built on relationship, not volume.</h2>
+            <p>Conventional primary care is stretched thin: rushed visits, rotating faces, little continuity. Legacy is built differently, around a limited panel, generous time, and a physician who truly knows you.</p>
+            <div class="h-points">
+              <div class="h-point">
+                <span class="icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20c0-3.4 3.1-6 7-6s7 2.6 7 6"></path></svg></span>
+                <div>
+                  <h3>The same physician, every visit</h3>
+                  <p>You see one doctor who knows your full story, never a rotating cast.</p>
+                </div>
+              </div>
+              <div class="h-point">
+                <span class="icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"></path></svg></span>
+                <div>
+                  <h3>Direct access between visits</h3>
+                  <p>Reach your care team directly, without the phone-tree maze.</p>
+                </div>
+              </div>
+              <div class="h-point">
+                <span class="icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.4"></circle><circle cx="18" cy="6" r="2.4"></circle><circle cx="18" cy="18" r="2.4"></circle><path d="M8.2 11 15.8 7M8.2 13l7.6 4"></path></svg></span>
+                <div>
+                  <h3>Care coordinated across specialists</h3>
+                  <p>We keep your specialists working from one shared plan.</p>
+                </div>
+              </div>
+              <div class="h-point">
+                <span class="icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg></span>
+                <div>
+                  <h3>Time that is never rushed</h3>
+                  <p>Generous, unhurried visits built entirely around you.</p>
+                </div>
+              </div>
+            </div>
+            <div><a class="h-btn h-btn-outline on-dark" href="/services">Explore the practice</a></div>
+          </div>
+          <div class="h-slide-right">
+            <img src="/assets/img/photo-11.jpg" alt="A physician caring for a patient at home" width="1200" height="800" loading="lazy">
+            <div class="veil"></div>
+            <div class="h-chip">
+              <span class="icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l7 2.5v5.5c0 4-2.9 6.8-7 8-4.1-1.2-7-4-7-8V6z"></path><path d="M9 11.8l2.2 2.2L15.5 9.7"></path></svg></span>
+              <span><b>Always your physician</b><small>The same doctor, every visit</small></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="h-slide">
+        <div class="h-slide-inner">
+          <div class="h-slide-left">
+            <span class="h-eyebrow on-dark">Continuity through life's transitions</span>
+            <h2>You are never handed off to strangers.</h2>
+            <p>We care for individuals who want a medical team that remains with them as their needs evolve, including transitions into assisted living or skilled nursing, when health requires it.</p>
+            <div class="h-points">
+              <div class="h-point">
+                <span class="icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-9.2-8.3C1.3 8.9 3 5.8 6.2 5.8c2 0 3.2 1.2 3.8 2.2.6-1 1.8-2.2 3.8-2.2 3.2 0 4.9 3.1 3.4 5.9C19 15.6 12 20 12 20z"></path></svg></span>
+                <div>
+                  <h3>Stay engaged and present</h3>
+                  <p>Care that helps you keep living fully, not just managing illness.</p>
+                </div>
+              </div>
+              <div class="h-point">
+                <span class="icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l7 2.5v5.5c0 4-2.9 6.8-7 8-4.1-1.2-7-4-7-8V6z"></path></svg></span>
+                <div>
+                  <h3>Maintain your independence</h3>
+                  <p>Support that helps you remain in your home and in control as you age.</p>
+                </div>
+              </div>
+              <div class="h-point">
+                <span class="icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-6 4 12 2-6h6"></path></svg></span>
+                <div>
+                  <h3>Fewer preventable crises</h3>
+                  <p>Proactive attention that heads off problems before they escalate.</p>
+                </div>
+              </div>
+              <div class="h-point">
+                <span class="icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"></circle><path d="M3 19c0-3 2.7-5 6-5s6 2 6 5"></path><path d="M16 6.5a3 3 0 0 1 0 5.5M21 19c0-2.4-1.6-4.3-4-4.8"></path></svg></span>
+                <div>
+                  <h3>Protect your family</h3>
+                  <p>A steady plan that spares your loved ones avoidable stress.</p>
+                </div>
+              </div>
+            </div>
+            <div><a class="h-btn h-btn-primary" href="/services">Continuity of care</a></div>
+          </div>
+          <div class="h-slide-right">
+            <img src="/assets/img/couple-shore.jpg" alt="An older couple together on the shore" width="1200" height="801" loading="lazy" style="object-position:center 30%">
+            <div class="veil"></div>
+            <div class="h-chip">
+              <span class="icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l7 2.5v5.5c0 4-2.9 6.8-7 8-4.1-1.2-7-4-7-8V6z"></path><path d="M9 11.8l2.2 2.2L15.5 9.7"></path></svg></span>
+              <span><b>Through every transition</b><small>Home, assisted living, or skilled nursing</small></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ========================== MEMBERSHIP ========================== -->
+    <section class="h-membership">
+      <div class="bg">
+        <img src="/assets/img/family-home.jpg" alt="" width="800" height="533" loading="lazy">
+        <div class="veil"></div>
+      </div>
+      <div class="content reveal">
+        <div class="card">
+          <span class="h-eyebrow on-dark">Membership</span>
+          <h2>Intentionally limited.<br><em>Deliberately personal.</em></h2>
+          <p>Membership preserves access, continuity, and quality of care. A defined panel means your physician has the time to truly know you, and the room to respond when it matters most.</p>
+          <div class="h-btn-row">
+            <a class="h-btn h-btn-primary" href="/contact">Request a consultation</a>
+            <a class="h-btn h-btn-outline on-dark" href="/services#membership">How membership works</a>
+          </div>
+          <dl class="h-facts">
+            <div class="h-fact">
+              <dt><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"></circle><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5"></path><path d="m16.5 11 1.6 1.6L21 9.6"></path></svg>Enrollment</dt>
+              <dd>Limited panel</dd>
+            </div>
+            <div class="h-fact">
+              <dt><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"></path></svg>Access</dt>
+              <dd>Direct &amp; personal</dd>
+            </div>
+            <div class="h-fact">
+              <dt><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"></path><path d="M5.5 10v9.5h13V10"></path></svg>Delivered</dt>
+              <dd>In your home</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================== FAMILY & HOUSEHOLD DISCOUNT ================== -->
+    <section class="h-section h-household" id="household">
+      <div class="h-wrap grid reveal">
+        <div>
+          <span class="h-eyebrow">Family &amp; household discount</span>
+          <h2 class="h-title">Caring for the whole household, together.</h2>
+          <p>The best medicine reaches the whole family. When more than one member of your household enrolls, each additional membership is offered at a reduced household rate — one practice, one plan, every generation.</p>
+          <a class="h-btn h-btn-primary" href="/contact">Ask about household rates</a>
+        </div>
+        <ul>
+          <li><span aria-hidden="true">✓</span>Reduced rates for each additional household member</li>
+          <li><span aria-hidden="true">✓</span>Spouses, partners, and multi-generational households welcome</li>
+          <li><span aria-hidden="true">✓</span>One physician coordinating care across the family</li>
+          <li><span aria-hidden="true">✓</span>Exact household pricing shared during your consultation</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- =========================== CARE TEAM =========================== -->
+    <section class="h-section h-team" id="care-team">
+      <div class="h-wrap">
+        <div class="head reveal">
+          <span class="h-eyebrow">Meet your care team</span>
+          <h2 class="h-title">The best healthcare happens within a relationship.</h2>
+          <p>Decades of combined experience in primary, functional, and geriatric medicine, delivered with the same calm, consistent presence every time.</p>
+        </div>
+        <div class="h-team-row reveal">
+          <article class="h-tm">
+            <img src="/assets/img/bellagena-spring-2026.jpg" alt="Dr. Pamela Chapman, DO" width="1200" height="1800" loading="lazy">
+            <div class="h-tm-shade"></div>
+            <div class="h-tm-info">
+              <b>Dr. Pamela Chapman, DO</b>
+              <span class="role">Physician · Primary &amp; geriatric medicine</span>
+              <p>Founded Legacy on a simple conviction: medicine is at its best when it is unhurried, personal, and rooted in a lasting relationship.</p>
+              <a class="h-link" href="/about#dr-chapman">About Dr. Chapman</a>
+            </div>
+          </article>
+          <article class="h-tm">
+            <img src="/assets/img/emily-scrubs.jpg" alt="Emily Smith, APRN, FNP-C" width="1092" height="960" loading="lazy">
+            <div class="h-tm-shade"></div>
+            <div class="h-tm-info">
+              <b>Emily Smith, APRN</b>
+              <span class="role">Nurse practitioner · Family medicine</span>
+              <p>Brings warmth and steadiness to every visit, caring for the whole family across every stage of life.</p>
+              <a class="h-link" href="/about#emily">About Emily Smith</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================== TESTIMONIALS ==========================
+         The design canvas includes a three-column testimonial wall. The
+         quotes and member names in it are placeholder copy, so the section
+         is held back until the practice supplies real, attributable member
+         quotes (with permission on file). Restore it from
+         /design/Home.html — section "TESTIMONIALS" — once those exist.
+    ------------------------------------------------------------------- -->
+
+    <!-- ============================== FAQ ============================== -->
+    <section class="h-section h-faq" id="faq">
+      <div class="inner">
+        <div class="head reveal">
+          <span class="h-eyebrow">Common questions</span>
+          <h2 class="h-title">The questions members ask first.</h2>
+        </div>
+        <details>
+          <summary>What is concierge primary care?</summary>
+          <div class="answer"><p>It is a membership-based model where a physician intentionally limits how many patients they care for. That smaller panel gives you generous time, direct access, and a doctor who truly knows you.</p></div>
+        </details>
+        <details>
+          <summary>Do you really provide care at home?</summary>
+          <div class="answer"><p>Yes. Whenever it is appropriate, your care is delivered in the comfort of your home. Virtual visits are available when they serve you better, and a clinic setting when needed.</p></div>
+        </details>
+        <details>
+          <summary>How does membership work?</summary>
+          <div class="answer"><p>You begin with a conversation, we make sure the practice is the right fit, and then you enroll. From there, your care is continuous, relationship-based, and directly accessible.</p></div>
+        </details>
+        <details>
+          <summary>Does membership replace my insurance?</summary>
+          <div class="answer"><p>No. A concierge membership covers the primary care relationship; it is not insurance and does not replace it. We are glad to explain how it works alongside your existing coverage.</p></div>
+        </details>
+        <div class="more"><a class="h-btn h-btn-outline" href="/services#faq">Read the full FAQ</a></div>
+      </div>
+    </section>
+
+    <!-- ============================ CTA BAND ============================ -->
     <section class="section bg-sand cta-band">
       <div class="container reveal">
         <span class="eyebrow">Begin a medical relationship</span>
         <h2>Built for the long term.</h2>
-        <p>Membership is intentionally limited to preserve access, continuity, and quality of care.</p>
+        <p>Membership is intentionally limited to preserve access, continuity, and quality of care. We invite you to begin with a conversation.</p>
         <div class="btn-row">
           <a class="btn btn-primary" href="/contact">Begin the conversation</a>
           <a class="btn btn-outline" href="tel:+19414011001">Call (941) 401-1001</a>

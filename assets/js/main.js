@@ -41,6 +41,40 @@
     reveals.forEach(function (el) { el.classList.add('is-visible'); });
   }
 
+  /* Publish the header height so the home hero can fill the rest of the fold */
+  var header = document.querySelector('.site-header');
+  if (header) {
+    var publishHeaderHeight = function () {
+      document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+    };
+    publishHeaderHeight();
+    window.addEventListener('resize', publishHeaderHeight, { passive: true });
+  }
+
+  /* Home hero: keep the background video playing, and drift it gently on scroll */
+  var heroVideo = document.querySelector('.h-hero-bg video');
+  if (heroVideo) {
+    heroVideo.muted = true;
+    heroVideo.defaultMuted = true;
+    var playing = heroVideo.play();
+    if (playing && playing.catch) { playing.catch(function () {}); }
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var rate = parseFloat(heroVideo.getAttribute('data-parallax')) || 0;
+      var ticking = false;
+      var drift = function () {
+        var offset = Math.min(window.scrollY, window.innerHeight) * rate;
+        heroVideo.style.transform =
+          'translate3d(0,' + offset.toFixed(1) + 'px,0) scale(1.12) scaleX(-1)';
+        ticking = false;
+      };
+      window.addEventListener('scroll', function () {
+        if (!ticking) { ticking = true; window.requestAnimationFrame(drift); }
+      }, { passive: true });
+      drift();
+    }
+  }
+
   /* Contact form
      Interim behaviour: composes an email to the practice inbox with the
      entered details. Replace this block (or the whole <form>) with the
