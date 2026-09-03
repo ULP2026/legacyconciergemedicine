@@ -1,0 +1,16 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/home", "destination": "/", "permanent": true },
+    { "source": "/about-dr-chapman", "destination": "/about#dr-chapman", "permanent": true },
+    { "source": "/about-emily", "destination": "/about#emily", "permanent": true },
+    { "source": "/membership", "destination": "/services", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    }
+  ]
+}
