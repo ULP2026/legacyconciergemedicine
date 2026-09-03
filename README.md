@@ -6,11 +6,20 @@ Static site (plain HTML/CSS/JS), deployed on Vercel from the `main` branch of gi
 - Styles: `assets/css/style.css` (brand tokens at the top) + `assets/css/home.css` (home page only) · Scripts: `assets/js/main.js` · Media: `assets/img/`, `assets/video/`
 - Clean URLs + redirects from the old Showit paths live in `vercel.json`.
 
-## Home page
+## Design canvas
 
-The home page is a hand port of the Legacy design canvas kept at `design/Home.html`
-(the Claude Design export; `.vercelignore` keeps it out of the deploy). Two deliberate
-differences from that canvas:
+The site follows the Legacy design canvas kept at `design/Home.html` (the Claude Design
+export; `.vercelignore` keeps it out of the deploy). The home page body, and the shared
+chrome on every page — top bar, CTA band, footer, in `assets/css/chrome.css` — are hand
+ports of it.
+
+The canvas nav points at pages that were never exported (The Practice, Membership,
+In-Home Care, Continuity of Care, Service Areas and its city pages, FAQ, and separate
+bio pages). Those menu entries currently resolve to sections of `/services` and
+`/about`, and the service-area panel lists the cities as plain text rather than links.
+Repoint them as the real pages get built.
+
+Two further deliberate differences from the canvas:
 
 - The credential strip under the hero uses text credentials, not the canvas's placeholder
   partner logos, which would imply affiliations the practice has not stated.

@@ -18,28 +18,115 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/chrome.css">
 </head>
 <body>
 
-  <header class="site-header">
-    <div class="header-top">
-      <a class="brand" href="/" aria-label="Legacy Concierge Medicine — home">
-        <img src="/assets/img/logo-alt.png" alt="Legacy Concierge Medicine" width="400" height="114">
+  <header class="lcm-bar">
+    <div class="lcm-bar-inner">
+      <a class="lcm-brand" href="/" aria-label="Legacy Concierge Medicine — home">
+        <img src="/assets/img/crest.png" alt="" width="400" height="453">
+        <span>
+          <span class="wordmark">LEGACY</span>
+          <span class="wordmark-sub">Concierge Medicine</span>
+        </span>
       </a>
-      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">
-        <span></span><span></span><span></span><span class="sr-only">Menu</span>
+
+      <nav class="lcm-nav" aria-label="Primary">
+        <ul>
+          <li class="has-menu is-current">
+            <a href="/services">The Practice<span class="caret" aria-hidden="true"></span></a>
+            <div class="lcm-menu">
+              <a href="/services#membership"><span class="title">In-Home Care</span><span class="sub">Care delivered to your door</span></a>
+              <a href="/services#continuity"><span class="title">Continuity of Care</span><span class="sub">A team that stays with you</span></a>
+            </div>
+          </li>
+          <li><a href="/services#founding-membership">Membership</a></li>
+          <li class="has-menu">
+            <a href="/services#service-areas">Service Areas<span class="caret" aria-hidden="true"></span></a>
+            <div class="lcm-menu lcm-menu-areas">
+              <div class="areas-head">
+                <span>Sarasota &amp; Manatee Counties</span>
+                <a href="/services#service-areas">View all &rarr;</a>
+              </div>
+              <div>
+                <h3>Sarasota County</h3>
+                <ul>
+          <li>Sarasota</li>
+          <li>Venice</li>
+          <li>North Port</li>
+          <li>Town of Longboat Key</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Manatee County</h3>
+                <ul>
+          <li>Anna Maria</li>
+          <li>Bradenton</li>
+          <li>Bradenton Beach &amp; Cortez</li>
+          <li>Ellenton</li>
+          <li>Holmes Beach</li>
+          <li>Lakewood Ranch</li>
+          <li>Longboat Key</li>
+          <li>Myakka City</li>
+          <li>Palmetto</li>
+          <li>Parrish</li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="has-menu">
+            <a href="/about">Our Team<span class="caret" aria-hidden="true"></span></a>
+            <div class="lcm-menu">
+              <a href="/about#dr-chapman"><span class="title">Dr. Pamela Chapman</span><span class="sub">Physician &middot; Primary &amp; Geriatric</span></a>
+              <a href="/about#emily"><span class="title">Emily Smith, APRN</span><span class="sub">Nurse Practitioner &middot; Family</span></a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+
+      <a class="lcm-bar-cta" href="tel:+19414011001">(941) 401-1001</a>
+      <button class="lcm-burger" aria-expanded="false" aria-controls="lcm-mobile" aria-label="Menu">
+        <span></span><span></span><span></span>
       </button>
     </div>
-    <nav id="site-nav" class="site-nav" aria-label="Primary">
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/services" aria-current="page">Services</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li class="nav-cta"><a class="btn btn-primary" href="/contact">Begin the conversation</a></li>
-      </ul>
-    </nav>
   </header>
+
+  <div class="lcm-mobile" id="lcm-mobile" hidden>
+    <div class="lcm-mobile-top">
+      <a class="lcm-brand" href="/">
+        <img src="/assets/img/crest.png" alt="" width="400" height="453">
+        <span class="wordmark">LEGACY</span>
+      </a>
+      <button class="lcm-mobile-close" aria-label="Close menu">&times;</button>
+    </div>
+    <a class="lvl1" href="/services">The Practice</a>
+    <a class="lvl2" href="/services#membership">In-Home Care</a>
+    <a class="lvl2 last" href="/services#continuity">Continuity of Care</a>
+    <a class="lvl1" href="/services#founding-membership">Membership</a>
+    <a class="lvl1 no-rule" href="/services#service-areas">Service Areas</a>
+    <ul class="areas">
+          <li>Sarasota</li>
+          <li>Anna Maria</li>
+          <li>Venice</li>
+          <li>Bradenton</li>
+          <li>North Port</li>
+          <li>Bradenton Beach &amp; Cortez</li>
+          <li>Town of Longboat Key</li>
+          <li>Ellenton</li>
+          <li>Holmes Beach</li>
+          <li>Lakewood Ranch</li>
+          <li>Longboat Key</li>
+          <li>Myakka City</li>
+          <li>Palmetto</li>
+          <li>Parrish</li>
+    </ul>
+    <a class="lvl1" href="/about">Our Team</a>
+    <a class="lvl2" href="/about#dr-chapman">Dr. Pamela Chapman</a>
+    <a class="lvl2 last" href="/about#emily">Emily Smith, APRN</a>
+    <a class="mobile-cta" href="/contact">Request a consultation</a>
+    <a class="mobile-tel" href="tel:+19414011001">(941) 401-1001</a>
+  </div>
 
   <main>
 
@@ -108,7 +195,7 @@
             <li><strong>Direct access to your physician</strong><br><span class="muted">A relationship with the people who know your history, not a system that hands you off.</span></li>
             <li><strong>Preventive &amp; longevity-focused strategy</strong><br><span class="muted">Personalized, sustainable medical plans built around your lifestyle, environment, and goals.</span></li>
             <li><strong>Thoughtful medication management</strong><br><span class="muted">Meticulous review of your history, removing what is unnecessary so every plan is as personal as you are.</span></li>
-            <li><strong>Continuity through life's transitions</strong><br><span class="muted">The same care team through independent living, assisted living, and skilled nursing — anticipating change before crises occur.</span></li>
+            <li id="continuity"><strong>Continuity through life's transitions</strong><br><span class="muted">The same care team through independent living, assisted living, and skilled nursing — anticipating change before crises occur.</span></li>
             <li><strong>Care for the whole family</strong><br><span class="muted">Aging parents, adult children, and everyone planning ahead — one physician who knows the whole story.</span></li>
           </ul>
         </div>
@@ -162,7 +249,7 @@
     </section>
 
     <!-- Service area -->
-    <section class="section">
+    <section class="section" id="service-areas">
       <div class="container split reveal">
         <div class="split-media">
           <img src="/assets/img/hero-09.jpg" alt="A couple dancing together on the beach" width="1200" height="801" loading="lazy">
@@ -209,60 +296,69 @@
     </section>
 
     <!-- CTA -->
-    <section class="section cta-band">
-      <div class="container reveal">
-        <span class="eyebrow">Begin a medical relationship</span>
-        <h2>Built for the long term.</h2>
-        <p>Request a private consultation by phone or through our contact form. We review every inquiry personally.</p>
-        <div class="btn-row">
-          <a class="btn btn-primary" href="/contact">Begin the conversation</a>
-          <a class="btn btn-outline" href="tel:+19414011001">Call (941) 401-1001</a>
-        </div>
+  <section class="lcm-cta">
+    <img src="/assets/img/stamp.png" alt="" width="400" height="400" loading="lazy">
+    <div class="inner">
+      <span class="eyebrow">Begin a medical relationship</span>
+      <h2>Built for the long term.</h2>
+      <p>Membership is intentionally limited to preserve access, continuity, and quality of care. We invite you to begin with a conversation.</p>
+      <div class="btns">
+        <a class="solid" href="/contact">Request a consultation</a>
+        <a class="ghost" href="tel:+19414011001">(941) 401-1001</a>
       </div>
-    </section>
+    </div>
+  </section>
 
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <img src="/assets/img/symbol.png" alt="" width="200" height="226" loading="lazy">
-          <p>Personalized, in-home concierge primary care for adults and families across Southwest Florida.</p>
+  <footer class="lcm-footer">
+    <div class="cols">
+      <div class="brand-col">
+        <div class="mark">
+          <img src="/assets/img/stamp.png" alt="Legacy Concierge Medicine" width="400" height="400" loading="lazy">
+          <span>
+            <span class="wordmark">LEGACY</span>
+            <span class="wordmark-sub">Concierge Medicine</span>
+          </span>
         </div>
-        <div>
-          <h4 class="footer-heading">Quick links</h4>
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/services">Services</a></li>
-            <li><a href="/contact">Contact</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="footer-heading">Inquire</h4>
-          <ul>
-            <li><a href="tel:+19414011001">(941) 401-1001</a></li>
-            <li><a href="mailto:info@legacyconciergemedicine.com">info@legacyconciergemedicine.com</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="footer-heading">Serving</h4>
-          <ul>
-            <li>Sarasota · Venice · North Port</li>
-            <li>Longboat Key · Lakewood Ranch</li>
-            <li>Bradenton · Palmetto · Parrish</li>
-          </ul>
-        </div>
+        <p>Relationship-based, in-home concierge primary care for adults and families across Southwest Florida.</p>
       </div>
-      <div class="footer-bottom">
-        <span>© <span id="year">2026</span> Legacy Concierge Medicine, PLLC</span>
+
+      <div class="col">
+        <h2>Explore</h2>
         <ul>
-          <li><a href="/terms-and-conditions">Terms &amp; Conditions</a></li>
-          <li><a href="/privacy-policy">Privacy Policy</a></li>
-          <li><a href="/disclaimer">Disclaimer</a></li>
+          <li><a href="/services">The Practice</a></li>
+          <li><a href="/services#founding-membership">Membership</a></li>
+          <li><a href="/services#service-areas">Service Areas</a></li>
         </ul>
       </div>
+
+      <div class="col">
+        <h2>Our Team</h2>
+        <ul>
+          <li><a href="/about#dr-chapman">Dr. Chapman</a></li>
+          <li><a href="/about#emily">Emily Smith</a></li>
+        </ul>
+      </div>
+
+      <div class="col wide">
+        <h2>Connect</h2>
+        <ul>
+          <li><a href="/contact">Contact</a></li>
+          <li><a class="tel" href="tel:+19414011001">(941) 401-1001</a></li>
+          <li><a class="email" href="mailto:info@legacyconciergemedicine.com">info@legacyconciergemedicine.com</a></li>
+          <li><a class="foot-cta" href="/contact">Request a consultation</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <ul>
+        <li><a href="/terms-and-conditions">Terms &amp; Conditions</a></li>
+        <li><a href="/privacy-policy">Privacy Policy</a></li>
+        <li><a href="/disclaimer">Disclaimer</a></li>
+      </ul>
+      <span>&copy; <span id="year">2026</span> Legacy Concierge Medicine</span>
     </div>
   </footer>
 

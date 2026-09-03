@@ -75,11 +75,9 @@
 
 /* ---------- Hero ---------- */
 .h-hero {
-  /* Fills the space left below the site header, so the credential strip
-     along its bottom edge still lands at the fold. --header-h is measured
-     in main.js; the fallback keeps the hero sensible without JS. */
-  position: relative; min-height: calc(100vh - var(--header-h, 180px));
-  display: flex; align-items: center;
+  /* The top bar floats over this section, so the hero owns the whole fold
+     and the credential strip along its bottom edge lands right at it. */
+  position: relative; min-height: 100vh; display: flex; align-items: center;
   overflow: hidden; background: var(--neutral-900);
 }
 .h-hero-bg { position: absolute; inset: 0; overflow: hidden; }

@@ -2,21 +2,31 @@
 (function () {
   'use strict';
 
+  /* Top bar: on the home page it floats over the hero until you scroll past it */
+  var bar = document.querySelector('.lcm-bar');
+  if (bar) {
+    var onScroll = function () { bar.classList.toggle('is-scrolled', window.scrollY > 24); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
   /* Mobile navigation */
-  var toggle = document.querySelector('.nav-toggle');
-  var nav = document.getElementById('site-nav');
-  if (toggle && nav) {
-    toggle.addEventListener('click', function () {
-      var open = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!open));
-      nav.classList.toggle('is-open', !open);
+  var burger = document.querySelector('.lcm-burger');
+  var panel = document.getElementById('lcm-mobile');
+  if (burger && panel) {
+    var closer = panel.querySelector('.lcm-mobile-close');
+    var setMenu = function (open) {
+      burger.setAttribute('aria-expanded', String(open));
+      panel.hidden = !open;
+      document.body.style.overflow = open ? 'hidden' : '';
+      if (open) { panel.querySelector('a, button').focus(); } else { burger.focus(); }
+    };
+    burger.addEventListener('click', function () {
+      setMenu(burger.getAttribute('aria-expanded') !== 'true');
     });
+    if (closer) { closer.addEventListener('click', function () { setMenu(false); }); }
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && nav.classList.contains('is-open')) {
-        toggle.setAttribute('aria-expanded', 'false');
-        nav.classList.remove('is-open');
-        toggle.focus();
-      }
+      if (e.key === 'Escape' && !panel.hidden) { setMenu(false); }
     });
   }
 
@@ -39,16 +49,6 @@
     reveals.forEach(function (el) { io.observe(el); });
   } else {
     reveals.forEach(function (el) { el.classList.add('is-visible'); });
-  }
-
-  /* Publish the header height so the home hero can fill the rest of the fold */
-  var header = document.querySelector('.site-header');
-  if (header) {
-    var publishHeaderHeight = function () {
-      document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
-    };
-    publishHeaderHeight();
-    window.addEventListener('resize', publishHeaderHeight, { passive: true });
   }
 
   /* Home hero: keep the background video playing, and drift it gently on scroll */
