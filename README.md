@@ -5,6 +5,7 @@ Static site (plain HTML/CSS/JS), deployed on Vercel from the `main` branch of gi
 - Pages: `index.html`, `about.html`, `services.html`, `contact.html`, legal (`disclaimer`, `privacy-policy`, `terms-and-conditions`), `404.html`
 - Styles: `assets/css/style.css` (brand tokens at the top) + `assets/css/home.css` (home page only) · Scripts: `assets/js/main.js` · Media: `assets/img/`, `assets/video/`
 - Clean URLs + redirects from the old Showit paths live in `vercel.json`.
+- Updating a page, whether from the design canvas or by hand: see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Design canvas
 
