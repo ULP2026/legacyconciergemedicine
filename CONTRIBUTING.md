@@ -10,14 +10,32 @@ itself, and its export is not a web page you can ship — see [Why the export ne
 port](#why-the-export-needs-a-port). So the flow below has one deliberate step where a
 developer turns the export into real pages.
 
-## Who needs what
+## We all share one account
 
-| | Access | Who grants it |
-|---|---|---|
-| Edit the design | The Legacy canvas, shared with them in Claude | Whoever owns the canvas |
-| Propose a change | Write access to the GitHub repo | Repo owner, in **Settings → Collaborators** |
-| See a preview | Nothing — preview links are in the pull request | Automatic |
-| Publish | Merge the pull request | Whoever you allow to merge |
+Everyone works through the same GitHub, Vercel, and Claude login. That keeps access
+simple, and it costs us three things the tools would otherwise handle. Conventions have to
+cover them instead:
+
+**Nobody can tell who changed what.** Every commit is authored by the same account, so git
+history won't answer "who wrote this, and why". So: **put your name in the pull request
+title** — `Maria: new hero photos` — and describe the change in the body. That is the only
+record of who to ask.
+
+**Anyone can publish instantly.** The shared account can push straight to `main`, which
+goes live with no review. Don't. Always work on a branch and open a pull request, even for
+a one-word fix — that's what produces the preview link, and it's the only thing standing
+between a typo and the live site. (Worth turning on branch protection for `main` in
+**Settings → Rules** so this is enforced rather than remembered.)
+
+**Two people editing at once will overwrite each other.** This is the sharp edge, and it
+bites hardest on the Claude Design canvas: saving publishes a new version for everyone, so
+the second person to save wins and the first person's work is gone. **Say in the team chat
+that you're picking up the canvas, and say when you're done.** In the repo it's less
+dangerous — git will refuse to overwrite and ask you to reconcile — but two branches
+touching the same page still means someone has to merge them by hand.
+
+If someone leaves the team, the account password and any GitHub or Vercel tokens need
+rotating, because there is no per-person access to revoke.
 
 ## Making a change
 
@@ -31,6 +49,7 @@ developer turns the export into real pages.
 - Drag the exported `.html` in
 - At the bottom, choose **Create a new branch for this commit and start a pull request**
 - Name the branch something like `design/new-hero`, and click **Propose changes**
+- Start the pull request title with your name, so the team knows whose change it is
 
 Keep the existing filename if you're updating the same page, so the diff shows what
 changed. Use a new descriptive name (`Legacy-About-standalone.html`) for a new page.

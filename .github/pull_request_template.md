@@ -1,7 +1,10 @@
-## What changed
+## Who and what
 
-<!-- Which page, which sections. If this is a Claude Design export, say what you changed
-     on the canvas — the port is built from this description. -->
+<!-- Start the PR title with your name — we share one account, so this is the only
+     record of who made the change.
+
+     Then: which page, which sections. If this is a Claude Design export, say what you
+     changed on the canvas — the port is built from this description. -->
 
 ## Type
 
