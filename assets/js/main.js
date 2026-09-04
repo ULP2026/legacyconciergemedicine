@@ -51,28 +51,57 @@
     reveals.forEach(function (el) { el.classList.add('is-visible'); });
   }
 
-  /* Home hero: keep the background video playing, and drift it gently on scroll */
+  /* Home hero: keep the background video playing */
   var heroVideo = document.querySelector('.h-hero-bg video');
   if (heroVideo) {
     heroVideo.muted = true;
     heroVideo.defaultMuted = true;
     var playing = heroVideo.play();
     if (playing && playing.catch) { playing.catch(function () {}); }
+  }
 
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      var rate = parseFloat(heroVideo.getAttribute('data-parallax')) || 0;
-      var ticking = false;
-      var drift = function () {
-        var offset = Math.min(window.scrollY, window.innerHeight) * rate;
-        heroVideo.style.transform =
-          'translate3d(0,' + offset.toFixed(1) + 'px,0) scale(1.12) scaleX(-1)';
-        ticking = false;
+  /* Home hero: as you scroll through the taller wrapper, the sticky panel
+     shrinks into a rounded card and the photo tiles slide in behind it. */
+  var heroWrap = document.querySelector('.h-hero-wrap');
+  var heroPanel = document.querySelector('.h-hero-panel');
+  if (heroWrap && heroPanel && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var heroCopy = document.querySelector('.h-hero-copy');
+    var left = document.querySelectorAll('.h-htile.from-left');
+    var right = document.querySelectorAll('.h-htile.from-right');
+    var queued = false;
+
+    var frame = function () {
+      queued = false;
+      var box = heroWrap.getBoundingClientRect();
+      var travel = box.height - window.innerHeight;
+      var p = travel > 0 ? Math.min(1, Math.max(0, -box.top / travel)) : 0;
+      var eased = p * (2 - p);
+
+      var scale = window.innerWidth < 1180 ? 1 - 0.10 * eased : 1 - 0.42 * eased;
+      heroPanel.style.transform = 'scale(' + scale + ')';
+      heroPanel.style.borderRadius = (14 * eased) + 'px';
+      if (heroCopy) { heroCopy.style.opacity = String(1 - 0.25 * eased); }
+
+      /* Tiles trail the panel: they only start once it has shrunk a little. */
+      var t = Math.min(1, Math.max(0, (p - 0.22) / 0.55));
+      var te = t * (2 - t);
+      var slide = function (tiles, direction) {
+        Array.prototype.forEach.call(tiles, function (tile, i) {
+          tile.style.opacity = String(te);
+          tile.style.transform = 'translateX(' + (direction * 130 * (1 - te)) + '%)' +
+            ' translateY(' + (i * 8 * (1 - te)) + 'px)';
+        });
       };
-      window.addEventListener('scroll', function () {
-        if (!ticking) { ticking = true; window.requestAnimationFrame(drift); }
-      }, { passive: true });
-      drift();
-    }
+      slide(left, -1);
+      slide(right, 1);
+    };
+
+    var request = function () {
+      if (!queued) { queued = true; window.requestAnimationFrame(frame); }
+    };
+    window.addEventListener('scroll', request, { passive: true });
+    window.addEventListener('resize', request, { passive: true });
+    frame();
   }
 
   /* Contact form

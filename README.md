@@ -1,6 +1,6 @@
 # Legacy Concierge Medicine — website
 
-Static site (plain HTML/CSS/JS), deployed on Vercel from the `main` branch of github.com/ULP2026/Legacy.
+Static site (plain HTML/CSS/JS), deployed on Vercel from the `main` branch of github.com/ULP2026/legacyconciergemedicine.
 
 - Pages: `index.html`, `about.html`, `services.html`, `contact.html`, legal (`disclaimer`, `privacy-policy`, `terms-and-conditions`), `404.html`
 - Styles: `assets/css/style.css` (brand tokens at the top) + `assets/css/home.css` (home page only) · Scripts: `assets/js/main.js` · Media: `assets/img/`, `assets/video/`
@@ -8,8 +8,8 @@ Static site (plain HTML/CSS/JS), deployed on Vercel from the `main` branch of gi
 
 ## Design canvas
 
-The site follows the Legacy design canvas kept at `design/Home.html` (the Claude Design
-export; `.vercelignore` keeps it out of the deploy). The home page body, and the shared
+The site follows the Legacy design canvas, whose latest export is kept at
+`design/Legacy-Home-standalone.html` (a Claude Design bundle; `.vercelignore` keeps it out of the deploy). The home page body, and the shared
 chrome on every page — top bar, CTA band, footer, in `assets/css/chrome.css` — are hand
 ports of it.
 
@@ -25,6 +25,10 @@ Two further deliberate differences from the canvas:
   partner logos, which would imply affiliations the practice has not stated.
 - The three-column testimonial wall is not built. Its quotes and member names in the canvas
   are placeholder copy; add it once real, attributable member quotes exist.
+
+The hero is scroll-driven: a sticky panel inside a 150vh wrapper shrinks into a rounded
+card while four photo tiles slide in behind it, and the survey section rides up underneath.
+`main.js` drives it; it degrades to a plain hero without JS or under reduced motion.
 
 The hero video (`assets/video/hero-loop.mp4`) is H.264 — the canvas shipped HEVC, which
 Chrome and Firefox often refuse to decode. Re-encode any replacement the same way.
