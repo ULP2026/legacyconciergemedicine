@@ -39,32 +39,52 @@ rotating, because there is no per-person access to revoke.
 
 ## Making a change
 
-**1. Edit the canvas in Claude Design.** Save when you're happy with it.
+You never need git or a code editor for this. Everything happens in the browser.
 
-**2. Export it.** Use the canvas's export/download to get the standalone `.html` file.
+**1. Edit the canvas in Claude Design,** and save when you're happy.
 
-**3. Put the export in the repo, on a new branch.** No git needed — use the GitHub website:
+**2. Export it.** Use the canvas's export/download to get the standalone `.html`. It lands
+in your **Downloads** folder, named something like `Legacy Home (standalone).html`. Leave
+it there — it does not get filed anywhere on your PC.
 
-- Open the repo → `design/` folder → **Add file → Upload files**
-- Drag the exported `.html` in
-- At the bottom, choose **Create a new branch for this commit and start a pull request**
-- Name the branch something like `design/new-hero`, and click **Propose changes**
-- Start the pull request title with your name, so the team knows whose change it is
+To check your own work, double-click the file. It opens and renders in your browser. That
+preview is local to your machine; nobody else can see it.
 
-Keep the existing filename if you're updating the same page, so the diff shows what
-changed. Use a new descriptive name (`Legacy-About-standalone.html`) for a new page.
+**3. Rename it to match the page you're updating.** In Downloads, rename the file to:
 
-**4. Say what changed** in the pull request description — which sections you touched, and
-anything that isn't obvious from looking. This is what the port is built from.
+| Updating | Rename to |
+|---|---|
+| Home page | `Legacy-Home-standalone.html` |
+| A page with no canvas yet | `Legacy-<Page>-standalone.html` |
 
-**5. A developer ports it.** The export gets turned into real HTML, CSS, and image files
-on the same branch. Ask in the PR when it's ready for that.
+Matching the existing name is what makes the change show up as a diff instead of as an
+unrelated second file.
 
-**6. Review the preview.** Vercel comments on every pull request with a preview URL that
-shows the ported result. Check it on a phone as well as a laptop.
+**4. Upload it to the repo, on a new branch:**
 
-**7. Merge.** The site rebuilds and the change is live. If something looks wrong
-afterwards, Vercel's dashboard can roll back to the previous deployment immediately.
+- Go to the repo → click into the **`design`** folder
+- **Add file → Upload files**, and drag your renamed `.html` in
+- Commit message: what you changed — `Hero: new photos and shorter headline`
+- Select **"Create a new branch for this commit and start a pull request"**.
+  Do not pick the other option — that one publishes straight to the live site.
+- Branch name: something like `design/new-hero` → **Propose changes**
+
+**5. Open the pull request.** Title starts with your name — `Maria: new hero photos`. In
+the body, say which sections you changed and anything that isn't obvious by looking. The
+port is built from that description.
+
+**6. Ask for the port.** Say in the PR that it's ready. Someone runs Claude Code on your
+branch to turn the export into real pages.
+
+Until that happens the preview will show the site **unchanged** — you've added a design
+file, not edited the site. That's expected, not a broken preview.
+
+**7. Review the preview.** Once the port is pushed, Vercel updates the preview link in the
+PR. Open it on a laptop **and** a phone.
+
+**8. Merge.** Click **Merge pull request**; the site rebuilds and is live in about a
+minute. If something's wrong afterwards: Vercel dashboard → the project → **Deployments** →
+the previous one → **Instant Rollback**.
 
 ## Why the export needs a port
 
