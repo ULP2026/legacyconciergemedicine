@@ -116,17 +116,17 @@
 /* Photo tiles that fly in from either edge as the panel shrinks */
 .h-hero-tiles { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
 .h-htile {
-  position: absolute; width: clamp(170px, 15.5vw, 250px);
+  --tile-h: clamp(200px, 19vw, 290px);
+  position: absolute; width: clamp(170px, 15.5vw, 250px); height: var(--tile-h);
   border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg);
   opacity: 0; will-change: transform;
 }
 .h-htile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .h-htile.from-left { left: clamp(10px, 2.6vw, 44px); transform: translateX(-130%); }
 .h-htile.from-right { right: clamp(10px, 2.6vw, 44px); transform: translateX(130%); }
-.h-htile:nth-child(1) { top: 11%; height: clamp(190px, 17vw, 265px); }
-.h-htile:nth-child(2) { top: 52%; height: clamp(210px, 20vw, 320px); }
-.h-htile:nth-child(3) { top: 11%; height: clamp(180px, 16vw, 250px); }
-.h-htile:nth-child(4) { top: 50%; height: clamp(210px, 20vw, 320px); }
+/* Tiles pair up either side of centre: odd sits above the midline, even below. */
+.h-htile:nth-child(odd) { top: calc(50% - var(--tile-h) - 9px); }
+.h-htile:nth-child(even) { top: calc(50% + 9px); }
 @media (max-width: 1180px) { .h-hero-tiles { display: none; } }
 @media (prefers-reduced-motion: reduce) {
   .h-hero-tiles { display: none; }
@@ -134,20 +134,27 @@
   .h-hero { position: relative; }
 }
 
-.h-badges { display: flex; flex-wrap: wrap; gap: 18px 22px; align-items: center; justify-content: center; }
-.h-badge { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.h-badges {
+  display: flex; flex-wrap: nowrap; align-items: center; justify-content: center;
+  gap: clamp(6px, 1vw, 18px); padding: 6px 10px;
+}
+.h-badge { display: flex; align-items: center; gap: 11px; padding: 0 clamp(14px, 1.6vw, 22px); min-width: 0; }
 .h-badge .icon {
-  width: 38px; height: 38px; flex: none; border-radius: 50%;
-  border: 1px solid rgba(239, 236, 234, .32); background: rgba(239, 236, 234, .06);
+  width: 34px; height: 34px; flex: none;
   display: flex; align-items: center; justify-content: center; color: var(--maroon-300);
 }
-.h-badge span:last-child { font-size: .78rem; font-weight: 500; color: rgba(239, 236, 234, .85); white-space: nowrap; }
+.h-badge span:last-child {
+  font-size: .75rem; font-weight: 500; letter-spacing: .01em; line-height: 1.3;
+  color: rgba(239, 236, 234, .88); max-width: 118px;
+}
+/* Five across only fits wide screens; below that they wrap into rows. */
+@media (max-width: 1220px) { .h-badges { flex-wrap: wrap; gap: 14px 4px; } }
 
 /* ---------- Begin with a conversation (survey) ----------
    Rides up under the shrinking hero panel, so it reads as one movement. */
 .h-begin {
-  position: relative; z-index: 3; margin-top: -18vh; background: transparent;
-  padding: clamp(16px, 2.5vw, 32px) clamp(24px, 5vw, 56px) clamp(64px, 8vw, 104px);
+  position: relative; z-index: 3; margin-top: -26vh; background: transparent;
+  padding: 0 clamp(24px, 5vw, 56px) clamp(64px, 8vw, 104px);
 }
 .h-begin .inner { position: relative; max-width: 660px; margin: 0 auto; text-align: center; }
 .h-begin .h-eyebrow { margin-bottom: 20px; }
@@ -160,7 +167,12 @@
 .h-begin .frame { overflow: hidden; border-radius: 8px; min-height: 430px; }
 .h-begin iframe { border: 0; width: 100%; height: 430px; display: block; }
 .h-begin .privacy { font-size: .78rem; color: var(--neutral-400); margin: 18px 0 0; }
-@media (max-width: 900px) { .h-begin { margin-top: 0; } }
+/* No negative margin on mobile, so the top padding the canvas drops has to come
+   back here or the survey butts straight against the hero. */
+@media (max-width: 900px) { .h-begin { margin-top: 0; padding-top: clamp(16px, 2.5vw, 32px); } }
+/* Same again with motion off: the panel never shrinks, so there is nothing for
+   the survey to ride up under and the negative margin drops it on the badges. */
+@media (prefers-reduced-motion: reduce) { .h-begin { margin-top: 0; padding-top: clamp(16px, 2.5vw, 32px); } }
 
 /* Credential strip along the bottom of the hero */
 .h-cred {
