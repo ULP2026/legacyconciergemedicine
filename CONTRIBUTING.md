@@ -103,9 +103,11 @@ HEVC, which Chrome and Firefox generally refuse).
 These live in the code, not the canvas, so every re-import has to re-apply them. If a
 future port drops one, that's a bug:
 
-- **No placeholder partner logos.** The canvas hero has a marquee of stand-in logos. The
-  site shows text credentials instead, because unattributed logos imply affiliations the
-  practice has not claimed.
+- **No partner logos in the hero.** The canvas hero has a logo marquee: generic stand-ins
+  originally, and since the September 2026 canvas real marks — Sarasota Memorial (Sarasota
+  and Venice), HCA Florida Blake Hospital, American Lab. The site shows text credentials
+  instead, because showing those marks claims affiliations and permissions the practice has
+  not confirmed. Lift this once it has.
 - **No invented testimonials.** The canvas has a three-column testimonial wall whose
   quotes and member names are placeholder copy. It stays out until there are real,
   attributable member quotes with permission on file.
