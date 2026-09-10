@@ -170,6 +170,9 @@
 /* No negative margin on mobile, so the top padding the canvas drops has to come
    back here or the survey butts straight against the hero. */
 @media (max-width: 900px) { .h-begin { margin-top: 0; padding-top: clamp(16px, 2.5vw, 32px); } }
+/* Same again with motion off: the panel never shrinks, so there is nothing for
+   the survey to ride up under and the negative margin drops it on the badges. */
+@media (prefers-reduced-motion: reduce) { .h-begin { margin-top: 0; padding-top: clamp(16px, 2.5vw, 32px); } }
 
 /* Credential strip along the bottom of the hero */
 .h-cred {
