@@ -103,14 +103,13 @@ HEVC, which Chrome and Firefox generally refuse).
 These live in the code, not the canvas, so every re-import has to re-apply them. If a
 future port drops one, that's a bug:
 
-- **No partner logos in the hero.** The canvas hero has a logo marquee: generic stand-ins
-  originally, and since the September 2026 canvas real marks — Sarasota Memorial (Sarasota
-  and Venice), HCA Florida Blake Hospital, American Lab. The site shows text credentials
-  instead, because showing those marks claims affiliations and permissions the practice has
-  not confirmed. Lift this once it has.
-- **No invented testimonials.** The canvas has a three-column testimonial wall whose
-  quotes and member names are placeholder copy. It stays out until there are real,
-  attributable member quotes with permission on file.
+- **The hero logo marquee and the testimonial wall are placeholders until confirmed.**
+  Both are ported from the canvas as designed (since September 2026). The marquee shows
+  real marks — Sarasota Memorial (Sarasota and Venice), HCA Florida Blake Hospital, American
+  Lab — which claims affiliations and permissions the practice has not confirmed. The
+  testimonial wall's quotes and member names are placeholder copy. Get written confirmation
+  for the logos and real, attributable member quotes (with permission on file) before the
+  domain goes live, or pull the sections.
 - **Menu links point at pages that exist.** The canvas nav links to The Practice,
   Membership, In-Home Care, Continuity of Care, Service Areas and its city pages, FAQ, and
   separate bio pages. None of those were exported, so those entries resolve to sections of

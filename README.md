@@ -20,15 +20,17 @@ bio pages). Those menu entries currently resolve to sections of `/services` and
 `/about`, and the service-area panel lists the cities as plain text rather than links.
 Repoint them as the real pages get built.
 
-Two further deliberate differences from the canvas:
+Two parts of the home page are ported from the canvas as-is but still need sign-off
+before the domain goes live:
 
-- The credential strip under the hero uses text credentials, not the canvas's logo marquee.
-  Those logos were generic stand-ins until the September 2026 canvas, which replaced them with
-  real marks — Sarasota Memorial (Sarasota and Venice), HCA Florida Blake Hospital, American
-  Lab. They stay out until the practice confirms both the affiliations and permission to
-  display the marks.
-- The three-column testimonial wall is not built. Its quotes and member names in the canvas
-  are placeholder copy; add it once real, attributable member quotes exist.
+- The credential strip under the hero is the canvas's logo marquee: Sarasota Memorial
+  (Sarasota and Venice), HCA Florida Blake Hospital, American Lab. Showing those marks
+  claims affiliations the practice has not yet confirmed in writing, and permission to
+  display them. Confirm both, or swap the strip back to text credentials (see git history
+  before September 2026 for that version).
+- The "What our members say" wall carries the canvas's placeholder quotes and member
+  names. Replace them with real, attributable member quotes (with permission on file)
+  before launch.
 
 The hero is scroll-driven: a sticky panel inside a 150vh wrapper shrinks into a rounded
 card while four photo tiles slide in behind it, and the survey section rides up underneath.
