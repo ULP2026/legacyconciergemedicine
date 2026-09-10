@@ -78,6 +78,10 @@
    the panel inside shrinks away and the four photo tiles fly in behind it.
    main.js drives the scale/opacity; everything degrades to a plain full-bleed
    hero without JS or under prefers-reduced-motion. */
+/* The canvas page surface is the cream neutral, not white. It shows wherever a
+   section is transparent, such as the survey between the hero and the manifesto
+   backdrop; on a white body that read as a white band behind the survey card. */
+body { background: var(--neutral-100); }
 .h-hero-wrap { height: 150vh; position: relative; background: var(--neutral-100); }
 /* No background here: as the panel shrinks it has to reveal the page, not ink. */
 .h-hero { position: sticky; top: 0; height: 100vh; overflow: hidden; }
