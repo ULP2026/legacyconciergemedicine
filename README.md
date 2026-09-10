@@ -22,11 +22,8 @@ Repoint them as the real pages get built.
 
 Two further deliberate differences from the canvas:
 
-- The credential strip under the hero uses text credentials, not the canvas's logo marquee.
-  Those logos were generic stand-ins until the September 2026 canvas, which replaced them with
-  real marks — Sarasota Memorial (Sarasota and Venice), HCA Florida Blake Hospital, American
-  Lab. They stay out until the practice confirms both the affiliations and permission to
-  display the marks.
+- The credential strip under the hero uses text credentials, not the canvas's placeholder
+  partner logos, which would imply affiliations the practice has not stated.
 - The three-column testimonial wall is not built. Its quotes and member names in the canvas
   are placeholder copy; add it once real, attributable member quotes exist.
 
