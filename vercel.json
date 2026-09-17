@@ -5,7 +5,9 @@
     { "source": "/home", "destination": "/", "permanent": true },
     { "source": "/about-dr-chapman", "destination": "/about#dr-chapman", "permanent": true },
     { "source": "/about-emily", "destination": "/about#emily", "permanent": true },
-    { "source": "/membership", "destination": "/services", "permanent": true }
+    { "source": "/membership", "destination": "/services", "permanent": true },
+    { "source": "/landing", "destination": "https://landing.legacyconciergemedicine.com/", "permanent": true },
+    { "source": "/landing/:path*", "destination": "https://landing.legacyconciergemedicine.com/:path*", "permanent": true }
   ],
   "headers": [
     {

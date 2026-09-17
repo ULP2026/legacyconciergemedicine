@@ -40,3 +40,17 @@ The hero video (`assets/video/hero-loop.mp4`) is H.264 — the canvas shipped HE
 Chrome and Firefox often refuse to decode. Re-encode any replacement the same way.
 
 Local preview: `npx serve .` then open http://localhost:3000
+
+## Landing page (landing.legacyconciergemedicine.com)
+
+`landing/` is a separate, standalone page for paid campaigns: its own HTML, CSS, JS, images,
+video and `vercel.json`, sharing nothing with the main site's stylesheets. It deploys as its
+own Vercel project, **legacy-landing**, whose Root Directory is `landing/`, so it publishes
+from the same repo and branch but on its own domain. The main site redirects `/landing/*` to
+the subdomain so the folder is never served twice.
+
+- Design export: `design/Legacy-Landing-standalone.html` (hand-ported like the main pages).
+- Its survey is a different GoHighLevel survey from the main site's: `MxddXb6dZcfb9dMe6Ruc`.
+- Every push rebuilds both projects; that is expected and harmless for static files.
+
+Local preview: `npx serve landing` then open http://localhost:3000
