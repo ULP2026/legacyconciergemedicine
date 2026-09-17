@@ -103,4 +103,20 @@
     window.addEventListener('resize', request, { passive: true });
     frame();
   }
+  /* GoHighLevel survey embed
+     form_embed.js grows the iframe to fit each survey step. It can leave the
+     frame hidden while it initialises; the design canvas reveals it after a few
+     seconds in case that never finishes, and so do we. */
+  window.setTimeout(function () {
+    var frames = document.querySelectorAll('iframe[src*="leadconnectorhq.com/widget/survey"]');
+    Array.prototype.forEach.call(frames, function (f) {
+      if (f.getAttribute('data-initial-iframe-hidden') !== 'true' && getComputedStyle(f).visibility !== 'hidden') return;
+      ['position', 'left', 'top', 'opacity', 'visibility', 'pointer-events'].forEach(function (prop) { f.style.removeProperty(prop); });
+      f.style.setProperty('position', 'static');
+      f.style.setProperty('opacity', '1');
+      f.style.setProperty('visibility', 'visible');
+      f.style.setProperty('pointer-events', 'auto');
+      f.removeAttribute('data-initial-iframe-hidden');
+    });
+  }, 2800);
 })();
