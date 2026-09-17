@@ -72,6 +72,13 @@
 
     var frame = function () {
       queued = false;
+      /* Phones get a plain hero (see home.css), so undo anything a wider window left behind. */
+      if (window.innerWidth <= 760) {
+        heroPanel.style.transform = '';
+        heroPanel.style.borderRadius = '';
+        if (heroCopy) { heroCopy.style.opacity = ''; }
+        return;
+      }
       var box = heroWrap.getBoundingClientRect();
       var travel = box.height - window.innerHeight;
       var p = travel > 0 ? Math.min(1, Math.max(0, -box.top / travel)) : 0;

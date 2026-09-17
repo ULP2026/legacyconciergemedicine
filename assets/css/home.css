@@ -154,6 +154,18 @@ body { background: var(--neutral-100); }
 /* Five across only fits wide screens; below that they wrap into rows. */
 @media (max-width: 1220px) { .h-badges { flex-wrap: wrap; gap: 14px 4px; } }
 
+/* Short screens (laptops with little height): tighten the hero so it all fits. */
+@media (max-height: 700px) {
+  .h-hero-copy h1 { font-size: clamp(32px, 5vh, 46px); margin-bottom: 14px; }
+  .h-hero-copy .h-eyebrow { margin-bottom: 14px; }
+  .h-hero-copy .h-lead { font-size: 15px; margin-bottom: 20px; }
+  .h-hero-copy .h-btn-row { margin-bottom: 22px; }
+  .h-hero-copy .h-btn { padding-top: 12px; padding-bottom: 12px; }
+  .h-badges { gap: 4px; padding: 0; }
+  .h-badge span:last-child { font-size: 11px; }
+  .h-badge .icon { width: 28px; height: 28px; }
+}
+
 /* ---------- Begin with a conversation (survey) ----------
    Rides up under the shrinking hero panel, so it reads as one movement. */
 .h-begin {
@@ -444,12 +456,33 @@ body { background: var(--neutral-100); }
 .h-tm-info p { font-size: .9rem; line-height: 1.6; color: rgba(239, 236, 234, .8); margin: 0 0 12px; max-width: 46ch; }
 .h-tm-info .h-link { color: var(--neutral-100); }
 .h-tm-info .h-link:hover { color: var(--maroon-300); }
-@media (hover: none), (max-width: 720px) {
-  .h-team-row { flex-direction: column; height: auto; }
-  .h-tm { min-height: 420px; }
-  .h-tm img { filter: none; }
+/* Touch screens: no hover-expand; both cards stay equal and show their info. */
+@media (hover: none) {
+  .h-tm, .h-tm:hover, .h-tm:focus-within { flex: 1; box-shadow: var(--shadow-md); }
+  .h-tm img, .h-tm:hover img, .h-tm:focus-within img { filter: none; transform: none; }
+  .h-tm-shade, .h-tm:hover .h-tm-shade, .h-tm:focus-within .h-tm-shade {
+    background: linear-gradient(180deg, rgba(28,25,24,0) 34%, rgba(28,25,24,.45) 58%, rgba(28,25,24,.86) 82%, rgba(28,25,24,.96) 100%);
+  }
   .h-tm-info { opacity: 1; transform: none; }
 }
+/* Touch tablets keep the cards side by side, with tighter type so both read cleanly. */
+@media (hover: none) and (min-width: 721px) {
+  .h-team-row { height: clamp(480px, 52vw, 600px); }
+  .h-tm-info { padding: 22px 20px; }
+  .h-tm-info b { font-size: clamp(21px, 2.4vw, 26px); }
+  .h-tm-info p { font-size: 13px; }
+}
+/* Phones: stack the cards, each at a fixed portrait shape. */
+@media (max-width: 720px) {
+  .h-team-row { flex-direction: column; height: auto; gap: 18px; }
+  .h-tm, .h-tm:hover, .h-tm:focus-within { flex: none; height: auto; aspect-ratio: 4 / 5; min-height: 0; box-shadow: var(--shadow-md); }
+  .h-tm img, .h-tm:hover img, .h-tm:focus-within img { filter: none; transform: none; object-position: center 20%; }
+  .h-tm-shade, .h-tm:hover .h-tm-shade, .h-tm:focus-within .h-tm-shade {
+    background: linear-gradient(180deg, rgba(28,25,24,0) 34%, rgba(28,25,24,.45) 58%, rgba(28,25,24,.86) 82%, rgba(28,25,24,.96) 100%);
+  }
+  .h-tm-info { opacity: 1; transform: none; padding: 22px 20px; }
+}
+@media (max-width: 420px) { .h-tm, .h-tm:hover, .h-tm:focus-within { aspect-ratio: 3 / 4; } }
 
 /* ---------- FAQ ---------- */
 /* ---------- Testimonial wall ----------
@@ -530,3 +563,57 @@ body { background: var(--neutral-100); }
 .h-faq .more { text-align: center; margin-top: clamp(36px, 4vw, 44px); }
 .h-faq .more .h-btn { border-color: var(--neutral-500); color: var(--neutral-900); font-weight: 500; }
 .h-faq .more .h-btn:hover { border-color: var(--maroon-700); color: var(--maroon-700); }
+
+/* ---------- Phones ----------
+   From the canvas's mobile pass: the hero drops the scroll-shrink and becomes a
+   plain full-height panel (main.js stops driving it at this width), and every
+   section gets tighter padding and type. Kept last so it wins over the rules above. */
+@media (max-width: 760px) {
+  .h-hero-wrap { height: auto; }
+  .h-hero { position: relative; height: auto; min-height: 100svh; }
+  .h-hero-panel { position: relative; inset: auto; min-height: 100svh; transform: none; border-radius: 0; }
+  .h-hero-tiles { display: none; }
+  .h-hero-inner { padding: 104px 20px 124px; }
+  .h-hero-copy { opacity: 1; transform: none; }
+  .h-hero-copy .h-eyebrow { margin-bottom: 18px; }
+  .h-hero-copy h1 { font-size: 38px; line-height: 1.06; margin-bottom: 18px; }
+  .h-hero-copy .h-lead { font-size: 16px; margin-bottom: 28px; }
+  .h-hero-copy .h-btn-row { flex-direction: column; gap: 12px; margin-bottom: 32px; }
+  .h-hero-copy .h-btn { width: 100%; }
+  .h-badges { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 8px; padding: 0; }
+  .h-badge { justify-content: flex-start; padding: 0; gap: 9px; }
+  .h-badge .icon { width: 30px; height: 30px; }
+  .h-badge span:last-child { max-width: none; font-size: 12px; }
+  .h-cred { padding: 12px 0; }
+  .h-cred-group img { margin-right: 44px; transform: scale(.8); }
+
+  .h-begin { margin-top: 0; padding: 56px 20px 64px; background: var(--neutral-100); }
+  .h-begin .h-title { font-size: 32px; }
+  .h-begin p { font-size: 15px; }
+  .h-begin .card { padding: 10px 10px 0; }
+
+  .h-manifesto { padding: 64px 20px 72px; }
+  .h-manifesto .grid { gap: 28px; }
+  .h-manifesto h2 { font-size: 30px; }
+  .h-manifesto p { font-size: 16px; }
+
+  .h-provide { padding: 64px 20px; }
+  .h-provide .head { margin-bottom: 28px; }
+  .h-provide h3 { font-size: 26px; }
+  .h-stack-card { padding: 22px; gap: 20px; }
+  .h-stack-img { min-height: 200px; }
+
+  .h-slide { padding: 64px 20px; }
+  .h-slide-inner { gap: 28px; }
+  .h-slide-left { gap: 20px; padding-bottom: 0; }
+  .h-slide-left h2 { font-size: 34px; }
+  .h-slide-right { min-height: 280px; }
+
+  .h-team .head { margin-bottom: 28px; }
+  .h-tw { height: 440px; }
+  section h2 { text-wrap: balance; }
+}
+@media (max-width: 420px) {
+  .h-hero-copy h1 { font-size: 34px; }
+  .h-badges { grid-template-columns: 1fr; }
+}
