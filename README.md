@@ -2,15 +2,15 @@
 
 Static site (plain HTML/CSS/JS), deployed on Vercel from the `main` branch of github.com/ULP2026/legacyconciergemedicine.
 
-- Pages: `index.html`, `about.html`, `services.html`, `contact.html`, legal (`disclaimer`, `privacy-policy`, `terms-and-conditions`), `404.html`
-- Styles: `assets/css/style.css` (brand tokens at the top) + `assets/css/home.css` (home page only) + `assets/css/contact.css` (contact page only) · Scripts: `assets/js/main.js` · Media: `assets/img/`, `assets/video/`
+- Pages: `index.html`, `about.html`, `services.html`, `contact.html`, `thank-you.html` (not indexed; where the survey should send people after they submit), legal (`disclaimer`, `privacy-policy`, `terms-and-conditions`), `404.html`
+- Styles: `assets/css/style.css` (brand tokens at the top) + `assets/css/home.css` (home page only) + `assets/css/contact.css` and `assets/css/thank-you.css` (one page each) · Scripts: `assets/js/main.js` · Media: `assets/img/`, `assets/video/`
 - Clean URLs + redirects from the old Showit paths live in `vercel.json`.
 - Updating a page, whether from the design canvas or by hand: see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Design canvas
 
 The site follows the Legacy design canvas, whose latest export is kept at
-`design/Legacy-Home-standalone.html`, with the contact page at `design/Legacy-Contact-standalone.html` (Claude Design bundles; `.vercelignore` keeps them out of the deploy). The home and contact page bodies (`home.css`, `contact.css`), and the shared
+`design/Legacy-Home-standalone.html`, with the contact and thank-you pages at `design/Legacy-Contact-standalone.html` and `design/Legacy-Thank-You-standalone.html` (Claude Design bundles; `.vercelignore` keeps them out of the deploy). The home, contact and thank-you page bodies (`home.css`, `contact.css`, `thank-you.css`), and the shared
 chrome on every page — top bar, CTA band, footer, in `assets/css/chrome.css` — are hand
 ports of it.
 

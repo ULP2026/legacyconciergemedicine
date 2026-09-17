@@ -1,0 +1,109 @@
+/* ==========================================================================
+   Legacy Concierge Medicine — thank-you page
+   Ported from the Legacy design canvas (Thank You.dc.html, see /design).
+   A standalone page with no top bar or footer. Loads after style.css.
+   ========================================================================== */
+
+:root {
+  --t-ink: #1c1918;
+  --t-body: #332e2b;
+  --t-muted: #7f756e;
+  --t-subtle: #9c938b;
+  --t-stone: #c8c0b7;
+  --t-line: #dbd5ce;
+  --t-page: #efecea;
+  --t-maroon: #71140c;
+  --t-shadow: 0 1px 3px rgba(28, 25, 24, .07), 0 1px 2px rgba(28, 25, 24, .04);
+}
+
+body { background: var(--t-page); line-height: 1.65; }
+
+.ty-page { min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+
+.ty-section {
+  flex: 1; position: relative; display: flex; align-items: center; justify-content: center;
+  padding: clamp(64px, 10vh, 110px) clamp(24px, 5vw, 56px);
+}
+.ty-stamp {
+  position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%);
+  width: auto; height: min(620px, 74vw); max-width: none; opacity: .045;
+  pointer-events: none; user-select: none;
+}
+.ty-inner { position: relative; max-width: 640px; margin: 0 auto; text-align: center; }
+
+.ty-lockup { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 0 0 28px; }
+.ty-crest { width: auto; height: 52px; }
+.ty-words { text-align: left; line-height: 1; }
+.ty-word {
+  display: block; font-family: var(--serif); font-size: 26px; font-weight: 500;
+  letter-spacing: .3em; color: var(--t-maroon);
+}
+.ty-sub {
+  display: block; font-size: 9.5px; font-weight: 500; letter-spacing: .3em;
+  text-transform: uppercase; color: var(--t-maroon); opacity: .85; margin-top: 5px;
+}
+
+.ty-eyebrow {
+  display: block; font-size: 12px; font-weight: 500; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--t-maroon); margin-bottom: 18px;
+}
+.ty-h1 {
+  font-weight: 300; font-size: clamp(44px, 6.4vw, 72px); line-height: 1.02;
+  letter-spacing: -.01em; color: var(--t-ink); margin: 0 0 20px; text-wrap: balance;
+}
+.ty-lead {
+  font-size: clamp(17px, 2.1vw, 19px); line-height: 1.7; color: var(--t-body);
+  margin: 0 auto 18px; max-width: 500px; text-wrap: pretty;
+}
+.ty-inner .ty-note {
+  font-size: 15px; line-height: 1.65; color: var(--t-muted);
+  margin: 0 auto; max-width: 460px; text-wrap: pretty;
+}
+.ty-rule { width: 44px; height: 1px; background: var(--t-stone); margin: clamp(34px, 4vw, 42px) auto; }
+
+.ty-cards {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px;
+  max-width: 600px; margin: 0 auto; text-align: left;
+}
+.ty-card {
+  background: #fff; border: 1px solid var(--t-line); border-radius: 10px;
+  box-shadow: var(--t-shadow); padding: 24px 26px;
+}
+.ty-card .label {
+  font-size: 10.5px; font-weight: 600; line-height: 1.65; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--t-subtle); margin-bottom: 10px;
+}
+.ty-card p { font-size: 14.5px; line-height: 1.65; color: var(--t-body); margin: 0; }
+.ty-phone {
+  display: block; font-family: var(--serif); font-size: 23px; line-height: 1.65;
+  color: var(--t-ink); margin-bottom: 6px; white-space: nowrap;
+}
+.ty-email { font-size: 13px; color: var(--t-maroon); overflow-wrap: anywhere; }
+.ty-phone:hover, .ty-email:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.ty-cta { display: flex; justify-content: center; margin-top: clamp(34px, 4vw, 44px); }
+.ty-cta a {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--t-maroon); color: var(--t-page);
+  font-size: 12.5px; font-weight: 600; line-height: 1.65; letter-spacing: .12em; text-transform: uppercase;
+  padding: 15px 30px; border-radius: 4px; transition: transform 140ms var(--ease);
+}
+.ty-cta a:hover { transform: translateY(-2px); }
+@media (prefers-reduced-motion: reduce) { .ty-cta a:hover { transform: none; } }
+
+@media (max-width: 640px) {
+  .ty-section { padding: 40px 20px 36px; align-items: flex-start; }
+  .ty-lockup { margin-bottom: 24px; }
+  .ty-crest { height: 42px; }
+  .ty-word { font-size: 22px; letter-spacing: .26em; }
+  .ty-sub { font-size: 8.5px; letter-spacing: .26em; }
+  .ty-h1 { font-size: 42px; margin-bottom: 16px; }
+  .ty-lead { font-size: 16px; margin-bottom: 12px; }
+  .ty-inner .ty-note { font-size: 14px; }
+  .ty-cards { grid-template-columns: 1fr; gap: 12px; }
+  .ty-card { padding: 20px; }
+  .ty-phone { font-size: 21px; }
+  .ty-cta { width: 100%; }
+  .ty-cta a { width: 100%; padding: 16px 20px; }
+  .ty-stamp { top: 46%; height: min(520px, 120vw); opacity: .035; }
+}
