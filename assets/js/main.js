@@ -103,43 +103,4 @@
     window.addEventListener('resize', request, { passive: true });
     frame();
   }
-
-  /* Contact form
-     Interim behaviour: composes an email to the practice inbox with the
-     entered details. Replace this block (or the whole <form>) with the
-     GoHighLevel form embed once the client's form/pipeline is set up. */
-  var form = document.getElementById('contact-form');
-  if (form) {
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      if (form.querySelector('input[name="company"]').value) return; /* honeypot */
-
-      var data = new FormData(form);
-      var name = (data.get('name') || '').toString().trim();
-      var email = (data.get('email') || '').toString().trim();
-      var phone = (data.get('phone') || '').toString().trim();
-      var about = (data.get('about') || '').toString().trim();
-      var message = (data.get('message') || '').toString().trim();
-
-      var subject = 'Private consultation inquiry' + (name ? ' — ' + name : '');
-      var body = [
-        'Name: ' + name,
-        'Email: ' + email,
-        'Phone: ' + phone,
-        'Exploring care for: ' + about,
-        '',
-        message
-      ].join('\n');
-
-      window.location.href = 'mailto:info@legacyconciergemedicine.com' +
-        '?subject=' + encodeURIComponent(subject) +
-        '&body=' + encodeURIComponent(body);
-
-      var status = document.getElementById('form-status');
-      if (status) {
-        status.textContent = 'Thank you. Your email client should open with your message — send it and we will be in touch soon.';
-        status.className = 'form-status ok';
-      }
-    });
-  }
 })();

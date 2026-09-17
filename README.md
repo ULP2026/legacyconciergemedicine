@@ -3,14 +3,14 @@
 Static site (plain HTML/CSS/JS), deployed on Vercel from the `main` branch of github.com/ULP2026/legacyconciergemedicine.
 
 - Pages: `index.html`, `about.html`, `services.html`, `contact.html`, legal (`disclaimer`, `privacy-policy`, `terms-and-conditions`), `404.html`
-- Styles: `assets/css/style.css` (brand tokens at the top) + `assets/css/home.css` (home page only) · Scripts: `assets/js/main.js` · Media: `assets/img/`, `assets/video/`
+- Styles: `assets/css/style.css` (brand tokens at the top) + `assets/css/home.css` (home page only) + `assets/css/contact.css` (contact page only) · Scripts: `assets/js/main.js` · Media: `assets/img/`, `assets/video/`
 - Clean URLs + redirects from the old Showit paths live in `vercel.json`.
 - Updating a page, whether from the design canvas or by hand: see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Design canvas
 
 The site follows the Legacy design canvas, whose latest export is kept at
-`design/Legacy-Home-standalone.html` (a Claude Design bundle; `.vercelignore` keeps it out of the deploy). The home page body, and the shared
+`design/Legacy-Home-standalone.html`, with the contact page at `design/Legacy-Contact-standalone.html` (Claude Design bundles; `.vercelignore` keeps them out of the deploy). The home and contact page bodies (`home.css`, `contact.css`), and the shared
 chrome on every page — top bar, CTA band, footer, in `assets/css/chrome.css` — are hand
 ports of it.
 
