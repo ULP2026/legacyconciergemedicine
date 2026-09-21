@@ -52,5 +52,22 @@ the subdomain so the folder is never served twice.
 - Design export: `design/Legacy-Landing-standalone.html` (hand-ported like the main pages).
 - Its survey is a different GoHighLevel survey from the main site's: `MxddXb6dZcfb9dMe6Ruc`.
 - Every push rebuilds both projects; that is expected and harmless for static files.
+- The survey's own styling lives in GoHighLevel, not in this repo. On phones GHL switches to a
+  mobile layout that falls back to its default dark labels and a white "1 of 2" footer, which
+  are unreadable on the dark card. This CSS in the survey's **Styles → Custom CSS** box fixes it
+  (keep it there if the survey is ever rebuilt):
+
+  ```css
+  /* Legacy landing page: keep the survey readable on the dark card, phones included */
+  #_builder-form label,
+  #_builder-form label * { color: #FFFFFF !important; }
+  #_builder-form ::placeholder,
+  #_builder-form .multiselect__placeholder { color: rgba(239, 236, 234, .6) !important; }
+  .ghl-footer { background-color: #71140C !important; }
+  .ghl-footer-buttons,
+  .ghl-mobile-step-text { color: #EFECEA !important; }
+  .ghl-footer-next svg,
+  .ghl-footer-back svg { stroke: #EFECEA !important; }
+  ```
 
 Local preview: `npx serve landing` then open http://localhost:3000
