@@ -69,16 +69,19 @@ the subdomain so the folder is never served twice.
   .ghl-footer-next svg,
   .ghl-footer-back svg { stroke: #EFECEA !important; }
 
-  /* Dropdown: white text on the highlighted and selected option */
+  /* Dropdown: dark list with white text on every option, maroon for the highlighted/selected one */
+  #_builder-form .multiselect__content-wrapper {
+    background-color: #2A2624 !important;
+    border-color: rgba(239, 236, 234, .25) !important;
+  }
+  #_builder-form .multiselect__option,
+  #_builder-form .multiselect__option * {
+    color: #FFFFFF !important;
+  }
   #_builder-form .multiselect__option--highlight,
   #_builder-form .multiselect__option--selected,
   #_builder-form .multiselect__option:hover {
     background-color: #71140C !important;
-    color: #FFFFFF !important;
-  }
-  #_builder-form .multiselect__option--highlight *,
-  #_builder-form .multiselect__option--selected *,
-  #_builder-form .multiselect__option:hover * {
     color: #FFFFFF !important;
   }
   ```
