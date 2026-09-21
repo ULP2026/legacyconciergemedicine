@@ -385,7 +385,7 @@ def render_city(d, chrome):
     <section class="sa-section sa-cream sa-nearby">
       <div class="sa-wrap sa-wrap-md">
         <span class="sa-eyebrow muted">{esc(d['nearby_label'])}</span>
-        <iframe class="sa-map" src="/assets/map/service-map.html{focus}" title="{attr(d['map_title'])}" loading="lazy"></iframe>
+        <iframe class="sa-map" src="/assets/map/service-map{focus}" title="{attr(d['map_title'])}" loading="lazy"></iframe>
         <p class="sa-map-note">{esc(d['map_note'])}</p>
       </div>
     </section>
@@ -448,7 +448,7 @@ def render_overview(d, chrome):
           <span class="sa-eyebrow">{esc(d['list_eyebrow'])}</span>
           <h2>{esc(d['list_h2'])}</h2>
         </div>
-        <iframe class="sa-map sa-map-lg" src="/assets/map/service-map.html" title="{attr(d['map_title'])}" loading="lazy"></iframe>
+        <iframe class="sa-map sa-map-lg" src="/assets/map/service-map" title="{attr(d['map_title'])}" loading="lazy"></iframe>
         <div class="sa-counties">
 {chr(10).join(counties)}
         </div>
