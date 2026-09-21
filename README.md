@@ -2,7 +2,7 @@
 
 Static site (plain HTML/CSS/JS), deployed on Vercel from the `main` branch of github.com/ULP2026/legacyconciergemedicine.
 
-- Pages: `index.html`, `about.html`, `services.html`, `contact.html`, `thank-you.html` (not indexed; where the survey should send people after they submit), legal (`disclaimer`, `privacy-policy`, `terms-and-conditions`), `404.html`
+- Pages: `index.html`, `about.html`, `services.html`, `service-areas.html` + `service-areas/` (generated, see below), `contact.html`, `thank-you.html` (not indexed; where the survey should send people after they submit), legal (`disclaimer`, `privacy-policy`, `terms-and-conditions`), `404.html`
 - Styles: `assets/css/style.css` (brand tokens at the top) + `assets/css/home.css` (home page only) + `assets/css/contact.css` and `assets/css/thank-you.css` (one page each) · Scripts: `assets/js/main.js` · Media: `assets/img/`, `assets/video/`
 - Clean URLs + redirects from the old Showit paths live in `vercel.json`.
 - Updating a page, whether from the design canvas or by hand: see [CONTRIBUTING.md](CONTRIBUTING.md).
@@ -14,11 +14,30 @@ The site follows the Legacy design canvas, whose latest export is kept at
 chrome on every page — top bar, CTA band, footer, in `assets/css/chrome.css` — are hand
 ports of it.
 
-The canvas nav points at pages that were never exported (The Practice, Membership,
-In-Home Care, Continuity of Care, Service Areas and its city pages, FAQ, and separate
-bio pages). Those menu entries currently resolve to sections of `/services` and
-`/about`, and the service-area panel lists the cities as plain text rather than links.
-Repoint them as the real pages get built.
+The canvas nav points at some pages that were never exported (The Practice, Membership,
+In-Home Care, Continuity of Care, FAQ, and separate bio pages). Those menu entries
+resolve to sections of `/services` and `/about`. Repoint them as the real pages get built.
+
+## Service-area pages (generated)
+
+`/service-areas` and the 13 community pages under `/service-areas/<city>` are **generated**,
+not hand-edited. The exports live in `design/service-areas/` (one `Service-Area-<City>.html`
+per community plus `Service-Areas.html`). After a new export, drop the files in there and run:
+
+    python tools/build_service_areas.py
+
+It pulls each page's content out of its export and writes `service-areas.html`,
+`service-areas/*.html` and the shared map `assets/map/service-map.html`, reusing the
+top bar, mobile menu and footer from `contact.html` (so edit those there first). Styles are
+in `assets/css/service-areas.css`. Needs Python 3 with `beautifulsoup4`. A new photo in an
+export stops the build until it is added to `assets/img/` (or `IMAGE_OVERRIDES`).
+
+- The canvas map used CARTO tiles, which now watermark every tile with "API KEY REQUIRED"
+  unless you pay for a key; the site uses OpenStreetMap's tiles, toned to the brand palette.
+- "Town of Longboat Key" (Sarasota County) and "Longboat Key" (Manatee County) both link to
+  the one Longboat Key page, as on the canvas.
+- "How Continuity Works" and "About In-Home Care" go to `/services#continuity` and
+  `/services#membership` until those pages exist.
 
 Two parts of the home page are ported from the canvas as-is but still need sign-off
 before the domain goes live:
