@@ -68,6 +68,19 @@ the subdomain so the folder is never served twice.
   .ghl-mobile-step-text { color: #EFECEA !important; }
   .ghl-footer-next svg,
   .ghl-footer-back svg { stroke: #EFECEA !important; }
+
+  /* Dropdown: white text on the highlighted and selected option */
+  #_builder-form .multiselect__option--highlight,
+  #_builder-form .multiselect__option--selected,
+  #_builder-form .multiselect__option:hover {
+    background-color: #71140C !important;
+    color: #FFFFFF !important;
+  }
+  #_builder-form .multiselect__option--highlight *,
+  #_builder-form .multiselect__option--selected *,
+  #_builder-form .multiselect__option:hover * {
+    color: #FFFFFF !important;
+  }
   ```
 
 Local preview: `npx serve landing` then open http://localhost:3000
