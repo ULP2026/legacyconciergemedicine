@@ -5,6 +5,7 @@ Static site (plain HTML/CSS/JS), deployed on Vercel from the `main` branch of gi
 - Pages: `index.html`, `about.html`, `services.html`, `service-areas.html` + `service-areas/` (generated, see below), `contact.html`, `thank-you.html` (not indexed; where the survey should send people after they submit), legal (`disclaimer`, `privacy-policy`, `terms-and-conditions`), `404.html`
 - Styles: `assets/css/style.css` (brand tokens at the top) + `assets/css/home.css` (home page only) + `assets/css/contact.css` and `assets/css/thank-you.css` (one page each) · Scripts: `assets/js/main.js` · Media: `assets/img/`, `assets/video/`
 - Clean URLs + redirects from the old Showit paths live in `vercel.json`.
+- Analytics: Google Analytics 4, Measurement ID `G-GP4YR58GRS`, tagged in the `<head>` of every page (main site, generated service-area pages via `tools/build_service_areas.py`, and the landing page). Taps on phone and email links send `phone_click` / `email_click` events (`main.js`, `landing/assets/js/landing.js`). New pages need the same snippet.
 - Updating a page, whether from the design canvas or by hand: see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Design canvas

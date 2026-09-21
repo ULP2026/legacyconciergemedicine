@@ -31,6 +31,14 @@
     Array.prototype.forEach.call(reveals, function (el) { el.classList.add('is-in'); });
   }
 
+  /* Analytics: GA4 does not count taps on phone or email links by itself. */
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest && e.target.closest('a[href^="tel:"], a[href^="mailto:"]');
+    if (!link || typeof window.gtag !== 'function') { return; }
+    var href = link.getAttribute('href');
+    window.gtag('event', href.indexOf('tel:') === 0 ? 'phone_click' : 'email_click', { link_url: href });
+  });
+
   if (reduced) { return; }
 
   var foldCopy = document.querySelector('.l-fold-copy');
