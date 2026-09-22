@@ -39,8 +39,8 @@ practice = {
     'medicalSpecialty': ['PrimaryCare', 'Geriatric'],
     'openingHoursSpecification': [{
         '@type': 'OpeningHoursSpecification',
-        'dayOfWeek': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        'opens': '08:00',
+        'dayOfWeek': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        'opens': '09:00',
         'closes': '17:00',
     }],
     'areaServed': [{'@type': 'City', 'name': c,
