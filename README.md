@@ -145,3 +145,24 @@ which is the record of when the site was last clean.
 the hours, the service area, the team, the pages, and the questions people ask. Keep it
 true to the pages; it says explicitly that fees are not published, so an assistant does
 not invent one. Update it whenever the hours, team or service area change.
+
+## Minified CSS and JS
+
+`tools/minify_assets.py` writes a `.min.css` or `.min.js` beside every stylesheet and
+script and rewrites the `<link>` and `<script>` tags to load the compressed copy. The
+readable sources stay exactly where they are, so nobody edits compressed CSS.
+
+```
+pip install rcssmin rjsmin
+python tools/minify_assets.py
+```
+
+It shaves the site's CSS and JS from 104 KB to 82 KB. rcssmin and rjsmin only strip
+comments and whitespace, with no renaming or reordering, so the output cannot behave
+differently from the source.
+
+Run it after any edit under `assets/css/` or `assets/js/`. It records each source's hash in
+`assets/.min-manifest.json`, and `tools/seo_audit.py` reports an ERROR when a source has
+changed since its minified copy was built, so CI catches a forgotten run instead of the
+site quietly serving the old stylesheet. `tools/build_service_areas.py` already emits the
+`.min` references, so the generated pages need nothing extra.

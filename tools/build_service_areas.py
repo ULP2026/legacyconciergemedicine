@@ -364,7 +364,7 @@ def site_chrome():
     """Top bar + mobile menu, and footer, from contact.html with Service Areas marked current."""
     page = (ROOT / 'contact.html').read_text(encoding='utf-8')
     before = page[page.index('<body>') + len('<body>'):page.index('  <main>')]
-    after = page[page.index('  </main>') + len('  </main>'):page.index('  <script src="/assets/js/main.js')]
+    after = page[page.index('  </main>') + len('  </main>'):page.index('  <script src="/assets/js/main')]
     marker = '<li class="has-menu">\n            <a href="/service-areas">'
     if marker not in before:
         raise SystemExit('Could not find the Service Areas menu item in contact.html')
@@ -413,9 +413,9 @@ def head(title, description, path, image, schema=()):
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/style.css?v=20260911">
-  <link rel="stylesheet" href="/assets/css/chrome.css?v={CSS_VERSION}">
-  <link rel="stylesheet" href="/assets/css/service-areas.css?v={CSS_VERSION}">
+  <link rel="stylesheet" href="/assets/css/style.min.css?v=20260911">
+  <link rel="stylesheet" href="/assets/css/chrome.min.css?v={CSS_VERSION}">
+  <link rel="stylesheet" href="/assets/css/service-areas.min.css?v={CSS_VERSION}">
 {blocks}</head>
 <body>
 '''
@@ -440,7 +440,7 @@ def cta_band(cta):
 def page(doc_head, chrome, main):
     before, after = chrome
     return (doc_head + before + '  <main class="sa-page">\n' + main + '\n  </main>' + after
-            + '  <script src="/assets/js/main.js?v=20260911" defer></script>\n</body>\n</html>\n')
+            + '  <script src="/assets/js/main.min.js?v=20260911" defer></script>\n</body>\n</html>\n')
 
 
 def render_city(d, chrome):

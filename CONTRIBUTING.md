@@ -120,3 +120,18 @@ future port drops one, that's a bug:
 Small copy edits don't need the canvas at all. Edit the `.html` file directly on GitHub
 (pencil icon → **Create a new branch** → propose changes) and the same preview-and-merge
 flow applies. Tell the designer, so the canvas doesn't drift out of sync with the site.
+
+## If you change a stylesheet or a script
+
+The pages load compressed copies of the CSS and JS (`style.min.css`, `main.min.js` and so
+on), not the readable files. Editing `assets/css/style.css` on its own therefore changes
+nothing on the live site. After any edit under `assets/css/` or `assets/js/`, run:
+
+```
+python tools/minify_assets.py
+```
+
+and commit the `.min` files it rewrites along with your change. The audit that runs on every
+push fails if a `.min` file no longer matches its source, so a forgotten run shows up as a
+red check on the pull request rather than as a change that silently did nothing. Never edit
+a `.min` file by hand; the next run overwrites it.

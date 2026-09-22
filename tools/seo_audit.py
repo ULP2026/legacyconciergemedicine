@@ -16,6 +16,7 @@ Findings are ERROR (fix before the next deploy), WARN (worth fixing) or NOTE.
 The script exits non-zero when anything is an ERROR, so CI can fail on it.
 """
 import argparse
+import hashlib
 import json
 import re
 import sys
@@ -245,6 +246,45 @@ def check_structured_data():
         add('NOTE', 'site', f'{total} questions marked up across {len(faq)} FAQ blocks')
 
 
+def source_hash(source):
+    """Hash the text with newlines normalised, the way minify_assets.py does."""
+    text = source.read_text(encoding='utf-8').replace('\r\n', '\n')
+    return hashlib.sha1(text.encode('utf-8')).hexdigest()
+
+
+def check_minified():
+    """A minified file that no longer matches its source means a forgotten run.
+
+    tools/minify_assets.py records each source's hash. If someone edits a
+    stylesheet and pushes without re-running it, the site keeps serving the old
+    minified copy and the change silently does nothing, so this is an error.
+    """
+    manifest_path = ROOT / 'assets' / '.min-manifest.json'
+    if not manifest_path.exists():
+        add('WARN', 'assets/.min-manifest.json', 'missing; run tools/minify_assets.py')
+        return
+
+    manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+    for rel, digest in sorted(manifest.items()):
+        source = ROOT / rel
+        minified = source.with_suffix('.min' + source.suffix)
+        if not source.exists():
+            add('WARN', rel, 'in the minify manifest but no longer in the repo')
+        elif not minified.exists():
+            add('ERROR', rel, f'{minified.name} is missing; run tools/minify_assets.py')
+        elif source_hash(source) != digest:
+            add('ERROR', rel, f'has changed since {minified.name} was built, so the site is '
+                              f'still serving the old one; run tools/minify_assets.py')
+
+    referenced = set()
+    for path in pages() + ['landing/index.html']:
+        text = (ROOT / path).read_text(encoding='utf-8')
+        referenced.update(re.findall(r'/assets/(?:css|js)/[A-Za-z0-9_.-]+\.(?:css|js)', text))
+    for ref in sorted(referenced):
+        if '.min.' not in ref:
+            add('WARN', 'pages', f'{ref} is referenced unminified; run tools/minify_assets.py')
+
+
 def check_nap(page_paths):
     """One phone number, spelled one way, on every page that shows one."""
     for path in page_paths:
@@ -332,6 +372,7 @@ def main():
     check_robots()
     check_llms()
     check_structured_data()
+    check_minified()
     check_nap(page_paths)
     if args.live:
         check_live(page_paths)
