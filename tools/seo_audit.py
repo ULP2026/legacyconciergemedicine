@@ -277,7 +277,7 @@ def check_minified():
                               f'still serving the old one; run tools/minify_assets.py')
 
     referenced = set()
-    for path in pages() + ['landing/index.html']:
+    for path in pages() + ['landing/index.html', 'landing/thank-you.html']:
         text = (ROOT / path).read_text(encoding='utf-8')
         referenced.update(re.findall(r'/assets/(?:css|js)/[A-Za-z0-9_.-]+\.(?:css|js)', text))
     for ref in sorted(referenced):

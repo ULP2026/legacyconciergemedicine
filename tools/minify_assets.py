@@ -30,7 +30,8 @@ MANIFEST = ROOT / 'assets' / '.min-manifest.json'
 # Asset folders to compress, and the HTML that references them.
 AREAS = [
     (ROOT / 'assets', sorted(ROOT.glob('*.html')) + sorted(ROOT.glob('service-areas/*.html'))),
-    (ROOT / 'landing' / 'assets', [ROOT / 'landing' / 'index.html']),
+    (ROOT / 'landing' / 'assets', [ROOT / 'landing' / 'index.html',
+                                   ROOT / 'landing' / 'thank-you.html']),
 ]
 
 # A reference to a source file, not already minified: /assets/css/style.css?v=1

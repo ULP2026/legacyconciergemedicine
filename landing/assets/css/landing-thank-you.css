@@ -1,0 +1,229 @@
+/* Legacy landing page, thank-you screen.
+   Standalone: one dark panel, so it carries its own tokens rather than pulling
+   in the whole landing stylesheet for a page with four elements on it. */
+
+:root {
+  --ink: #1c1918;
+  --cream: #efecea;
+  --maroon-800: #5e1009;
+  --maroon-700: #71140c;
+  --maroon-300: #c98579;
+  --serif: "Cormorant Garamond", "Ethic Serif", Georgia, "Times New Roman", serif;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --ease: cubic-bezier(.22, .61, .36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { text-decoration: none; color: inherit; }
+
+img { display: block; max-width: 100%; }
+
+/* ----------------------------- the panel ----------------------------- */
+
+.lty-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.lty-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* the soft light behind the crest */
+.lty-glow::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -10%;
+  width: min(120%, 1100px);
+  height: 70%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(239, 236, 234, .09), rgba(239, 236, 234, 0));
+}
+
+/* the practice stamp, bled off the bottom-right corner */
+.lty-stamp {
+  position: absolute;
+  right: -180px;
+  bottom: -200px;
+  height: 600px;
+  width: auto;
+  opacity: .05;
+  filter: brightness(0) invert(1);
+}
+
+.lty-wrap {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: clamp(56px, 9vh, 96px) clamp(20px, 4vw, 40px) clamp(64px, 8vh, 96px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ------------------------------ content ------------------------------ */
+
+.lty-mark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--cream);
+  margin-bottom: clamp(36px, 6vh, 64px);
+}
+
+.lty-mark img { height: 40px; width: auto; filter: brightness(0) invert(1); }
+
+.lty-mark span {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  text-align: left;
+}
+
+.lty-mark .word {
+  font-family: var(--serif);
+  font-size: 22px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.lty-mark .sub {
+  font-size: 9.5px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: rgba(239, 236, 234, .8);
+  margin-top: 3px;
+}
+
+.lty-eyebrow {
+  display: block;
+  margin-bottom: 18px;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--maroon-300);
+}
+
+.lty-wrap h1 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(40px, 5.4vw, 66px);
+  line-height: 1.04;
+  letter-spacing: -.01em;
+  color: var(--cream);
+  margin: 0 0 20px;
+  text-wrap: balance;
+}
+
+.lty-wrap p {
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(239, 236, 234, .85);
+  margin: 0 0 40px;
+  max-width: 520px;
+  text-wrap: pretty;
+}
+
+.lty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.lty-btn {
+  display: inline-flex;
+  align-items: center;
+  height: 52px;
+  padding: 0 30px;
+  background: var(--maroon-700);
+  color: var(--cream);
+  border-radius: 999px;
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  transition: background 240ms var(--ease), transform 240ms var(--ease);
+}
+
+.lty-btn:hover { background: var(--maroon-800); transform: translateY(-1px); }
+
+.lty-btn-quiet {
+  display: inline-flex;
+  align-items: center;
+  height: 52px;
+  padding: 0 26px;
+  border: 1px solid rgba(239, 236, 234, .5);
+  border-radius: 999px;
+  color: var(--cream);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  transition: background 240ms var(--ease);
+}
+
+.lty-btn-quiet:hover { background: rgba(239, 236, 234, .14); }
+
+/* ----------------------------- entrance ----------------------------- */
+
+@keyframes lty-in {
+  from { opacity: 0; transform: translate3d(0, 20px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+
+.lty-mark,
+.lty-eyebrow,
+.lty-wrap h1,
+.lty-wrap p,
+.lty-actions {
+  animation: lty-in 800ms var(--ease) both;
+}
+
+.lty-mark      { animation-delay: 60ms; }
+.lty-eyebrow   { animation-delay: 200ms; }
+.lty-wrap h1   { animation-delay: 300ms; }
+.lty-wrap p    { animation-delay: 400ms; }
+.lty-actions   { animation-delay: 520ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lty-mark,
+  .lty-eyebrow,
+  .lty-wrap h1,
+  .lty-wrap p,
+  .lty-actions { animation: none; }
+}
+
+/* ------------------------------- phones ------------------------------ */
+
+@media (max-width: 720px) {
+  .lty-wrap { padding: 40px 20px 56px; }
+  .lty-wrap h1 { font-size: 38px; }
+  .lty-mark img { height: 34px; }
+  .lty-wrap p { font-size: 15.5px; margin-bottom: 30px; }
+  .lty-stamp { right: -220px; bottom: -240px; height: 460px; }
+}

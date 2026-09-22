@@ -108,6 +108,11 @@ the subdomain so the folder is never served twice.
   }
   ```
 
+`landing/thank-you.html` is where the landing survey sends people after they submit. It is
+`noindex`, carries the GA4 snippet so the submission is counted, and is deliberately
+standalone: one dark panel with its own small stylesheet rather than the whole landing CSS.
+The redirect itself is set inside GoHighLevel, on survey `MxddXb6dZcfb9dMe6Ruc`, not here.
+
 Local preview: `npx serve landing` then open http://localhost:3000
 
 ## SEO and AEO audit
