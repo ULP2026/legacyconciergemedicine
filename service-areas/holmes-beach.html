@@ -103,14 +103,20 @@
   "name": "Concierge Medicine in Holmes Beach, Florida",
   "url": "https://www.legacyconciergemedicine.com/service-areas/holmes-beach",
   "about": {
-    "@type": "MedicalBusiness",
+    "@type": [
+      "MedicalBusiness",
+      "Physician"
+    ],
     "@id": "https://www.legacyconciergemedicine.com/#practice",
     "name": "Legacy Concierge Medicine",
     "telephone": "+1-941-401-1001",
     "areaServed": {
       "@type": "City",
       "name": "Holmes Beach",
-      "addressRegion": "FL"
+      "containedInPlace": {
+        "@type": "State",
+        "name": "Florida"
+      }
     }
   }
 }

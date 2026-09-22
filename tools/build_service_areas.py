@@ -259,11 +259,12 @@ def city_schema(d):
             'name': d['h1'],
             'url': url,
             'about': {
-                '@type': 'MedicalBusiness',
+                '@type': ['MedicalBusiness', 'Physician'],
                 '@id': PRACTICE_ID,
                 'name': 'Legacy Concierge Medicine',
                 'telephone': '+1-941-401-1001',
-                'areaServed': {'@type': 'City', 'name': d['name'], 'addressRegion': 'FL'},
+                'areaServed': {'@type': 'City', 'name': d['name'],
+                               'containedInPlace': {'@type': 'State', 'name': 'Florida'}},
             },
         },
     ]
@@ -280,11 +281,12 @@ def overview_schema(d):
             'name': 'Service Areas',
             'url': url,
             'about': {
-                '@type': 'MedicalBusiness',
+                '@type': ['MedicalBusiness', 'Physician'],
                 '@id': PRACTICE_ID,
                 'name': 'Legacy Concierge Medicine',
                 'telephone': '+1-941-401-1001',
-                'areaServed': [{'@type': 'City', 'name': n, 'addressRegion': 'FL'}
+                'areaServed': [{'@type': 'City', 'name': n,
+                                'containedInPlace': {'@type': 'State', 'name': 'Florida'}}
                                for n in dict.fromkeys(cities)],
             },
         },

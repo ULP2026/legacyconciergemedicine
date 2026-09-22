@@ -60,7 +60,10 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "MedicalBusiness",
+  "@type": [
+    "MedicalBusiness",
+    "Physician"
+  ],
   "@id": "https://www.legacyconciergemedicine.com/#practice",
   "name": "Legacy Concierge Medicine",
   "legalName": "Legacy Concierge Medicine, PLLC",
@@ -98,72 +101,114 @@
     {
       "@type": "City",
       "name": "Sarasota",
-      "addressRegion": "FL"
+      "containedInPlace": {
+        "@type": "State",
+        "name": "Florida"
+      }
     },
     {
       "@type": "City",
       "name": "Venice",
-      "addressRegion": "FL"
+      "containedInPlace": {
+        "@type": "State",
+        "name": "Florida"
+      }
     },
     {
       "@type": "City",
       "name": "North Port",
-      "addressRegion": "FL"
+      "containedInPlace": {
+        "@type": "State",
+        "name": "Florida"
+      }
     },
     {
       "@type": "City",
       "name": "Longboat Key",
-      "addressRegion": "FL"
+      "containedInPlace": {
+        "@type": "State",
+        "name": "Florida"
+      }
     },
     {
       "@type": "City",
       "name": "Anna Maria",
-      "addressRegion": "FL"
+      "containedInPlace": {
+        "@type": "State",
+        "name": "Florida"
+      }
     },
     {
       "@type": "City",
       "name": "Bradenton",
-      "addressRegion": "FL"
+      "containedInPlace": {
+        "@type": "State",
+        "name": "Florida"
+      }
     },
     {
       "@type": "City",
       "name": "Bradenton Beach",
-      "addressRegion": "FL"
+      "containedInPlace": {
+        "@type": "State",
+        "name": "Florida"
+      }
     },
     {
       "@type": "City",
       "name": "Cortez",
-      "addressRegion": "FL"
+      "containedInPlace": {
+        "@type": "State",
+        "name": "Florida"
+      }
     },
     {
       "@type": "City",
       "name": "Ellenton",
-      "addressRegion": "FL"
+      "containedInPlace": {
+        "@type": "State",
+        "name": "Florida"
+      }
     },
     {
       "@type": "City",
       "name": "Holmes Beach",
-      "addressRegion": "FL"
+      "containedInPlace": {
+        "@type": "State",
+        "name": "Florida"
+      }
     },
     {
       "@type": "City",
       "name": "Lakewood Ranch",
-      "addressRegion": "FL"
+      "containedInPlace": {
+        "@type": "State",
+        "name": "Florida"
+      }
     },
     {
       "@type": "City",
       "name": "Myakka City",
-      "addressRegion": "FL"
+      "containedInPlace": {
+        "@type": "State",
+        "name": "Florida"
+      }
     },
     {
       "@type": "City",
       "name": "Palmetto",
-      "addressRegion": "FL"
+      "containedInPlace": {
+        "@type": "State",
+        "name": "Florida"
+      }
     },
     {
       "@type": "City",
       "name": "Parrish",
-      "addressRegion": "FL"
+      "containedInPlace": {
+        "@type": "State",
+        "name": "Florida"
+      }
     }
   ],
   "availableService": [
@@ -180,16 +225,17 @@
       "name": "Continuity of care through assisted living and skilled nursing"
     }
   ],
+  "founder": {
+    "@type": "Person",
+    "name": "Pamela Chapman, DO",
+    "url": "https://www.legacyconciergemedicine.com/about#dr-chapman"
+  },
   "employee": [
     {
-      "@type": "Physician",
+      "@type": "Person",
       "name": "Pamela Chapman, DO",
       "honorificSuffix": "DO",
       "jobTitle": "Founder and Physician",
-      "medicalSpecialty": [
-        "PrimaryCare",
-        "Geriatric"
-      ],
       "url": "https://www.legacyconciergemedicine.com/about#dr-chapman"
     },
     {

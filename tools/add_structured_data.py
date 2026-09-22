@@ -17,7 +17,9 @@ CITIES = ['Sarasota', 'Venice', 'North Port', 'Longboat Key', 'Anna Maria', 'Bra
 
 practice = {
     '@context': 'https://schema.org',
-    '@type': 'MedicalBusiness',
+    # Physician is schema.org's type for a medical practice; it is a MedicalBusiness
+    # and a MedicalOrganization, so it carries medicalSpecialty and availableService.
+    '@type': ['MedicalBusiness', 'Physician'],
     '@id': PRACTICE_ID,
     'name': 'Legacy Concierge Medicine',
     'legalName': 'Legacy Concierge Medicine, PLLC',
@@ -41,19 +43,20 @@ practice = {
         'opens': '08:00',
         'closes': '17:00',
     }],
-    'areaServed': [{'@type': 'City', 'name': c, 'addressRegion': 'FL'} for c in CITIES],
+    'areaServed': [{'@type': 'City', 'name': c,
+                    'containedInPlace': {'@type': 'State', 'name': 'Florida'}} for c in CITIES],
     'availableService': [
         {'@type': 'MedicalTherapy', 'name': 'In-home primary care visits'},
         {'@type': 'MedicalTherapy', 'name': 'Preventive and longevity-focused care planning'},
         {'@type': 'MedicalTherapy', 'name': 'Continuity of care through assisted living and skilled nursing'},
     ],
+    'founder': {'@type': 'Person', 'name': 'Pamela Chapman, DO', 'url': f'{SITE}/about#dr-chapman'},
     'employee': [
         {
-            '@type': 'Physician',
+            '@type': 'Person',
             'name': 'Pamela Chapman, DO',
             'honorificSuffix': 'DO',
             'jobTitle': 'Founder and Physician',
-            'medicalSpecialty': ['PrimaryCare', 'Geriatric'],
             'url': f'{SITE}/about#dr-chapman',
         },
         {
