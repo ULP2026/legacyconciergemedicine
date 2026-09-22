@@ -393,7 +393,7 @@ def render_city(d, chrome):
     focus = f'?focus={d["map_focus"]}' if d['map_focus'] else ''
     main = f'''
     <section class="sa-hero">
-      <img src="/assets/img/{d['hero_img']}" alt="{attr(d['hero_alt'])}" style="object-position:{d['hero_pos']}">
+      <img src="/assets/img/{d['hero_img']}" alt="{attr(d['hero_alt'])}" style="object-position:{d['hero_pos']}" fetchpriority="high">
       <div class="shade" aria-hidden="true"></div>
       <div class="sa-hero-inner">
         <nav class="sa-crumbs" aria-label="Breadcrumb">
