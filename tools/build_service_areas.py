@@ -45,8 +45,12 @@ IMAGE_OVERRIDES = {
 TITLE_MAX = 65
 DESC_MAX = 165
 
-# Where the canvas intro runs past what a result will show, a shorter line written
-# for the search result. The page still opens with the full intro.
+# Where a canvas intro runs past what a result will show, a shorter line written
+# for the search result. The page itself still opens with the full intro.
+OVERVIEW_DESCRIPTION = ('Legacy brings in-home primary care to adults and families across Sarasota '
+                        'and Manatee County, from Venice and North Port to Lakewood Ranch and the '
+                        'island towns.')
+
 META_DESCRIPTIONS = {
     'anna-maria': ('Private, in-home concierge care for the city of Anna Maria, at the north end of '
                    'the island, where limited on-island care makes a visiting physician essential.'),
@@ -282,6 +286,40 @@ def breadcrumbs(items):
     }
 
 
+def practice_node(area_served):
+    """The practice record, complete enough to stand on its own.
+
+    Google reads each page's markup by itself, so an @id pointing at the home
+    page's record is a dangling reference here: the node has to carry the fields
+    a local business result needs, name, address, telephone, url and image, or
+    the item is reported invalid.
+    """
+    return {
+        '@type': ['MedicalBusiness', 'Physician'],
+        '@id': PRACTICE_ID,
+        'name': 'Legacy Concierge Medicine',
+        'url': SITE + '/',
+        'image': f'{SITE}/assets/img/hero-09.jpg',
+        'logo': f'{SITE}/assets/img/logo-main.png',
+        'telephone': '+1-941-401-1001',
+        'email': 'info@legacyconciergemedicine.com',
+        'address': {
+            '@type': 'PostalAddress',
+            'addressLocality': 'Sarasota',
+            'addressRegion': 'FL',
+            'addressCountry': 'US',
+        },
+        'medicalSpecialty': ['PrimaryCare', 'Geriatric'],
+        'openingHoursSpecification': [{
+            '@type': 'OpeningHoursSpecification',
+            'dayOfWeek': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            'opens': '09:00',
+            'closes': '17:00',
+        }],
+        'areaServed': area_served,
+    }
+
+
 def city_schema(d):
     """Breadcrumbs, the page's FAQs, and the practice serving this community."""
     url = f"{SITE}/service-areas/{d['slug']}"
@@ -299,14 +337,8 @@ def city_schema(d):
             '@type': 'WebPage',
             'name': d['h1'],
             'url': url,
-            'about': {
-                '@type': ['MedicalBusiness', 'Physician'],
-                '@id': PRACTICE_ID,
-                'name': 'Legacy Concierge Medicine',
-                'telephone': '+1-941-401-1001',
-                'areaServed': {'@type': 'City', 'name': d['name'],
-                               'containedInPlace': {'@type': 'State', 'name': 'Florida'}},
-            },
+            'about': practice_node({'@type': 'City', 'name': d['name'],
+                                    'containedInPlace': {'@type': 'State', 'name': 'Florida'}}),
         },
     ]
 
@@ -321,15 +353,9 @@ def overview_schema(d):
             '@type': 'WebPage',
             'name': 'Service Areas',
             'url': url,
-            'about': {
-                '@type': ['MedicalBusiness', 'Physician'],
-                '@id': PRACTICE_ID,
-                'name': 'Legacy Concierge Medicine',
-                'telephone': '+1-941-401-1001',
-                'areaServed': [{'@type': 'City', 'name': n,
-                                'containedInPlace': {'@type': 'State', 'name': 'Florida'}}
-                               for n in dict.fromkeys(cities)],
-            },
+            'about': practice_node([{'@type': 'City', 'name': n,
+                                     'containedInPlace': {'@type': 'State', 'name': 'Florida'}}
+                                    for n in dict.fromkeys(cities)]),
         },
     ]
 
@@ -589,7 +615,7 @@ def render_overview(d, chrome):
     </section>
 
 {cta_band(d['cta'])}'''
-    return page(head('Service Areas | Legacy Concierge Medicine', d['intro'], '/service-areas', 'couple-shore.jpg',
+    return page(head('Service Areas | Legacy Concierge Medicine', OVERVIEW_DESCRIPTION, '/service-areas', 'couple-shore.jpg',
                      overview_schema(d)), chrome, main)
 
 
