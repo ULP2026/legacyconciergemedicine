@@ -1,0 +1,50 @@
+# The recurring SEO/AEO check.
+#
+# Runs on every push to main, on every pull request, and on its own every Monday
+# morning so a problem that appears without a code change (a page going 404, a
+# redirect loop, robots.txt being served wrong) still gets caught.
+#
+# The audit fails the run on ERROR findings only. Warnings and notes are in the
+# summary for whoever picks the work up.
+name: SEO and AEO audit
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '17 12 * * 1'   # Mondays, 12:17 UTC (about 8am in Sarasota)
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - run: pip install beautifulsoup4 requests
+
+      # Pushes and pull requests are checked against the files in the branch. The
+      # weekly run also fetches the live site; doing that on a push would race the
+      # Vercel deploy that the same push triggers.
+      - name: Audit
+        run: |
+          if [ "${{ github.event_name }}" = "push" ] || [ "${{ github.event_name }}" = "pull_request" ]; then
+            python tools/seo_audit.py --report audit.md
+          else
+            python tools/seo_audit.py --live --report audit.md
+          fi
+
+      - name: Put the findings in the run summary
+        if: always()
+        run: cat audit.md >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: seo-audit
+          path: audit.md

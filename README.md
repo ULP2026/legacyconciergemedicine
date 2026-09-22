@@ -109,3 +109,39 @@ the subdomain so the folder is never served twice.
   ```
 
 Local preview: `npx serve landing` then open http://localhost:3000
+
+## SEO and AEO audit
+
+`tools/seo_audit.py` checks the site the way a crawler and an answer engine each see it.
+
+```
+python tools/seo_audit.py            # the files in this repo
+python tools/seo_audit.py --live     # also fetch every published URL
+python tools/seo_audit.py --report audit.md
+```
+
+Findings are ERROR, WARN or NOTE, and the script exits non-zero on any ERROR.
+
+On the search side it checks the title and description lengths against what a result
+actually shows, one h1 per page, a self-referencing canonical, the og/twitter tags,
+alt text, image dimensions, internal links that resolve (redirects in `vercel.json`
+count), the sitemap against the pages the repo publishes, and duplicate titles or
+descriptions between pages.
+
+On the answer-engine side it checks that the AI crawlers are named in `robots.txt`,
+that `llms.txt` exists and states the practice name, phone and site, that the home
+page's `MedicalBusiness` record carries the phone, address, hours, service area and
+services, that a `FAQPage` exists somewhere, and that the phone number is written the
+same way everywhere. The site writes it `(941) 401-1001`; the structured data field
+uses `+1-941-401-1001`, which is its own convention and is ignored by the check.
+
+`.github/workflows/seo-audit.yml` runs it on every push and pull request, and on its
+own every Monday at 12:17 UTC. The weekly run adds `--live`; a push does not, because
+it would race the Vercel deploy that the same push triggers. Every run writes the
+findings into the GitHub Actions run summary and uploads `audit.md` as an artifact,
+which is the record of when the site was last clean.
+
+`llms.txt` is the plain-text brief answer engines read: who the practice is, the phone,
+the hours, the service area, the team, the pages, and the questions people ask. Keep it
+true to the pages; it says explicitly that fees are not published, so an assistant does
+not invent one. Update it whenever the hours, team or service area change.

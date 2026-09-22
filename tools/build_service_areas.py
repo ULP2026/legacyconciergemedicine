@@ -24,6 +24,7 @@ import re
 from pathlib import Path
 
 from bs4 import BeautifulSoup
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
 DESIGN = ROOT / 'design' / 'service-areas'
@@ -39,6 +40,46 @@ def url_slug(canvas_slug):
 IMAGE_OVERRIDES = {
     '6d277eaa66': 'couple-sunset-beach.jpg',
 }
+
+# A search result shows roughly this much before it truncates.
+TITLE_MAX = 65
+DESC_MAX = 165
+
+# Where the canvas intro runs past what a result will show, a shorter line written
+# for the search result. The page still opens with the full intro.
+META_DESCRIPTIONS = {
+    'anna-maria': ('Private, in-home concierge care for the city of Anna Maria, at the north end of '
+                   'the island, where limited on-island care makes a visiting physician essential.'),
+    'bradenton-beach-cortez': ('In-home concierge care for Bradenton Beach and the historic fishing '
+                               'village of Cortez, two close-knit waterfront communities where '
+                               'personal medicine belongs.'),
+    'lakewood-ranch': ('In-home concierge medicine for Lakewood Ranch, a top master-planned '
+                       'community where active families and retirees expect a higher standard of care.'),
+    'myakka-city': ('In-home concierge primary care for Myakka City, the rural heart of eastern '
+                    'Manatee County, where distance from town makes a visiting physician meaningful.'),
+    'parrish': ('In-home concierge primary care for Parrish, one of Manatee County\'s fastest-growing '
+                'communities, where neighborhoods rise faster than local care can keep up.'),
+    'sarasota': ('Relationship-based, in-home primary care for the neighborhoods, keys, and downtown '
+                 'enclaves that make Sarasota one of the Gulf Coast\'s finest places to live.'),
+}
+
+
+def city_title(d):
+    """Lead with the city, because that is the word someone searches on."""
+    options = [f"Concierge Doctor in {d['name']}, FL | Legacy Concierge Medicine",
+               f"{d['name']} Concierge Care | Legacy Concierge Medicine",
+               f"{d['name']} | Legacy Concierge Medicine"]
+    return next((o for o in options if len(o) <= TITLE_MAX), options[-1])
+
+
+def city_description(d):
+    return META_DESCRIPTIONS.get(d['slug'], d['intro'])
+
+
+def dimensions(name):
+    """width/height on a photo stops the page shifting while it loads."""
+    with Image.open(ROOT / 'assets' / 'img' / name) as im:
+        return f'width="{im.width}" height="{im.height}"'
 
 
 # ---------------------------------------------------------------------------
@@ -393,7 +434,7 @@ def render_city(d, chrome):
     focus = f'?focus={d["map_focus"]}' if d['map_focus'] else ''
     main = f'''
     <section class="sa-hero">
-      <img src="/assets/img/{d['hero_img']}" alt="{attr(d['hero_alt'])}" style="object-position:{d['hero_pos']}" fetchpriority="high">
+      <img src="/assets/img/{d['hero_img']}" alt="{attr(d['hero_alt'])}" {dimensions(d['hero_img'])} style="object-position:{d['hero_pos']}" fetchpriority="high">
       <div class="shade" aria-hidden="true"></div>
       <div class="sa-hero-inner">
         <nav class="sa-crumbs" aria-label="Breadcrumb">
@@ -486,8 +527,8 @@ def render_city(d, chrome):
     </section>
 
 {cta_band(d['cta'])}'''
-    title = f"{d['h1']} | Legacy Concierge Medicine"
-    return page(head(title, d['intro'], f"/service-areas/{d['slug']}", d['hero_img'], city_schema(d)), chrome, main)
+    return page(head(city_title(d), city_description(d), f"/service-areas/{d['slug']}",
+                     d['hero_img'], city_schema(d)), chrome, main)
 
 
 def render_overview(d, chrome):

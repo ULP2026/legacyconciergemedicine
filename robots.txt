@@ -1,3 +1,51 @@
+# Legacy Concierge Medicine
+#
+# Search crawlers and answer engines are both welcome here. The wildcard rule
+# below already allows everything; the crawlers are named one by one so the
+# practice stays quotable if any of them changes what its default means.
+
 User-agent: *
 Allow: /
+
+# Search
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Answer engines and AI assistants
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
 Sitemap: https://www.legacyconciergemedicine.com/sitemap.xml
