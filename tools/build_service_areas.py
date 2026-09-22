@@ -228,6 +228,69 @@ def extract_overview(path):
 # Rendering
 # ---------------------------------------------------------------------------
 
+
+PRACTICE_ID = SITE + '/#practice'
+
+
+def breadcrumbs(items):
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'name': n, 'item': u}
+                            for i, (n, u) in enumerate(items)],
+    }
+
+
+def city_schema(d):
+    """Breadcrumbs, the page's FAQs, and the practice serving this community."""
+    url = f"{SITE}/service-areas/{d['slug']}"
+    return [
+        breadcrumbs([('Home', SITE + '/'), ('Service Areas', f'{SITE}/service-areas'), (d['name'], url)]),
+        {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            '@id': url + '#faq',
+            'mainEntity': [{'@type': 'Question', 'name': q,
+                            'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in d['faq']],
+        },
+        {
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            'name': d['h1'],
+            'url': url,
+            'about': {
+                '@type': 'MedicalBusiness',
+                '@id': PRACTICE_ID,
+                'name': 'Legacy Concierge Medicine',
+                'telephone': '+1-941-401-1001',
+                'areaServed': {'@type': 'City', 'name': d['name'], 'addressRegion': 'FL'},
+            },
+        },
+    ]
+
+
+def overview_schema(d):
+    url = f'{SITE}/service-areas'
+    cities = [name for c in d['counties'] for name, _ in c['links']]
+    return [
+        breadcrumbs([('Home', SITE + '/'), ('Service Areas', url)]),
+        {
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            'name': 'Service Areas',
+            'url': url,
+            'about': {
+                '@type': 'MedicalBusiness',
+                '@id': PRACTICE_ID,
+                'name': 'Legacy Concierge Medicine',
+                'telephone': '+1-941-401-1001',
+                'areaServed': [{'@type': 'City', 'name': n, 'addressRegion': 'FL'}
+                               for n in dict.fromkeys(cities)],
+            },
+        },
+    ]
+
+
 def site_chrome():
     """Top bar + mobile menu, and footer, from contact.html with Service Areas marked current."""
     page = (ROOT / 'contact.html').read_text(encoding='utf-8')
@@ -240,8 +303,15 @@ def site_chrome():
     return before, after
 
 
-def head(title, description, path, image):
+def head(title, description, path, image, schema=()):
     url = SITE + path
+    blocks = ''
+    if schema:
+        blocks = '  <!-- Structured data for search engines -->\n'
+        for obj in schema:
+            blocks += '  <script type="application/ld+json">\n'
+            blocks += json.dumps(obj, indent=2, ensure_ascii=False) + '\n'
+            blocks += '  </script>\n'
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -272,7 +342,7 @@ def head(title, description, path, image):
   <link rel="stylesheet" href="/assets/css/style.css?v=20260911">
   <link rel="stylesheet" href="/assets/css/chrome.css?v={CSS_VERSION}">
   <link rel="stylesheet" href="/assets/css/service-areas.css?v={CSS_VERSION}">
-</head>
+{blocks}</head>
 <body>
 '''
 
@@ -410,7 +480,7 @@ def render_city(d, chrome):
 
 {cta_band(d['cta'])}'''
     title = f"{d['h1']} | Legacy Concierge Medicine"
-    return page(head(title, d['intro'], f"/service-areas/{d['slug']}", d['hero_img']), chrome, main)
+    return page(head(title, d['intro'], f"/service-areas/{d['slug']}", d['hero_img'], city_schema(d)), chrome, main)
 
 
 def render_overview(d, chrome):
@@ -471,8 +541,8 @@ def render_overview(d, chrome):
     </section>
 
 {cta_band(d['cta'])}'''
-    return page(head('Service Areas | Legacy Concierge Medicine', d['intro'], '/service-areas', 'couple-shore.jpg'),
-                chrome, main)
+    return page(head('Service Areas | Legacy Concierge Medicine', d['intro'], '/service-areas', 'couple-shore.jpg',
+                     overview_schema(d)), chrome, main)
 
 
 def render_map(cities, nearby):
