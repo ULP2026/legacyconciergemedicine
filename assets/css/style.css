@@ -4,6 +4,31 @@
    Type: Cormorant Garamond (stand-in for Ethic Serif) · Inter
    ========================================================================== */
 
+/* Fonts are served from this site rather than Google Fonts: one less
+   connection before the first paint. Latin subset of the variable fonts,
+   so each file covers every weight the pages use. */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 300 500;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-latin-v21.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 300 400;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-italic-latin-v21.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(/assets/fonts/inter-latin-v20.woff2) format('woff2');
+}
+
 :root {
   --maroon: #71140c;
   --maroon-dark: #56100a;

@@ -51,13 +51,29 @@
     reveals.forEach(function (el) { el.classList.add('is-visible'); });
   }
 
-  /* Home hero: keep the background video playing */
+  /* Home hero: the 1.5 MB background video waits until the page has loaded
+     and painted, so it doesn't compete with the headline on a phone
+     connection. The poster shows until then. Skipped entirely when the
+     visitor has asked to save data. */
   var heroVideo = document.querySelector('.h-hero-bg video');
   if (heroVideo) {
-    heroVideo.muted = true;
-    heroVideo.defaultMuted = true;
-    var playing = heroVideo.play();
-    if (playing && playing.catch) { playing.catch(function () {}); }
+    var startVideo = function () {
+      if (navigator.connection && navigator.connection.saveData) { return; }
+      if (heroVideo.dataset.src) { heroVideo.src = heroVideo.dataset.src; }
+      heroVideo.muted = true;
+      heroVideo.defaultMuted = true;
+      var playing = heroVideo.play();
+      if (playing && playing.catch) { playing.catch(function () {}); }
+    };
+    var afterPaint = function () {
+      var types = window.PerformanceObserver && PerformanceObserver.supportedEntryTypes;
+      if (!types || types.indexOf('paint') < 0) { startVideo(); return; }
+      new PerformanceObserver(function (list, obs) {
+        if (list.getEntriesByName('first-contentful-paint').length) { obs.disconnect(); startVideo(); }
+      }).observe({ type: 'paint', buffered: true });
+    };
+    if (document.readyState === 'complete') { afterPaint(); }
+    else { window.addEventListener('load', afterPaint, { once: true }); }
   }
 
   /* Home hero: as you scroll through the taller wrapper, the sticky panel
@@ -114,7 +130,7 @@
      form_embed.js grows the iframe to fit each survey step. It can leave the
      frame hidden while it initialises; the design canvas reveals it after a few
      seconds in case that never finishes, and so do we. */
-  window.setTimeout(function () {
+  var revealSurveys = function () {
     var frames = document.querySelectorAll('iframe[src*="leadconnectorhq.com/widget/survey"]');
     Array.prototype.forEach.call(frames, function (f) {
       if (f.getAttribute('data-initial-iframe-hidden') !== 'true' && getComputedStyle(f).visibility !== 'hidden') return;
@@ -125,7 +141,45 @@
       f.style.setProperty('pointer-events', 'auto');
       f.removeAttribute('data-initial-iframe-hidden');
     });
-  }, 2800);
+  };
+  window.setTimeout(revealSurveys, 2800);
+
+  /* A survey below the fold carries data-src instead of src: the survey and
+     form_embed.js together pull in about 1 MB of GoHighLevel, Cloudflare and
+     Facebook code, so they wait for the visitor's first scroll, tap or key
+     press (or the form coming into view), well before anyone reaches it.
+     The script is added after the src, the same order as a normal page load. */
+  var deferredSurveys = document.querySelectorAll('iframe[data-src*="leadconnectorhq.com/widget/survey"]');
+  if (deferredSurveys.length) {
+    var surveysLoaded = false;
+    var firstTouch = ['scroll', 'touchstart', 'pointerdown', 'keydown'];
+    var loadSurveys = function () {
+      if (surveysLoaded) { return; }
+      surveysLoaded = true;
+      firstTouch.forEach(function (type) { window.removeEventListener(type, loadSurveys, true); });
+      Array.prototype.forEach.call(deferredSurveys, function (f) {
+        if (!f.src) { f.src = f.getAttribute('data-src'); }
+      });
+      if (!document.querySelector('script[src*="form_embed.js"]')) {
+        var embed = document.createElement('script');
+        embed.src = 'https://link.msgsndr.com/js/form_embed.js';
+        document.body.appendChild(embed);
+      }
+      window.setTimeout(revealSurveys, 2800);
+    };
+    if ('IntersectionObserver' in window) {
+      var surveyWatch = new IntersectionObserver(function (entries) {
+        if (entries.some(function (e) { return e.isIntersecting; })) {
+          surveyWatch.disconnect();
+          loadSurveys();
+        }
+      });
+      Array.prototype.forEach.call(deferredSurveys, function (f) { surveyWatch.observe(f); });
+      firstTouch.forEach(function (type) { window.addEventListener(type, loadSurveys, { capture: true, passive: true }); });
+    } else {
+      loadSurveys();
+    }
+  }
   /* Analytics: GA4 does not count taps on phone or email links by itself. */
   document.addEventListener('click', function (e) {
     var link = e.target.closest && e.target.closest('a[href^="tel:"], a[href^="mailto:"]');

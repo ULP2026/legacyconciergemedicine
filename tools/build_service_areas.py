@@ -384,13 +384,27 @@ def head(title, description, path, image, schema=()):
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GP4YR58GRS"></script>
+  <!-- Google Analytics 4. gtag.js (180 KB) loads once the page has loaded and
+       painted, so it doesn't compete with the first paint; calls made before
+       then wait in dataLayer and are sent when it arrives. -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){{dataLayer.push(arguments);}}
     gtag('js', new Date());
     gtag('config', 'G-GP4YR58GRS');
+    window.addEventListener('load', function () {{
+      var go = function () {{
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-GP4YR58GRS';
+        document.head.appendChild(s);
+      }};
+      var types = window.PerformanceObserver && PerformanceObserver.supportedEntryTypes;
+      if (!types || types.indexOf('paint') < 0) {{ go(); return; }}
+      new PerformanceObserver(function (list, obs) {{
+        if (list.getEntriesByName('first-contentful-paint').length) {{ obs.disconnect(); go(); }}
+      }}).observe({{ type: 'paint', buffered: true }});
+    }});
   </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -410,9 +424,8 @@ def head(title, description, path, image, schema=()):
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/assets/img/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="/assets/img/favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="/assets/fonts/inter-latin-v20.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/cormorant-garamond-latin-v21.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/style.min.css?v=20260911">
   <link rel="stylesheet" href="/assets/css/chrome.min.css?v={CSS_VERSION}">
   <link rel="stylesheet" href="/assets/css/service-areas.min.css?v={CSS_VERSION}">
@@ -423,7 +436,7 @@ def head(title, description, path, image, schema=()):
 
 def cta_band(cta):
     return f'''  <section class="lcm-cta">
-    <img src="/assets/img/stamp.png" alt="" width="400" height="400" loading="lazy">
+    <img src="/assets/img/stamp.webp" alt="" width="400" height="400" loading="lazy">
     <div class="inner">
       <span class="eyebrow">{esc(cta['eyebrow'])}</span>
       <h2>{esc(cta['title'])}</h2>
@@ -489,7 +502,7 @@ def render_city(d, chrome):
           <p class="muted">{esc(d['care_ps'][1])}</p>
         </div>
         <aside class="sa-glance">
-          <img src="/assets/img/stamp.png" alt="" width="400" height="400" loading="lazy">
+          <img src="/assets/img/stamp.webp" alt="" width="400" height="400" loading="lazy">
           <div class="inner">
             <div class="title">{esc(d['glance_title'])}</div>
 {glance}
@@ -523,7 +536,7 @@ def render_city(d, chrome):
     </section>
 
     <section class="sa-continuity">
-      <img src="/assets/img/stamp.png" alt="" width="400" height="400" loading="lazy">
+      <img src="/assets/img/stamp.webp" alt="" width="400" height="400" loading="lazy">
       <div class="inner">
         <span class="sa-eyebrow on-dark">{esc(d['cont_eyebrow'])}</span>
         <p class="sa-quote">{esc(d['cont_quote'])}</p>
@@ -584,7 +597,7 @@ def render_overview(d, chrome):
           <a class="sa-btn sa-btn-solid sa-btn-lg" href="/contact">{esc(d['button'])}</a>
         </div>
         <div class="sa-serving">
-          <img src="/assets/img/stamp.png" alt="" width="400" height="400">
+          <img src="/assets/img/stamp.webp" alt="" width="400" height="400">
           <div class="inner">
             <div class="label">{esc(d['card_eyebrow'])}</div>
             <div class="title">{card_title}</div>

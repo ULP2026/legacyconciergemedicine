@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GP4YR58GRS"></script>
+  <!-- Google Analytics 4. gtag.js (180 KB) loads once the page has loaded and
+       painted, so it doesn't compete with the first paint; calls made before
+       then wait in dataLayer and are sent when it arrives. -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-GP4YR58GRS');
+    window.addEventListener('load', function () {
+      var go = function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-GP4YR58GRS';
+        document.head.appendChild(s);
+      };
+      var types = window.PerformanceObserver && PerformanceObserver.supportedEntryTypes;
+      if (!types || types.indexOf('paint') < 0) { go(); return; }
+      new PerformanceObserver(function (list, obs) {
+        if (list.getEntriesByName('first-contentful-paint').length) { obs.disconnect(); go(); }
+      }).observe({ type: 'paint', buffered: true });
+    });
   </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,9 +41,8 @@
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/assets/img/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="/assets/img/favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="/assets/fonts/inter-latin-v20.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/cormorant-garamond-latin-v21.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/style.min.css?v=20260911">
   <link rel="stylesheet" href="/assets/css/chrome.min.css?v=20260911">
   <!-- Structured data for search engines -->
@@ -122,7 +135,7 @@
   <header class="lcm-bar">
     <div class="lcm-bar-inner">
       <a class="lcm-brand" href="/" aria-label="Legacy Concierge Medicine home">
-        <img src="/assets/img/crest.png" alt="" width="177" height="200">
+        <img src="/assets/img/crest.webp" alt="" width="177" height="200">
         <span>
           <span class="wordmark">LEGACY</span>
           <span class="wordmark-sub">Concierge Medicine</span>
@@ -192,7 +205,7 @@
   <div class="lcm-mobile" id="lcm-mobile" hidden>
     <div class="lcm-mobile-top">
       <a class="lcm-brand" href="/">
-        <img src="/assets/img/crest.png" alt="" width="177" height="200">
+        <img src="/assets/img/crest.webp" alt="" width="177" height="200">
         <span class="wordmark">LEGACY</span>
       </a>
       <button class="lcm-mobile-close" aria-label="Close menu">&times;</button>
@@ -237,7 +250,7 @@
           </div>
         </div>
         <div class="hero-media">
-          <img src="/assets/img/photo-11.jpg" alt="A physician holding a patient's hand during a home visit" width="1200" height="800" fetchpriority="high">
+          <img src="/assets/img/photo-11.webp" alt="A physician holding a patient's hand during a home visit" width="1200" height="800" fetchpriority="high">
         </div>
       </div>
     </section>
@@ -348,7 +361,7 @@
     <section class="section" id="service-areas">
       <div class="container split reveal">
         <div class="split-media">
-          <img src="/assets/img/hero-09.jpg" alt="A couple dancing together on the beach" width="1200" height="801" loading="lazy">
+          <img src="/assets/img/hero-09.webp" alt="A couple dancing together on the beach" width="1200" height="801" loading="lazy">
         </div>
         <div>
           <span class="eyebrow">Where we serve</span>
@@ -393,7 +406,7 @@
 
     <!-- CTA -->
   <section class="lcm-cta">
-    <img src="/assets/img/stamp.png" alt="" width="400" height="400" loading="lazy">
+    <img src="/assets/img/stamp.webp" alt="" width="400" height="400" loading="lazy">
     <div class="inner">
       <span class="eyebrow">Begin a medical relationship</span>
       <h2>Built for the long term.</h2>
@@ -411,7 +424,7 @@
     <div class="cols">
       <div class="brand-col">
         <div class="mark">
-          <img src="/assets/img/stamp.png" alt="Legacy Concierge Medicine" width="400" height="400" loading="lazy">
+          <img src="/assets/img/stamp.webp" alt="Legacy Concierge Medicine" width="400" height="400" loading="lazy">
           <span>
             <span class="wordmark">LEGACY</span>
             <span class="wordmark-sub">Concierge Medicine</span>
