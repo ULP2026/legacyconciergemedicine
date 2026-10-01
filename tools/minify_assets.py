@@ -5,7 +5,8 @@
 
 The readable files stay exactly where they are. This writes a `.min.css` or
 `.min.js` beside each one and rewrites every `<link>` and `<script>` in the HTML
-to load the minified copy, so nobody has to edit compressed CSS by hand.
+to load the minified copy, so nobody has to edit compressed CSS by hand. Pages
+in INLINE_CSS (the home page) get their stylesheets written into the page.
 
 **Re-run this after editing any file under assets/css or assets/js.** It records
 each source's hash in assets/.min-manifest.json, and tools/seo_audit.py fails if
@@ -36,6 +37,21 @@ AREAS = [
 
 # A reference to a source file, not already minified: /assets/css/style.css?v=1
 REFERENCE = re.compile(r'(/assets/(?:css|js)/[A-Za-z0-9_-]+)\.(css|js)\b')
+
+# Pages whose stylesheets are written into the page instead of linked. On a
+# phone each linked stylesheet costs a round trip before anything can paint;
+# the home page's three come to about 13 KB, so carrying them in the HTML is
+# cheaper. Re-running this script refreshes the inlined copy from the .min file.
+INLINE_CSS = [ROOT / 'index.html']
+LINKED = re.compile(r'<link rel="stylesheet" href="(/assets/css/[A-Za-z0-9_-]+\.min\.css)(?:\?v=[^"]*)?">')
+INLINED = re.compile(r'<style data-inline="(/assets/css/[A-Za-z0-9_-]+\.min\.css)">.*?</style>', re.S)
+
+
+def inline_css(text):
+    def body(path):
+        return (ROOT / path.lstrip('/')).read_text(encoding='utf-8').strip()
+    text = INLINED.sub(lambda m: f'<style data-inline="{m.group(1)}">{body(m.group(1))}</style>', text)
+    return LINKED.sub(lambda m: f'<style data-inline="{m.group(1)}">{body(m.group(1))}</style>', text)
 
 
 def sources(assets):
@@ -91,6 +107,8 @@ def main():
         for page in pages:
             text = page.read_text(encoding='utf-8')
             updated = REFERENCE.sub(r'\1.min.\2', text)
+            if page in INLINE_CSS:
+                updated = inline_css(updated)
             if updated != text:
                 page.write_text(updated, encoding='utf-8', newline='\n')
                 print(f'  {page.relative_to(ROOT).as_posix()}')
