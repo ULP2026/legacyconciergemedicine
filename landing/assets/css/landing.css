@@ -95,8 +95,10 @@ p { margin: 0; }
   display: flex; flex-direction: column; background: var(--ink); color: var(--cream);
 }
 .l-fold-media { position: absolute; inset: 0; }
-/* The canvas mirrors the hero video and lets it settle in from a slight zoom. */
-.l-fold-flip { position: absolute; inset: 0; transform: scale(-1, 1); animation: l-settle 2400ms var(--ease) both; }
+/* The canvas mirrors the hero video and lets it settle in from a slight zoom.
+   The layer runs 14% past the right edge, which moves the couple about 7% right
+   so they sit nearer the middle of the frame. .l-fold clips the overflow. */
+.l-fold-flip { position: absolute; inset: 0 -14% 0 0; transform: scale(-1, 1); animation: l-settle 2400ms var(--ease) both; }
 .l-fold-video {
   position: absolute; left: 0; right: 0; top: -4%; width: 100%; height: 108%; max-width: none;
   object-fit: cover; object-position: 68% 45%; will-change: transform;
@@ -175,21 +177,24 @@ p { margin: 0; }
 /* ---------- Consultation card (in the fold) ---------- */
 .l-survey {
   position: relative; width: 100%; max-width: 500px; justify-self: end;
-  border-radius: 16px; padding: 22px 22px 14px; scroll-margin-top: 24px;
+  border-radius: 16px; padding: 20px 18px 14px; scroll-margin-top: 24px;
+  --survey-bleed: 10px;
   background: linear-gradient(160deg, rgba(239,236,234,.16) 0%, rgba(239,236,234,.06) 55%, rgba(239,236,234,.04) 100%);
   border: 1px solid rgba(239, 236, 234, .16);
   -webkit-backdrop-filter: blur(18px) saturate(1.05); backdrop-filter: blur(18px) saturate(1.05);
   box-shadow: 0 30px 70px rgba(0, 0, 0, .45);
   animation: l-card 1100ms var(--ease) 500ms both;
 }
-.l-survey-copy { padding: 0 2px 14px; margin-bottom: 16px; border-bottom: 1px solid rgba(239, 236, 234, .12); }
+.l-survey-copy { padding: 0 2px 14px; margin-bottom: 6px; border-bottom: 1px solid rgba(239, 236, 234, .12); }
 .l-survey-copy .l-eyebrow { margin-bottom: 10px; font-size: 11.5px; }
 .l-survey-copy h2 {
   font-size: clamp(26px, 2.1vw, 29px); line-height: 1.1; letter-spacing: -.005em; color: var(--cream);
   margin: 0 0 6px; text-wrap: balance;
 }
 .l-survey-copy p { font-size: 14px; line-height: 1.55; color: rgba(239, 236, 234, .85); text-wrap: pretty; }
-.l-survey .frame { position: relative; }
+/* The survey brings its own side padding from CENTRO; the frame runs into the card's
+   padding by --survey-bleed so the fields line up closer to the heading. */
+.l-survey .frame { position: relative; margin: 0 calc(var(--survey-bleed) * -1); }
 /* form_embed.js sets the height inline as each survey step changes size. */
 .l-survey iframe { border: 0; width: 100%; min-height: 300px; display: block; background: transparent; }
 .l-survey-note {
@@ -329,7 +334,7 @@ p { margin: 0; }
   .l-fold-grid { padding: 28px 16px 64px; gap: 32px; }
   .l-fold-copy h1 { font-size: clamp(40px, 12vw, 50px); margin-bottom: 20px; }
   .l-fold-copy p { margin-bottom: 28px; }
-  .l-survey { padding: 18px 16px 12px; border-radius: 14px; justify-self: stretch; max-width: none; }
+  .l-survey { padding: 18px 14px 12px; border-radius: 14px; --survey-bleed: 8px; justify-self: stretch; max-width: none; }
   .l-survey-copy h2 { font-size: 25px; }
   .l-standard-head { position: static; }
   .l-pillar { grid-template-columns: 44px minmax(0, 1fr); gap: 16px; padding: 20px 18px; }
