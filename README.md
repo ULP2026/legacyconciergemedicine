@@ -74,39 +74,14 @@ the subdomain so the folder is never served twice.
 - Design export: `design/Legacy-Landing-standalone.html` (hand-ported like the main pages).
 - Its survey is a different GoHighLevel survey from the main site's: `MxddXb6dZcfb9dMe6Ruc`.
 - Every push rebuilds both projects; that is expected and harmless for static files.
-- The survey's own styling lives in GoHighLevel, not in this repo. On phones GHL switches to a
-  mobile layout that falls back to its default dark labels and a white "1 of 2" footer, which
-  are unreadable on the dark card. This CSS in the survey's **Styles → Custom CSS** box fixes it
-  (keep it there if the survey is ever rebuilt):
-
-  ```css
-  /* Legacy landing page: keep the survey readable on the dark card, phones included */
-  #_builder-form label,
-  #_builder-form label * { color: #FFFFFF !important; }
-  #_builder-form ::placeholder,
-  #_builder-form .multiselect__placeholder { color: rgba(239, 236, 234, .6) !important; }
-  .ghl-footer { background-color: #71140C !important; }
-  .ghl-footer-buttons,
-  .ghl-mobile-step-text { color: #EFECEA !important; }
-  .ghl-footer-next svg,
-  .ghl-footer-back svg { stroke: #EFECEA !important; }
-
-  /* Dropdown: dark list with white text on every option, maroon for the highlighted/selected one */
-  #_builder-form .multiselect__content-wrapper {
-    background-color: #2A2624 !important;
-    border-color: rgba(239, 236, 234, .25) !important;
-  }
-  #_builder-form .multiselect__option,
-  #_builder-form .multiselect__option * {
-    color: #FFFFFF !important;
-  }
-  #_builder-form .multiselect__option--highlight,
-  #_builder-form .multiselect__option--selected,
-  #_builder-form .multiselect__option:hover {
-    background-color: #71140C !important;
-    color: #FFFFFF !important;
-  }
-  ```
+- The survey's own styling lives in GoHighLevel (CENTRO, Legacy subaccount), not in this repo.
+  Its Custom CSS is kept at `design/ghl/landing-survey-custom.css`: paste the whole file into the
+  survey's **Styles -> Custom CSS** box, replacing what is there (and again if the survey is ever
+  rebuilt). It makes the form transparent and padding-free inside the landing page's card, with
+  compact spacing, small bold labels, dark rounded fields and a maroon button. It also keeps the
+  phone layout readable: on phones GHL switches to a mobile layout that otherwise falls back to
+  dark labels and a white "1 of 2" footer. It is visual only; questions, logic and the
+  connection are untouched. Edit the file here first, then paste, so the two stay in step.
 
 `landing/confirmation.html` (`/confirmation`) is where the landing survey sends people after
 they submit. `/thank-you` 308s to it, for anything still pointing at the old path. It is
