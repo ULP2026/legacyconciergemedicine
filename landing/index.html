@@ -27,9 +27,13 @@
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/assets/img/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="/assets/img/favicon.png">
+  <link rel="preconnect" href="https://api.leadconnectorhq.com">
+  <link rel="preconnect" href="https://stcdn.leadconnectorhq.com" crossorigin>
+  <link rel="preconnect" href="https://link.msgsndr.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="/assets/img/hero-poster.jpg" fetchpriority="high">
   <link rel="stylesheet" href="/assets/css/landing.min.css">
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -39,8 +43,10 @@
   <section class="l-fold" id="top">
     <div class="l-fold-media" aria-hidden="true">
       <div class="l-fold-flip">
-        <video class="l-fold-video" src="/assets/video/hero.mp4" poster="/assets/img/hero-poster.jpg"
-               autoplay loop muted playsinline preload="auto"></video>
+        <!-- landing.js sets src once the survey has loaded, so the video does not compete
+             with it for bandwidth; the poster shows until then. -->
+        <video class="l-fold-video" data-src="/assets/video/hero.mp4" poster="/assets/img/hero-poster.jpg"
+               autoplay loop muted playsinline preload="none"></video>
       </div>
       <div class="shade-side"></div>
       <div class="shade-down"></div>
@@ -83,6 +89,7 @@
           <p>Tell us how to reach you. Someone from the practice will call you personally, usually within one business day.</p>
         </div>
         <div class="frame">
+          <div class="l-survey-skeleton" aria-hidden="true"><i></i><i class="field"></i><i></i><i class="field"></i><i></i><i class="field tall"></i><i class="bar"></i></div>
           <iframe src="https://api.leadconnectorhq.com/widget/survey/MxddXb6dZcfb9dMe6Ruc"
                   id="MxddXb6dZcfb9dMe6Ruc" title="Request a private consultation"
                   scrolling="no" allowtransparency="true"></iframe>
