@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Legacy Concierge Medicine — landing page (landing.legacyconciergemedicine.com)
+   Legacy Concierge Medicine: landing page (landing.legacyconciergemedicine.com)
    Ported from the Legacy Landing Page design canvas (see /design at the repo
    root). Standalone: it shares nothing with the main site's stylesheets.
    ========================================================================== */
@@ -86,6 +86,8 @@ p { margin: 0; }
 .js [data-reveal].is-in { opacity: 1; transform: none; }
 
 @keyframes l-in { from { opacity: 0; transform: translate3d(0, 22px, 0); } to { opacity: 1; transform: none; } }
+@keyframes l-settle { from { transform: scale(-1.1, 1.1); } to { transform: scale(-1, 1); } }
+@keyframes l-card { from { opacity: 0; transform: translate3d(48px, 0, 0); filter: blur(10px); } to { opacity: 1; transform: none; filter: blur(0); } }
 
 /* ---------- Fold ---------- */
 .l-fold {
@@ -93,13 +95,15 @@ p { margin: 0; }
   display: flex; flex-direction: column; background: var(--ink); color: var(--cream);
 }
 .l-fold-media { position: absolute; inset: 0; }
+/* The canvas mirrors the hero video and lets it settle in from a slight zoom. */
+.l-fold-flip { position: absolute; inset: 0; transform: scale(-1, 1); animation: l-settle 2400ms var(--ease) both; }
 .l-fold-video {
   position: absolute; left: 0; right: 0; top: -4%; width: 100%; height: 108%; max-width: none;
   object-fit: cover; object-position: 68% 45%; will-change: transform;
 }
 .l-fold-media .shade-side {
   position: absolute; inset: 0;
-  background: linear-gradient(90deg, rgba(40,20,18,.86) 0%, rgba(40,20,18,.66) 34%, rgba(40,20,18,.22) 62%, rgba(40,20,18,.08) 100%);
+  background: linear-gradient(90deg, rgba(28,25,24,.78) 0%, rgba(28,25,24,.52) 42%, rgba(28,25,24,.48) 62%, rgba(28,25,24,.66) 100%);
 }
 .l-fold-media .shade-down {
   position: absolute; inset: 0;
@@ -134,50 +138,28 @@ p { margin: 0; }
 }
 .l-tel-pill:hover { background: rgba(239, 236, 234, .14); }
 
-.l-fold-copy {
+.l-fold-grid {
   position: relative; z-index: 2; flex: 1; width: 100%; max-width: 1240px; margin: 0 auto;
-  padding: clamp(48px, 8vh, 110px) var(--gutter) clamp(120px, 16vh, 180px);
-  display: flex; flex-direction: column; justify-content: center; will-change: transform, opacity;
+  padding: clamp(32px, 6vh, 72px) var(--gutter) clamp(72px, 10vh, 120px);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
+  gap: clamp(36px, 5vw, 80px); align-items: center;
 }
 .l-fold-copy h1 {
-  font-size: clamp(50px, 6.6vw, 98px); line-height: 1; letter-spacing: -.015em; color: var(--cream);
-  margin: 0 0 26px; max-width: 12ch; text-wrap: balance;
+  font-size: clamp(44px, 5.2vw, 78px); line-height: 1; letter-spacing: -.015em; color: var(--cream);
+  margin: 0 0 24px; max-width: 13ch; text-wrap: balance;
   animation: l-in 900ms var(--ease) 80ms both;
 }
 .l-fold-copy h1 em { font-style: italic; color: var(--maroon-100); }
 .l-fold-copy p {
   font-size: clamp(16px, 1.2vw, 18px); line-height: 1.65; color: rgba(239, 236, 234, .9);
-  max-width: 520px; margin: 0 0 36px; text-wrap: pretty;
+  max-width: 500px; margin: 0 0 32px; text-wrap: pretty;
   animation: l-in 900ms var(--ease) 260ms both;
 }
-.l-fold-cta { display: flex; align-items: center; gap: 26px; flex-wrap: wrap; animation: l-in 900ms var(--ease) 420ms both; }
+.l-fold-cta {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 24px;
+  animation: l-in 900ms var(--ease) 420ms both;
+}
 
-/* ---------- Consultation ---------- */
-.l-consult {
-  position: relative; z-index: 1; overflow: hidden; background: var(--ink); color: var(--cream);
-  padding: clamp(24px, 4vw, 64px) var(--gutter) clamp(88px, 10vw, 130px);
-}
-.l-consult .stamp {
-  position: absolute; right: -180px; top: -120px; width: auto; height: 620px; max-width: none;
-  opacity: .06; filter: brightness(0) invert(1); pointer-events: none;
-}
-.l-consult .glow {
-  position: absolute; left: -10%; top: 10%; width: 60%; height: 70%; border-radius: 50%; pointer-events: none;
-  background: radial-gradient(closest-side, rgba(239,236,234,.06), rgba(239,236,234,0));
-}
-.l-consult-grid {
-  position: relative; max-width: 1240px; margin: 0 auto; display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
-  gap: clamp(36px, 5vw, 88px); align-items: center;
-}
-.l-consult h2 {
-  font-size: clamp(36px, 3.8vw, 56px); line-height: 1.05; letter-spacing: -.01em; color: var(--cream);
-  margin: 0 0 20px; text-wrap: balance;
-}
-.l-consult .lead {
-  font-size: 17px; line-height: 1.65; color: rgba(239, 236, 234, .88);
-  margin: 0 0 32px; max-width: 440px; text-wrap: pretty;
-}
 .l-speak { display: flex; align-items: center; gap: 14px; }
 .l-speak img {
   width: 48px; height: 48px; border-radius: 50%; object-fit: cover; object-position: center 20%;
@@ -190,15 +172,32 @@ p { margin: 0; }
 }
 .l-speak a:hover { background: rgba(239, 236, 234, .14); }
 
+/* ---------- Consultation card (in the fold) ---------- */
 .l-survey {
-  position: relative; border-radius: 20px; padding: clamp(18px, 2vw, 26px);
-  background: linear-gradient(160deg, rgba(239,236,234,.12) 0%, rgba(239,236,234,.05) 100%);
-  -webkit-backdrop-filter: blur(18px) saturate(1.1); backdrop-filter: blur(18px) saturate(1.1);
-  box-shadow: 0 40px 90px rgba(0, 0, 0, .5);
+  position: relative; width: 100%; max-width: 500px; justify-self: end;
+  border-radius: 18px; padding: 28px 30px 20px; scroll-margin-top: 24px;
+  background: linear-gradient(160deg, rgba(239,236,234,.16) 0%, rgba(239,236,234,.06) 55%, rgba(239,236,234,.04) 100%);
+  border: 1px solid rgba(239, 236, 234, .16);
+  -webkit-backdrop-filter: blur(18px) saturate(1.05); backdrop-filter: blur(18px) saturate(1.05);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, .45);
+  animation: l-card 1100ms var(--ease) 500ms both;
 }
-.l-survey .frame { position: relative; min-height: 560px; }
+.l-survey-copy { padding-bottom: 6px; }
+.l-survey-copy .l-eyebrow { margin-bottom: 16px; }
+.l-survey-copy h2 {
+  font-size: clamp(28px, 2.3vw, 32px); line-height: 1.1; letter-spacing: -.005em; color: var(--cream);
+  margin: 0 0 10px; text-wrap: balance;
+}
+.l-survey-copy p { font-size: 14.5px; line-height: 1.6; color: rgba(239, 236, 234, .85); text-wrap: pretty; }
+.l-survey .frame { position: relative; }
 /* form_embed.js sets the height inline as each survey step changes size. */
-.l-survey iframe { border: 0; width: 100%; min-height: 560px; display: block; background: transparent; }
+.l-survey iframe { border: 0; width: 100%; min-height: 340px; display: block; background: transparent; }
+.l-survey-note {
+  display: flex; align-items: center; gap: 12px; margin-top: 18px; padding-top: 18px;
+  border-top: 1px solid rgba(239, 236, 234, .14);
+  font-size: 13px; line-height: 1.5; color: rgba(239, 236, 234, .8);
+}
+.l-survey-note svg { flex: none; color: var(--maroon-300); }
 
 /* ---------- Story ---------- */
 .l-story { background: var(--cream); padding: clamp(80px, 9vw, 130px) var(--gutter); }
@@ -321,8 +320,27 @@ p { margin: 0; }
   font-size: 12px; line-height: 1.6; color: rgba(239, 236, 234, .5);
 }
 
+/* ---------- Phones ---------- */
+@media (max-width: 720px) {
+  .l-announce { padding: 10px 16px; font-size: 12.5px; }
+  .l-announce span { display: block; }
+  .l-announce a { display: inline-block; margin: 6px 0 0; }
+  .l-header { padding: 14px 20px; }
+  .l-fold-grid { padding: 28px 16px 64px; gap: 32px; }
+  .l-fold-copy h1 { font-size: clamp(40px, 12vw, 50px); margin-bottom: 20px; }
+  .l-fold-copy p { margin-bottom: 28px; }
+  .l-survey { padding: 22px 18px 16px; border-radius: 16px; justify-self: stretch; max-width: none; }
+  .l-survey-copy h2 { font-size: 28px; }
+  .l-standard-head { position: static; }
+  .l-pillar { grid-template-columns: 44px minmax(0, 1fr); gap: 16px; padding: 20px 18px; }
+  .l-pillar .icon { width: 44px; height: 44px; }
+  .l-pillar h3 { font-size: 22px; }
+  .l-closing-side { justify-self: start; }
+  .l-story, .l-standard, .l-closing, .l-footer { padding-left: 20px; padding-right: 20px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .js [data-reveal] { opacity: 1; transform: none; transition: none; }
-  .l-fold-copy h1, .l-fold-copy p, .l-fold-cta { animation: none; }
+  .l-fold-copy h1, .l-fold-copy p, .l-fold-cta, .l-fold-flip, .l-survey { animation: none; }
 }

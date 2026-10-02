@@ -1,7 +1,6 @@
-/* Legacy Concierge Medicine — landing page behaviour
-   Ported from the landing canvas: the fold copy fades up as the consultation
-   band arrives, the hero video and closing photo drift for parallax, and
-   [data-reveal] blocks fade in as they scroll into view. */
+/* Legacy Concierge Medicine: landing page behaviour
+   Ported from the landing canvas: the hero video and closing photo drift for
+   parallax, and [data-reveal] blocks fade in as they scroll into view. */
 (function () {
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -41,8 +40,6 @@
 
   if (reduced) { return; }
 
-  var foldCopy = document.querySelector('.l-fold-copy');
-  var band = document.querySelector('.l-consult');
   var closing = document.querySelector('.l-closing');
   var closingImg = document.querySelector('.l-closing-img');
   var queued = false;
@@ -50,14 +47,6 @@
   var frame = function () {
     queued = false;
     var vh = window.innerHeight;
-
-    if (foldCopy && band) {
-      var top = band.getBoundingClientRect().top;
-      var p = Math.max(0, Math.min(1, 1 - (top - vh * 0.15) / (vh * 0.85)));
-      var e = p * p * (3 - 2 * p);
-      foldCopy.style.opacity = String(1 - e * 0.9);
-      foldCopy.style.transform = 'translate3d(0, ' + (-e * 40).toFixed(1) + 'px, 0)';
-    }
 
     if (video) {
       var y = Math.min(window.scrollY, vh);

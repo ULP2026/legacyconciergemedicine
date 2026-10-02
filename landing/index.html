@@ -38,8 +38,10 @@
   <!-- ============================ FOLD ============================ -->
   <section class="l-fold" id="top">
     <div class="l-fold-media" aria-hidden="true">
-      <video class="l-fold-video" src="/assets/video/hero.mp4" poster="/assets/img/hero-poster.jpg"
-             autoplay loop muted playsinline preload="auto"></video>
+      <div class="l-fold-flip">
+        <video class="l-fold-video" src="/assets/video/hero.mp4" poster="/assets/img/hero-poster.jpg"
+               autoplay loop muted playsinline preload="auto"></video>
+      </div>
       <div class="shade-side"></div>
       <div class="shade-down"></div>
       <div class="shade-foot"></div>
@@ -61,40 +63,39 @@
       <a class="l-tel-pill" href="tel:+19414011001">941.401.1001</a>
     </header>
 
-    <div class="l-fold-copy">
-      <h1>Someone should know your parents <em>as well as you do.</em></h1>
-      <p>Private, physician-led care that comes to your parent's home in Sarasota and Manatee County. Unrushed visits, direct access, and one relationship that holds the whole picture.</p>
-      <div class="l-fold-cta">
-        <a class="l-btn l-btn-lg" href="#consultation">Request a private consultation</a>
-      </div>
-    </div>
-  </section>
-
-  <main>
-
-    <!-- ======================== CONSULTATION ======================== -->
-    <section class="l-consult" id="consultation">
-      <img class="stamp" src="/assets/img/stamp.png" alt="" width="400" height="400" aria-hidden="true">
-      <div class="glow" aria-hidden="true"></div>
-      <div class="l-consult-grid">
-        <div data-reveal="0">
-          <span class="l-eyebrow on-dark">Request a private consultation</span>
-          <h2>Start with a conversation.</h2>
-          <p class="lead">Tell us how to reach you. Someone from the practice will call you personally, usually within one business day. Nothing to sign, nothing to prepare.</p>
+    <div class="l-fold-grid">
+      <div class="l-fold-copy">
+        <h1>Someone should know your parents <em>as well as you do.</em></h1>
+        <p>Private, physician-led care that comes to your parent's home in Sarasota and Manatee County. Unrushed visits, direct access, and one relationship that holds the whole picture.</p>
+        <div class="l-fold-cta">
+          <a class="l-btn l-btn-lg" href="#consultation">Request a private consultation</a>
           <div class="l-speak">
             <img src="/assets/img/dr-chapman.jpg" alt="" width="1200" height="1800">
             <div>Prefer to speak now?<br><a href="tel:+19414011001">941.401.1001</a></div>
           </div>
         </div>
-        <div class="l-survey" data-reveal="1">
-          <div class="frame">
-            <iframe src="https://api.leadconnectorhq.com/widget/survey/MxddXb6dZcfb9dMe6Ruc"
-                    id="MxddXb6dZcfb9dMe6Ruc" title="Request a private consultation"
-                    scrolling="no" allowtransparency="true"></iframe>
-          </div>
+      </div>
+
+      <div class="l-survey" id="consultation">
+        <div class="l-survey-copy">
+          <span class="l-eyebrow on-dark">Request a private consultation</span>
+          <h2>Start with a conversation.</h2>
+          <p>Tell us how to reach you. Someone from the practice will call you personally, usually within one business day.</p>
+        </div>
+        <div class="frame">
+          <iframe src="https://api.leadconnectorhq.com/widget/survey/MxddXb6dZcfb9dMe6Ruc"
+                  id="MxddXb6dZcfb9dMe6Ruc" title="Request a private consultation"
+                  scrolling="no" allowtransparency="true"></iframe>
+        </div>
+        <div class="l-survey-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+          <span>Private and confidential. No obligation, nothing to prepare.</span>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
+
+  <main>
 
     <!-- ========================== STORY ========================== -->
     <section class="l-story" id="story">
