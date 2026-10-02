@@ -38,6 +38,36 @@
     window.gtag('event', href.indexOf('tel:') === 0 ? 'phone_click' : 'email_click', { link_url: href });
   });
 
+  /* Keep the whole survey card inside the fold on desktop. When the window is too
+     short for it, the card is zoomed down (never below 80%) instead of scrolling.
+     Re-fits whenever form_embed.js resizes the survey for a new step. */
+  var card = document.querySelector('.l-survey');
+  var grid = document.querySelector('.l-fold-grid');
+  var wide = window.matchMedia('(min-width: 960px)');
+  if (card && grid && 'zoom' in card.style) {
+    var fitting = false;
+    var fit = function () {
+      if (fitting) { return; }
+      fitting = true;
+      card.style.zoom = '';
+      if (wide.matches) {
+        var cs = window.getComputedStyle(grid);
+        var top = grid.getBoundingClientRect().top + window.scrollY;
+        var room = window.innerHeight - top - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+        var need = card.offsetHeight;
+        if (need > room) { card.style.zoom = String(Math.max(0.8, room / need).toFixed(3)); }
+      }
+      fitting = false;
+    };
+    if ('ResizeObserver' in window) {
+      var frameEl = card.querySelector('iframe');
+      if (frameEl) { new ResizeObserver(fit).observe(frameEl); }
+    }
+    window.addEventListener('resize', fit, { passive: true });
+    if (wide.addEventListener) { wide.addEventListener('change', fit); }
+    fit();
+  }
+
   if (reduced) { return; }
 
   var closing = document.querySelector('.l-closing');
