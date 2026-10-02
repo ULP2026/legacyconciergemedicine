@@ -87,7 +87,6 @@ p { margin: 0; }
 
 @keyframes l-in { from { opacity: 0; transform: translate3d(0, 22px, 0); } to { opacity: 1; transform: none; } }
 @keyframes l-settle { from { transform: scale(-1.1, 1.1); } to { transform: scale(-1, 1); } }
-@keyframes l-card { from { opacity: 0; transform: translate3d(48px, 0, 0); filter: blur(10px); } to { opacity: 1; transform: none; filter: blur(0); } }
 
 /* ---------- Fold ---------- */
 .l-fold {
@@ -178,12 +177,11 @@ p { margin: 0; }
 .l-survey {
   position: relative; width: 100%; max-width: 500px; justify-self: end;
   border-radius: 16px; padding: 18px 18px 12px; scroll-margin-top: 16px;
-  --survey-bleed: 24px; --survey-trim-top: 44px; --survey-trim-bottom: 18px;
+  --survey-bleed: 24px; --survey-trim-top: 0px; --survey-trim-bottom: 0px;
   background: linear-gradient(160deg, rgba(239,236,234,.16) 0%, rgba(239,236,234,.06) 55%, rgba(239,236,234,.04) 100%);
   border: 1px solid rgba(239, 236, 234, .16);
   -webkit-backdrop-filter: blur(18px) saturate(1.05); backdrop-filter: blur(18px) saturate(1.05);
   box-shadow: 0 30px 70px rgba(0, 0, 0, .45);
-  animation: l-card 1100ms var(--ease) 500ms both;
 }
 .l-survey-copy { padding: 0 2px 12px; margin-bottom: 0; border-bottom: 1px solid rgba(239, 236, 234, .12); }
 .l-survey-copy .l-eyebrow { margin-bottom: 8px; font-size: 11.5px; }
@@ -194,15 +192,40 @@ p { margin: 0; }
 .l-survey-copy p { font-size: 14px; line-height: 1.55; color: rgba(239, 236, 234, .85); text-wrap: pretty; }
 /* The CENTRO survey brings its own padding (about 40px a side, 75px above the first
    question). The survey itself stays as built there, so the card absorbs it instead:
-   the frame runs into the card's side padding by --survey-bleed, and clips the empty
-   band above the first question and below the step button. */
+   the frame runs into the card's side padding by --survey-bleed. --survey-trim-top and
+   --survey-trim-bottom can clip its empty bands, but stay at 0: 44px cut off the first
+   question on the live survey. */
 .l-survey .frame {
   position: relative; overflow: hidden;
   margin: 0 calc(var(--survey-bleed) * -1);
 }
 .l-survey .frame iframe { margin: calc(var(--survey-trim-top) * -1) 0 calc(var(--survey-trim-bottom) * -1); }
 /* form_embed.js sets the height inline as each survey step changes size. */
-.l-survey iframe { border: 0; width: 100%; min-height: 280px; display: block; background: transparent; }
+.l-survey iframe {
+  position: relative; z-index: 1; border: 0; width: 100%; min-height: 280px; display: block; background: transparent;
+}
+/* Start at about the survey's real first-step height so the card does not jump when it
+   arrives; form_embed.js then sets the exact height. */
+.js .l-survey iframe { height: 560px;
+}
+/* Shown in the card while the survey loads from CENTRO, so it never sits empty;
+   hidden once the survey has loaded. Without JS there is nothing to hide it, so no skeleton. */
+.l-survey-skeleton { display: none; }
+.js .l-survey-skeleton {
+  display: grid; align-content: start; gap: 0;
+  position: absolute; inset: 0; z-index: 0; padding: 66px calc(var(--survey-bleed) + 16px) 0;
+  pointer-events: none;
+}
+.l-survey-skeleton i {
+  display: block; height: 12px; width: 42%; border-radius: 6px; background: rgba(239, 236, 234, .16);
+  animation: l-pulse 1400ms ease-in-out infinite;
+}
+.l-survey-skeleton i.field { height: 1px; width: 100%; margin: 46px 0 40px; border-radius: 0; background: rgba(239, 236, 234, .32); animation: none; }
+.l-survey-skeleton i.tall { margin-top: 100px; }
+.l-survey-skeleton i.bar { height: 48px; width: auto; margin: 32px -18px 0; border-radius: 2px; background: rgba(113, 20, 12, .7); }
+/* Gone the instant the survey arrives, so the two never overlap. */
+.l-survey .frame.is-ready .l-survey-skeleton { display: none; }
+@keyframes l-pulse { 50% { opacity: .55; } }
 .l-survey-note {
   display: flex; align-items: center; gap: 10px; margin-top: 2px; padding: 10px 2px 0;
   border-top: 1px solid rgba(239, 236, 234, .14);
@@ -331,6 +354,17 @@ p { margin: 0; }
   font-size: 12px; line-height: 1.6; color: rgba(239, 236, 234, .5);
 }
 
+/* ---------- Short desktop windows (laptops) ----------
+   Room for the whole survey: the card keeps its eyebrow and heading but drops the
+   intro line and the privacy note, and the header and fold padding tighten. */
+@media (min-width: 960px) and (max-height: 820px) {
+  .l-header { padding-top: 14px; padding-bottom: 14px; }
+  .l-fold-grid { padding-top: 8px; padding-bottom: 20px; }
+  .l-survey { padding-top: 14px; }
+  .l-survey-copy { padding-bottom: 10px; }
+  .l-survey-copy p, .l-survey-note { display: none; }
+}
+
 /* ---------- Phones ---------- */
 @media (max-width: 720px) {
   .l-announce { padding: 10px 16px; font-size: 12.5px; }
@@ -353,5 +387,5 @@ p { margin: 0; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .js [data-reveal] { opacity: 1; transform: none; transition: none; }
-  .l-fold-copy h1, .l-fold-copy p, .l-fold-cta, .l-fold-flip, .l-survey { animation: none; }
+  .l-fold-copy h1, .l-fold-copy p, .l-fold-cta, .l-fold-flip, .l-survey-skeleton i { animation: none; }
 }

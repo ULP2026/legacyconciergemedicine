@@ -4,14 +4,38 @@
 (function () {
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Keep the hero video playing silently (some browsers need the nudge). */
+  /* The survey comes first. Its placeholder fades once CENTRO has answered (the frame's
+     load event or its first message, whichever comes first, with a 4s fallback), and
+     only then does the 6.6 MB hero video start downloading. The poster covers the wait. */
   var video = document.querySelector('.l-fold-video');
-  if (video) {
+  var startVideo = function () {
+    if (!video || video.getAttribute('src')) { return; }
     video.muted = true;
     video.defaultMuted = true;
     video.volume = 0;
+    video.preload = 'auto';
+    video.src = video.getAttribute('data-src');
     var playing = video.play();
     if (playing && playing.catch) { playing.catch(function () {}); }
+  };
+
+  var surveyFrame = document.querySelector('.l-survey .frame');
+  var surveyIframe = surveyFrame && surveyFrame.querySelector('iframe');
+  var surveyDone = false;
+  var surveyReady = function () {
+    if (surveyDone) { return; }
+    surveyDone = true;
+    if (surveyFrame) { surveyFrame.classList.add('is-ready'); }
+    startVideo();
+  };
+  if (surveyIframe) {
+    surveyIframe.addEventListener('load', surveyReady);
+    window.addEventListener('message', function (e) {
+      if (/leadconnectorhq\.com$|msgsndr\.com$/.test(String(e.origin))) { surveyReady(); }
+    });
+    window.setTimeout(surveyReady, 4000);
+  } else {
+    startVideo();
   }
 
   /* Reveal on scroll */
@@ -39,7 +63,7 @@
   });
 
   /* Keep the whole survey card inside the fold on desktop. When the window is too
-     short for it, the card is zoomed down (never below 80%) instead of scrolling.
+     short for it, the card is zoomed down (never below 75%) instead of scrolling.
      Re-fits whenever form_embed.js resizes the survey for a new step. */
   var card = document.querySelector('.l-survey');
   var grid = document.querySelector('.l-fold-grid');
@@ -55,7 +79,7 @@
         var top = grid.getBoundingClientRect().top + window.scrollY;
         var room = window.innerHeight - top - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
         var need = card.offsetHeight;
-        if (need > room) { card.style.zoom = String(Math.max(0.8, room / need).toFixed(3)); }
+        if (need > room) { card.style.zoom = String(Math.max(0.75, room / need).toFixed(3)); }
       }
       fitting = false;
     };
