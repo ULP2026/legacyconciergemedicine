@@ -57,20 +57,54 @@ META_DESCRIPTIONS = {
     'bradenton-beach-cortez': ('In-home concierge care for Bradenton Beach and the historic fishing '
                                'village of Cortez, two close-knit waterfront communities where '
                                'personal medicine belongs.'),
-    'lakewood-ranch': ('In-home concierge medicine for Lakewood Ranch, a top master-planned '
-                       'community where active families and retirees expect a higher standard of care.'),
+    'lakewood-ranch': ('A concierge doctor for Lakewood Ranch: in-home primary care for the active '
+                       'families and retirees of a master-planned community that expects more.'),
     'myakka-city': ('In-home concierge primary care for Myakka City, the rural heart of eastern '
                     'Manatee County, where distance from town makes a visiting physician meaningful.'),
     'parrish': ('In-home concierge primary care for Parrish, one of Manatee County\'s fastest-growing '
                 'communities, where neighborhoods rise faster than local care can keep up.'),
-    'sarasota': ('Relationship-based, in-home primary care for the neighborhoods, keys, and downtown '
-                 'enclaves that make Sarasota one of the Gulf Coast\'s finest places to live.'),
+    'sarasota': ('A concierge doctor in Sarasota who comes to you: relationship-based, in-home '
+                 'primary care for the neighborhoods, keys, and downtown enclaves.'),
+    'bradenton': ('Concierge primary care across Bradenton, from the Riverwalk to the historic west '
+                  'side, with a family medicine physician who comes to your home.'),
+    'longboat-key': ('A concierge doctor on Longboat Key: private, in-home medicine for an island '
+                     'with one road and limited on-island care, so your physician comes to you.'),
+}
+
+
+# One question per money page, added after the canvas FAQs, for searches
+# Semrush tracks that the canvas copy never names (primary care physician,
+# family doctor, a doctor on Longboat Key). Answers stay within what the
+# practice has confirmed: Dr. Chapman is board-certified in family medicine,
+# care is at home, members have direct access.
+EXTRA_FAQ = {
+    'longboat-key': [[
+        'Is there a doctor on Longboat Key who makes house calls?',
+        'Yes. Legacy brings a concierge doctor to your home on Longboat Key, so routine visits, '
+        'follow-ups, and care planning happen on the island instead of across the bridges. '
+        'Virtual visits are available when they serve you better.']],
+    'lakewood-ranch': [[
+        'Do you provide primary care in Lakewood Ranch?',
+        'Yes. Legacy is a concierge primary care practice serving Lakewood Ranch. Your concierge '
+        'doctor sees you at home for routine care, prevention, and the ongoing management of '
+        'chronic conditions, with direct access between visits.']],
+    'bradenton': [[
+        'Can Legacy be my family doctor in Bradenton?',
+        'Yes. Dr. Pamela Chapman, DO, is board-certified in family medicine, and Legacy provides '
+        'concierge primary care for adults and families across Bradenton. Instead of a waiting '
+        'room, your primary care physician comes to you at home.']],
+    'sarasota': [[
+        'Can Legacy be my primary care physician in Sarasota?',
+        'Yes. Legacy provides concierge primary care across Sarasota, led by Dr. Pamela Chapman, '
+        'DO, a board-certified family medicine physician. Members have unhurried visits at home, '
+        'direct access to their concierge doctor, and care that continues over years.']],
 }
 
 
 def city_title(d):
     """Lead with the city, because that is the word someone searches on."""
     options = [f"Concierge Doctor in {d['name']}, FL | Legacy Concierge Medicine",
+               f"Concierge Doctor in {d['name']}, FL | Legacy",
                f"{d['name']} Concierge Care | Legacy Concierge Medicine",
                f"{d['name']} | Legacy Concierge Medicine"]
     return next((o for o in options if len(o) <= TITLE_MAX), options[-1])
@@ -225,6 +259,7 @@ def extract_city(path, library):
     cta = root.find('dc-import', attrs={'name': 'CtaBand'})
     d['cta'] = {k: cta[k] for k in ('eyebrow', 'title', 'body')}
     d['slug'] = url_slug(d['canvas_slug'])
+    d['faq'] += EXTRA_FAQ.get(d['slug'], [])
     return d
 
 
