@@ -106,6 +106,9 @@ body { background: var(--neutral-100); }
 .h-hero-inner { position: relative; width: 100%; padding: clamp(88px, 12vh, 128px) clamp(24px, 5vw, 56px) 120px; }
 .h-hero-copy { max-width: 820px; margin: 0 auto; text-align: center; will-change: transform, opacity; }
 .h-hero-copy .h-eyebrow { color: rgba(239, 236, 234, .82); margin-bottom: 26px; }
+/* The eyebrow sits inside the h1 so the heading names the service and city;
+   it keeps the eyebrow's own type rather than the headline's. */
+.h-hero-copy h1 .h-eyebrow { font-family: var(--sans); line-height: normal; }
 .h-hero-copy h1 {
   font-family: var(--serif); font-weight: 300;
   font-size: clamp(2.6rem, 6vw, 4.75rem); line-height: 1.02; letter-spacing: -.015em;
@@ -560,6 +563,7 @@ body { background: var(--neutral-100); }
 .h-faq details[open] summary::after { transform: rotate(45deg); }
 .h-faq .answer { padding: 0 4px 26px; max-width: 680px; font-size: .97rem; line-height: 1.75; color: var(--neutral-500); }
 .h-faq .answer p { margin: 0; }
+.h-faq .answer a { color: var(--maroon-700); text-decoration: underline; text-underline-offset: 3px; }
 .h-faq .more { text-align: center; margin-top: clamp(36px, 4vw, 44px); }
 .h-faq .more .h-btn { border-color: var(--neutral-500); color: var(--neutral-900); font-weight: 500; }
 .h-faq .more .h-btn:hover { border-color: var(--maroon-700); color: var(--maroon-700); }
