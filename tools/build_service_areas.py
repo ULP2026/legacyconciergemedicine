@@ -65,8 +65,8 @@ META_DESCRIPTIONS = {
                 'communities, where neighborhoods rise faster than local care can keep up.'),
     'sarasota': ('A concierge doctor in Sarasota who comes to you: relationship-based, in-home '
                  'primary care for the neighborhoods, keys, and downtown enclaves.'),
-    'bradenton': ('Concierge primary care across Bradenton, from the Riverwalk to the historic west '
-                  'side, with a family medicine physician who comes to your home.'),
+    'bradenton': ('Legacy Concierge Medicine brings concierge primary care across Bradenton, from the '
+                  'Riverwalk to the west side, with a physician who comes to your home.'),
     'longboat-key': ('A concierge doctor on Longboat Key: private, in-home medicine for an island '
                      'with one road and limited on-island care, so your physician comes to you.'),
 }
@@ -80,14 +80,16 @@ META_DESCRIPTIONS = {
 EXTRA_FAQ = {
     'longboat-key': [[
         'Is there a doctor on Longboat Key who makes house calls?',
-        'Yes. Legacy brings a concierge doctor to your home on Longboat Key, so routine visits, '
-        'follow-ups, and care planning happen on the island instead of across the bridges. '
-        'Virtual visits are available when they serve you better.']],
+        'Yes. With Legacy, your concierge doctor on Longboat Key comes to your home, so routine '
+        'visits, follow-ups, and care planning happen on the island instead of across the bridges. '
+        'Virtual visits are available when they serve you better, and the medical care stays '
+        'personal and unhurried, which is real peace of mind.']],
     'lakewood-ranch': [[
         'Do you provide primary care in Lakewood Ranch?',
-        'Yes. Legacy is a concierge primary care practice serving Lakewood Ranch. Your concierge '
-        'doctor sees you at home for routine care, prevention, and the ongoing management of '
-        'chronic conditions, with direct access between visits.']],
+        'Yes. Legacy is a concierge primary care practice, and your concierge doctor in Lakewood '
+        'Ranch sees you at home for routine care, prevention, and the ongoing management of chronic '
+        'conditions. In-person consultations with a board-certified family medicine physician, and '
+        'direct access between visits, give members real peace of mind.']],
     'bradenton': [[
         'Can Legacy be my family doctor in Bradenton?',
         'Yes. Dr. Pamela Chapman, DO, is board-certified in family medicine, and Legacy provides '
@@ -96,8 +98,17 @@ EXTRA_FAQ = {
     'sarasota': [[
         'Can Legacy be my primary care physician in Sarasota?',
         'Yes. Legacy provides concierge primary care across Sarasota, led by Dr. Pamela Chapman, '
-        'DO, a board-certified family medicine physician. Members have unhurried visits at home, '
-        'direct access to their concierge doctor, and care that continues over years.']],
+        'DO, a board-certified family medicine physician. Unlike many Sarasota concierge doctors, '
+        'we keep the number of patients deliberately small, so there is time for personalized care, '
+        'prevention, and chronic conditions. Members have unhurried visits at home, direct access '
+        'to their concierge doctor, and care that continues over years.']],
+}
+
+# Headings the canvas wrote as "Concierge Medicine in <town>". Where Semrush
+# shows the town's searches use "doctor", the h1 says so; one word changes.
+H1_OVERRIDES = {
+    'sarasota': 'Concierge Doctor in Sarasota, Florida',
+    'longboat-key': 'Concierge Doctor in Longboat Key, Florida',
 }
 
 
@@ -260,6 +271,7 @@ def extract_city(path, library):
     d['cta'] = {k: cta[k] for k in ('eyebrow', 'title', 'body')}
     d['slug'] = url_slug(d['canvas_slug'])
     d['faq'] += EXTRA_FAQ.get(d['slug'], [])
+    d['h1'] = H1_OVERRIDES.get(d['slug'], d['h1'])
     return d
 
 
