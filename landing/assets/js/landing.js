@@ -1,18 +1,41 @@
-/* Legacy Concierge Medicine — landing page behaviour
-   Ported from the landing canvas: the fold copy fades up as the consultation
-   band arrives, the hero video and closing photo drift for parallax, and
-   [data-reveal] blocks fade in as they scroll into view. */
+/* Legacy Concierge Medicine: landing page behaviour
+   Ported from the landing canvas: the hero video and closing photo drift for
+   parallax, and [data-reveal] blocks fade in as they scroll into view. */
 (function () {
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Keep the hero video playing silently (some browsers need the nudge). */
+  /* The survey comes first. Its placeholder fades once CENTRO has answered (the frame's
+     load event or its first message, whichever comes first, with a 4s fallback), and
+     only then does the 6.6 MB hero video start downloading. The poster covers the wait. */
   var video = document.querySelector('.l-fold-video');
-  if (video) {
+  var startVideo = function () {
+    if (!video || video.getAttribute('src')) { return; }
     video.muted = true;
     video.defaultMuted = true;
     video.volume = 0;
+    video.preload = 'auto';
+    video.src = video.getAttribute('data-src');
     var playing = video.play();
     if (playing && playing.catch) { playing.catch(function () {}); }
+  };
+
+  var surveyFrame = document.querySelector('.l-survey .frame');
+  var surveyIframe = surveyFrame && surveyFrame.querySelector('iframe');
+  var surveyDone = false;
+  var surveyReady = function () {
+    if (surveyDone) { return; }
+    surveyDone = true;
+    if (surveyFrame) { surveyFrame.classList.add('is-ready'); }
+    startVideo();
+  };
+  if (surveyIframe) {
+    surveyIframe.addEventListener('load', surveyReady);
+    window.addEventListener('message', function (e) {
+      if (/leadconnectorhq\.com$|msgsndr\.com$/.test(String(e.origin))) { surveyReady(); }
+    });
+    window.setTimeout(surveyReady, 4000);
+  } else {
+    startVideo();
   }
 
   /* Reveal on scroll */
@@ -39,10 +62,38 @@
     window.gtag('event', href.indexOf('tel:') === 0 ? 'phone_click' : 'email_click', { link_url: href });
   });
 
+  /* Keep the whole survey card inside the fold on desktop. When the window is too
+     short for it, the card is zoomed down (never below 75%) instead of scrolling.
+     Re-fits whenever form_embed.js resizes the survey for a new step. */
+  var card = document.querySelector('.l-survey');
+  var grid = document.querySelector('.l-fold-grid');
+  var wide = window.matchMedia('(min-width: 960px)');
+  if (card && grid && 'zoom' in card.style) {
+    var fitting = false;
+    var fit = function () {
+      if (fitting) { return; }
+      fitting = true;
+      card.style.zoom = '';
+      if (wide.matches) {
+        var cs = window.getComputedStyle(grid);
+        var top = grid.getBoundingClientRect().top + window.scrollY;
+        var room = window.innerHeight - top - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+        var need = card.offsetHeight;
+        if (need > room) { card.style.zoom = String(Math.max(0.75, room / need).toFixed(3)); }
+      }
+      fitting = false;
+    };
+    if ('ResizeObserver' in window) {
+      var frameEl = card.querySelector('iframe');
+      if (frameEl) { new ResizeObserver(fit).observe(frameEl); }
+    }
+    window.addEventListener('resize', fit, { passive: true });
+    if (wide.addEventListener) { wide.addEventListener('change', fit); }
+    fit();
+  }
+
   if (reduced) { return; }
 
-  var foldCopy = document.querySelector('.l-fold-copy');
-  var band = document.querySelector('.l-consult');
   var closing = document.querySelector('.l-closing');
   var closingImg = document.querySelector('.l-closing-img');
   var queued = false;
@@ -50,14 +101,6 @@
   var frame = function () {
     queued = false;
     var vh = window.innerHeight;
-
-    if (foldCopy && band) {
-      var top = band.getBoundingClientRect().top;
-      var p = Math.max(0, Math.min(1, 1 - (top - vh * 0.15) / (vh * 0.85)));
-      var e = p * p * (3 - 2 * p);
-      foldCopy.style.opacity = String(1 - e * 0.9);
-      foldCopy.style.transform = 'translate3d(0, ' + (-e * 40).toFixed(1) + 'px, 0)';
-    }
 
     if (video) {
       var y = Math.min(window.scrollY, vh);
