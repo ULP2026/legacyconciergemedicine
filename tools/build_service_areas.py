@@ -109,11 +109,21 @@ EXTRA_FAQ = {
 H1_OVERRIDES = {
     'sarasota': 'Concierge Doctor in Sarasota, Florida',
     'longboat-key': 'Concierge Doctor in Longboat Key, Florida',
+    'lakewood-ranch': 'Concierge Doctor in Lakewood Ranch, Florida',
+    'bradenton': 'Concierge Family Doctor in Bradenton, Florida',
+}
+
+# Where a page's primary keyword (from the SEO plan's keyword map) is not
+# "concierge doctor", the title carries it instead of the default pattern.
+TITLE_OVERRIDES = {
+    'bradenton': 'Concierge Family Doctor in Bradenton, FL | Legacy',
 }
 
 
 def city_title(d):
     """Lead with the city, because that is the word someone searches on."""
+    if d['slug'] in TITLE_OVERRIDES:
+        return TITLE_OVERRIDES[d['slug']]
     options = [f"Concierge Doctor in {d['name']}, FL | Legacy Concierge Medicine",
                f"Concierge Doctor in {d['name']}, FL | Legacy",
                f"{d['name']} Concierge Care | Legacy Concierge Medicine",
