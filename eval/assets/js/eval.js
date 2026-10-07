@@ -1,0 +1,10 @@
+/* Legacy Concierge Medicine - October recognition landing page.
+   GA4 does not count taps on phone or email links by itself. */
+(function () {
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest && e.target.closest('a[href^="tel:"], a[href^="mailto:"]');
+    if (!link || typeof window.gtag !== 'function') { return; }
+    var href = link.getAttribute('href');
+    window.gtag('event', href.indexOf('tel:') === 0 ? 'phone_click' : 'email_click', { link_url: href });
+  });
+}());

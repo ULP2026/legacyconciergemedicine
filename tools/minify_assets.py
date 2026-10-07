@@ -33,6 +33,7 @@ AREAS = [
     (ROOT / 'assets', sorted(ROOT.glob('*.html')) + sorted(ROOT.glob('service-areas/*.html'))),
     (ROOT / 'landing' / 'assets', [ROOT / 'landing' / 'index.html',
                                    ROOT / 'landing' / 'confirmation.html']),
+    (ROOT / 'eval' / 'assets', [ROOT / 'eval' / 'index.html']),
 ]
 
 # A reference to a source file, not already minified: /assets/css/style.css?v=1

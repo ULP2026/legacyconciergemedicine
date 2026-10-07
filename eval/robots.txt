@@ -1,0 +1,5 @@
+# October recognition landing page: postcard and paid traffic, not a search
+# destination. Crawling is allowed so the noindex on the page itself is seen;
+# a Disallow here would hide that tag and the page could still be indexed.
+User-agent: *
+Allow: /
