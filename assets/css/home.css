@@ -425,48 +425,55 @@ body { background: var(--neutral-100); }
 .h-team .head p { font-size: 1.03rem; line-height: 1.7; color: var(--neutral-500); margin: 0; }
 .h-team .h-wrap { max-width: 1080px; }
 .h-team-row { display: flex; gap: 22px; height: clamp(440px, 54vw, 560px); }
+/* At rest the photo is clear, with only a light name plate at the foot. Hover
+   (or a tap on touch screens, via focus) brings in the shade, the shadow and the bio. */
 .h-tm {
   position: relative; flex: 1; overflow: hidden; border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
+  box-shadow: none; outline: none;
   transition: flex .65s var(--ease), box-shadow .65s var(--ease);
 }
 .h-tm:hover, .h-tm:focus-within { flex: 2.4; box-shadow: var(--shadow-lg); }
+.h-tm:focus-visible { box-shadow: 0 0 0 3px var(--maroon-300), var(--shadow-lg); }
 .h-tm img {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top;
-  filter: grayscale(70%) brightness(.82);
-  transition: filter .65s var(--ease), transform .65s var(--ease);
+  transition: transform .65s var(--ease);
 }
-.h-tm:hover img, .h-tm:focus-within img { filter: none; transform: scale(1.04); }
+.h-tm:hover img, .h-tm:focus-within img { transform: scale(1.04); }
 .h-tm-shade {
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(28,25,24,0) 46%, rgba(28,25,24,.28) 70%, rgba(28,25,24,.85) 100%);
-  transition: background .65s var(--ease);
-}
-.h-tm:hover .h-tm-shade, .h-tm:focus-within .h-tm-shade {
+  position: absolute; inset: 0; opacity: 0;
   background: linear-gradient(180deg, rgba(28,25,24,0) 30%, rgba(28,25,24,.45) 55%, rgba(28,25,24,.8) 78%, rgba(28,25,24,.96) 100%);
+  transition: opacity .65s var(--ease);
+}
+.h-tm:hover .h-tm-shade, .h-tm:focus-within .h-tm-shade { opacity: 1; }
+.h-tm-label {
+  position: absolute; left: 14px; right: 14px; bottom: 14px; padding: 14px 18px;
+  background: rgba(255, 255, 255, .86); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  border-radius: var(--radius-md);
+  transition: opacity .35s var(--ease), transform .35s var(--ease);
+}
+.h-tm:hover .h-tm-label, .h-tm:focus-within .h-tm-label { opacity: 0; transform: translateY(10px); }
+.h-tm-label b { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.25rem; line-height: 1.2; color: var(--neutral-900); }
+.h-tm-label .role {
+  display: block; font-size: .66rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--maroon-700); margin-top: 5px;
 }
 .h-tm-info {
   position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 24px;
-  opacity: 0; transform: translateY(16px);
+  opacity: 0; transform: translateY(16px); pointer-events: none;
   transition: opacity .45s var(--ease) .16s, transform .45s var(--ease) .16s;
 }
-.h-tm:hover .h-tm-info, .h-tm:focus-within .h-tm-info { opacity: 1; transform: none; }
-.h-tm-info b { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.35rem; color: var(--neutral-100); }
-.h-tm-info .role {
-  display: block; font-size: .69rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
-  color: var(--maroon-300); margin: 6px 0 10px;
-}
+.h-tm:hover .h-tm-info, .h-tm:focus-within .h-tm-info { opacity: 1; transform: none; pointer-events: auto; }
+.h-tm-info b { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.35rem; color: var(--neutral-100); margin-bottom: 10px; }
 .h-tm-info p { font-size: .9rem; line-height: 1.6; color: rgba(239, 236, 234, .8); margin: 0 0 12px; max-width: 46ch; }
 .h-tm-info .h-link { color: var(--neutral-100); }
 .h-tm-info .h-link:hover { color: var(--maroon-300); }
-/* Touch screens: no hover-expand; both cards stay equal and show their info. */
+@media (prefers-reduced-motion: reduce) {
+  .h-tm, .h-tm img, .h-tm-shade, .h-tm-label, .h-tm-info { transition: none; }
+}
+/* Touch screens: no hover-expand; both cards stay equal and a tap shows the bio. */
 @media (hover: none) {
-  .h-tm, .h-tm:hover, .h-tm:focus-within { flex: 1; box-shadow: var(--shadow-md); }
-  .h-tm img, .h-tm:hover img, .h-tm:focus-within img { filter: none; transform: none; }
-  .h-tm-shade, .h-tm:hover .h-tm-shade, .h-tm:focus-within .h-tm-shade {
-    background: linear-gradient(180deg, rgba(28,25,24,0) 34%, rgba(28,25,24,.45) 58%, rgba(28,25,24,.86) 82%, rgba(28,25,24,.96) 100%);
-  }
-  .h-tm-info { opacity: 1; transform: none; }
+  .h-tm, .h-tm:hover, .h-tm:focus-within { flex: 1; }
+  .h-tm img, .h-tm:hover img, .h-tm:focus-within img { transform: none; }
 }
 /* Touch tablets keep the cards side by side, with tighter type so both read cleanly. */
 @media (hover: none) and (min-width: 721px) {
@@ -478,12 +485,9 @@ body { background: var(--neutral-100); }
 /* Phones: stack the cards, each at a fixed portrait shape. */
 @media (max-width: 720px) {
   .h-team-row { flex-direction: column; height: auto; gap: 18px; }
-  .h-tm, .h-tm:hover, .h-tm:focus-within { flex: none; height: auto; aspect-ratio: 4 / 5; min-height: 0; box-shadow: var(--shadow-md); }
-  .h-tm img, .h-tm:hover img, .h-tm:focus-within img { filter: none; transform: none; object-position: center 20%; }
-  .h-tm-shade, .h-tm:hover .h-tm-shade, .h-tm:focus-within .h-tm-shade {
-    background: linear-gradient(180deg, rgba(28,25,24,0) 34%, rgba(28,25,24,.45) 58%, rgba(28,25,24,.86) 82%, rgba(28,25,24,.96) 100%);
-  }
-  .h-tm-info { opacity: 1; transform: none; padding: 22px 20px; }
+  .h-tm, .h-tm:hover, .h-tm:focus-within { flex: none; height: auto; aspect-ratio: 4 / 5; min-height: 0; }
+  .h-tm img, .h-tm:hover img, .h-tm:focus-within img { transform: none; object-position: center 20%; }
+  .h-tm-info { padding: 22px 20px; }
 }
 @media (max-width: 420px) { .h-tm, .h-tm:hover, .h-tm:focus-within { aspect-ratio: 3 / 4; } }
 
