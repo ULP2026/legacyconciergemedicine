@@ -26,7 +26,7 @@ SOURCES = {
     'hero-09.jpg': 0.5,
     'photo-11.jpg': 0.5,
     'photo-2.jpg': 0.5,
-    'bellagena-spring-2026.jpg': 0.22,   # portrait of Dr. Chapman; keep the face
+    'pamela-chapman.jpg': 0.22,   # portrait of Dr. Chapman; keep the face
     'couple-shore.jpg': 0.45,
     'family-home.jpg': 0.5,
     'photo-5.jpg': 0.5,
@@ -36,7 +36,7 @@ SOURCES = {
 # page -> source photo used for its preview
 PAGES = {
     'index.html': 'hero-09.jpg',
-    'about.html': 'bellagena-spring-2026.jpg',
+    'about.html': 'pamela-chapman.jpg',
     'services.html': 'photo-11.jpg',
     'contact.html': 'photo-2.jpg',
     'thank-you.html': 'hero-09.jpg',
