@@ -420,12 +420,12 @@ body { background: var(--neutral-100); }
 .h-household p { font-size: 1rem; line-height: 1.7; color: var(--neutral-800); margin: 0 0 26px; max-width: 440px; }
 
 /* ---------- Care team ---------- */
-.h-team { background: #fff; }
+.h-team { background: var(--neutral-100); }
 .h-team .head { max-width: 720px; margin: 0 auto clamp(36px, 5vw, 52px); text-align: center; }
 .h-team .head p { font-size: 1.03rem; line-height: 1.7; color: var(--neutral-500); margin: 0; }
 .h-team .h-wrap { max-width: 1080px; }
 .h-team-row { display: flex; gap: 22px; height: clamp(440px, 54vw, 560px); }
-/* At rest the photo is clear, with only a light name plate at the foot. Hover
+/* At rest the photo is clear, with a soft fade at the foot behind the name. Hover
    (or a tap on touch screens, via focus) brings in the shade, the shadow and the bio. */
 .h-tm {
   position: relative; flex: 1; overflow: hidden; border-radius: var(--radius-lg);
@@ -446,16 +446,18 @@ body { background: var(--neutral-100); }
 }
 .h-tm:hover .h-tm-shade, .h-tm:focus-within .h-tm-shade { opacity: 1; }
 .h-tm-label {
-  position: absolute; left: 14px; right: 14px; bottom: 14px; padding: 14px 18px;
-  background: rgba(255, 255, 255, .86); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-  border-radius: var(--radius-md);
-  transition: opacity .35s var(--ease), transform .35s var(--ease);
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 110px 24px 22px;
+  background: linear-gradient(180deg, rgba(28,25,24,0) 0%, rgba(28,25,24,.06) 22%, rgba(28,25,24,.2) 45%, rgba(28,25,24,.4) 70%, rgba(28,25,24,.58) 100%);
+  transition: opacity .35s var(--ease);
 }
-.h-tm:hover .h-tm-label, .h-tm:focus-within .h-tm-label { opacity: 0; transform: translateY(10px); }
-.h-tm-label b { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.25rem; line-height: 1.2; color: var(--neutral-900); }
+.h-tm:hover .h-tm-label, .h-tm:focus-within .h-tm-label { opacity: 0; }
+.h-tm-label b {
+  display: block; font-family: var(--serif); font-weight: 400; font-size: 1.3rem; line-height: 1.2;
+  color: #fff; text-shadow: 0 1px 8px rgba(28,25,24,.35);
+}
 .h-tm-label .role {
   display: block; font-size: .66rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
-  color: var(--maroon-700); margin-top: 5px;
+  color: rgba(255,255,255,.88); margin-top: 6px; text-shadow: 0 1px 6px rgba(28,25,24,.35);
 }
 .h-tm-info {
   position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 24px;
