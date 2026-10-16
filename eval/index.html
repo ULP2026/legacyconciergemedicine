@@ -26,9 +26,8 @@
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/assets/img/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="/assets/img/favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" href="/assets/fonts/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/eval.min.css">
 </head>
 <body>
@@ -50,7 +49,7 @@
   <section class="e-wrap e-hero" id="top">
     <div class="e-hero-copy">
       <span class="e-eyebrow">October &middot; Recognition</span>
-      <h1>Recognized Among Sarasota's Best. <em>Trusted for Personalized Care.</em></h1>
+      <h1>Recognized Among Sarasota&rsquo;s Best. <em>Trusted for Personalized Care.</em></h1>
       <p>Experience physician-led concierge medicine designed around you, your health, and your time.</p>
       <div>
         <a class="e-btn e-btn-lg" href="#difference">Discover Concierge Medicine</a>
@@ -58,16 +57,15 @@
       <div class="e-badges">
         <span class="e-eyebrow muted sm">Recognized by</span>
         <div class="e-badge-row">
-          <!-- Drop the awarding body's artwork in as assets/img/badge-top-doctor.png
-               and swap the <span> block for an <img>. -->
-          <div class="e-badge">
+          <!-- The canvas leaves the Top Doctor badge as an empty slot. When the
+               artwork arrives, save it as assets/img/top-doctor.png and replace
+               this plate with <img class="e-badge-img" src="/assets/img/top-doctor.png" alt="Top Doctor">,
+               here and in the recognition card below. -->
+          <div class="e-badge-slot">
             <span class="name">Top Doctor</span>
             <span class="year">Sarasota</span>
           </div>
-          <div class="e-badge">
-            <span class="name">Best Of</span>
-            <span class="year">Sarasota</span>
-          </div>
+          <img class="e-badge-img" src="/assets/img/best-of-sarasota-2026.png" alt="Best of Sarasota 2026 Winner" width="600" height="415">
         </div>
       </div>
     </div>
@@ -93,12 +91,8 @@
           </div>
           <span class="e-eyebrow muted">Top Doctor</span>
         </div>
-        <div class="e-card">
-          <div class="plate">
-            <span class="name">Best Of</span>
-            <span class="year">Sarasota</span>
-          </div>
-          <span class="e-eyebrow muted">Sarasota Best Of</span>
+        <div class="e-award">
+          <img src="/assets/img/best-of-sarasota-2026.png" alt="Best of Sarasota 2026 Winner" width="600" height="415" loading="lazy">
         </div>
       </div>
     </div>
@@ -112,7 +106,7 @@
     </figure>
     <div class="e-difference-body">
       <div class="e-difference-head">
-        <span class="e-eyebrow on-dark">The Legacy Difference</span>
+        <span class="e-eyebrow on-dark light">The Legacy Difference</span>
         <h2>Medicine that feels steady, intentional, and deeply personal.</h2>
       </div>
       <ul class="e-benefits">
@@ -144,7 +138,7 @@
   <section class="e-why" id="why">
     <div class="e-wrap">
       <div class="e-why-media">
-        <img src="/assets/img/pamela-chapman.jpg" alt="Dr. Pamela Chapman, DO, founder of Legacy Concierge Medicine." width="1200" height="1800" loading="lazy">
+        <img src="/assets/img/care-team.jpg" alt="Legacy Concierge Medicine care team" width="870" height="1361" loading="lazy">
       </div>
       <div class="e-why-copy">
         <span class="e-eyebrow">Why Legacy</span>

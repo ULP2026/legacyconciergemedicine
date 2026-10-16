@@ -3,7 +3,7 @@
   "trailingSlash": false,
   "headers": [
     {
-      "source": "/assets/(img|video)/(.*)",
+      "source": "/assets/(img|video|fonts)/(.*)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
     },
     {
