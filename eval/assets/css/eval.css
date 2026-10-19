@@ -213,21 +213,19 @@ a { color: inherit; text-decoration: none; }
 
 .e-hero-media img { width: 100%; height: 100%; object-fit: cover; }
 
-/* The two award marks. The Top Doctors logo is a wide wordmark, so its column
-   is wider than the near-square Best of Sarasota seal to keep both legible. */
+/* The two award marks share one column width so they read as a matched pair. */
 .e-badges { margin-top: 12px; display: flex; flex-direction: column; gap: 12px; }
 
 .e-badge-row {
   display: grid;
-  grid-template-columns: minmax(0, 270px) minmax(0, 150px);
+  grid-template-columns: repeat(2, minmax(0, 160px));
   gap: 20px;
   align-items: center;
 }
 
 .e-badge-img {
   width: 100%;
-  height: 110px;
-  object-fit: contain;
+  height: auto;
 }
 
 .e-badge-slot {
@@ -670,6 +668,6 @@ a { color: inherit; text-decoration: none; }
 /* ------------------------------- phones ------------------------------- */
 
 @media (max-width: 640px) {
-  .e-badge-row { grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 12px; }
+  .e-badge-row { gap: 12px; }
   .e-cta-stamp { right: -220px; width: 420px; }
 }
