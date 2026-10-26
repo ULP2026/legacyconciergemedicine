@@ -597,10 +597,16 @@ body { background: var(--neutral-100); }
   .h-cred { padding: 12px 0; }
   .h-cred-group img { margin-right: 44px; transform: scale(.8); }
 
-  .h-begin { margin-top: 0; padding: 56px 20px 64px; background: var(--neutral-100); }
-  .h-begin .h-title { font-size: 32px; }
+  .h-begin { margin-top: 0; padding: 40px 16px 48px; background: var(--neutral-100); }
+  .h-begin .h-eyebrow { margin-bottom: 14px; }
+  .h-begin .h-title { font-size: 30px; margin-bottom: 12px; }
   .h-begin p { font-size: 15px; }
-  .h-begin .card { padding: 10px 10px 0; }
+  .h-begin .lead { margin-bottom: 24px; }
+  /* The survey brings its own inner padding, so the card adds none on a phone:
+     padding on both doubles the inset and squeezes the questions. */
+  .h-begin .card { padding: 0; }
+  .h-begin .frame { border-radius: calc(var(--radius-lg) - 1px); }
+  .h-begin .privacy { margin-top: 14px; }
 
   .h-manifesto { padding: 64px 20px 72px; }
   .h-manifesto .grid { gap: 28px; }
