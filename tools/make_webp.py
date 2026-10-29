@@ -30,6 +30,7 @@ MAX_WIDTH = {
     'tile-bedside.jpg': 500, 'tile-vitals.jpg': 500,
     'logo-smh-sarasota.png': 240, 'logo-smh-venice.png': 240,
     'logo-hca-blake.png': 400, 'logo-american-lab.png': 400,
+    'logo-best-of-sarasota-2026.png': 240, 'logo-top-doctors-2026.png': 400,
     'crest.png': 177, 'stamp.png': 400,
     'photo-5.jpg': 1200, 'photo-11.jpg': 1000,
 }
