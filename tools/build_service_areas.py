@@ -72,11 +72,14 @@ META_DESCRIPTIONS = {
 }
 
 
-# One question per money page, added after the canvas FAQs, for searches
-# Semrush tracks that the canvas copy never names (primary care physician,
-# family doctor, a doctor on Longboat Key). Answers stay within what the
-# practice has confirmed: Dr. Chapman is board-certified in family medicine,
-# care is at home, members have direct access.
+# Questions added after the canvas FAQs, for searches Semrush tracks that the
+# canvas copy never names (primary care physician, family doctor, a doctor on
+# Longboat Key, concierge medicine in Sarasota, house calls in Lakewood Ranch).
+# Answers stay within the PMC's wording and what /services and /about already
+# state: Dr. Chapman is dual board-certified (family and obesity medicine, the
+# PMC's "dual board certified physician") and was Medical Director at The Glenridge
+# and Village on the Isle, care is at home, visits run as long as care needs,
+# members have direct access, membership is intentionally limited.
 EXTRA_FAQ = {
     'longboat-key': [[
         'Is there a doctor on Longboat Key who makes house calls?',
@@ -88,8 +91,15 @@ EXTRA_FAQ = {
         'Do you provide primary care in Lakewood Ranch?',
         'Yes. Legacy is a concierge primary care practice, and your concierge doctor in Lakewood '
         'Ranch sees you at home for routine care, prevention, and the ongoing management of chronic '
-        'conditions. In-person consultations with a board-certified family medicine physician, and '
-        'direct access between visits, give members real peace of mind.']],
+        'conditions. In-person consultations with Dr. Pamela Chapman, DO, a dual board-certified '
+        'physician in family and obesity medicine, and direct access between visits, give members '
+        'real peace of mind.'], [
+        'Is there a concierge doctor in Lakewood Ranch who makes house calls?',
+        'Yes. With Legacy, your concierge doctor comes to your home in Lakewood Ranch, so routine '
+        'visits, follow-ups, and care planning happen where you live instead of in a waiting room. '
+        'Visits are unrushed and run as long as your care requires, and because membership is '
+        'intentionally limited, there is time for preventive care and for every member of your '
+        'household.']],
     'bradenton': [[
         'Can Legacy be my family doctor in Bradenton?',
         'Yes. Dr. Pamela Chapman, DO, is board-certified in family medicine, and Legacy provides '
@@ -101,7 +111,15 @@ EXTRA_FAQ = {
         'DO, a board-certified family medicine physician. Unlike many Sarasota concierge doctors, '
         'we keep the number of patients deliberately small, so there is time for personalized care, '
         'prevention, and chronic conditions. Members have unhurried visits at home, direct access '
-        'to their concierge doctor, and care that continues over years.']],
+        'to their concierge doctor, and care that continues over years.'], [
+        'What is concierge medicine in Sarasota like with Legacy?',
+        'It is a private, physician-led primary care relationship with Dr. Pamela Chapman, DO, a dual '
+        'board-certified physician, and Emily Smith, APRN, FNP-C, delivered almost entirely in your '
+        'home. Instead of a 10 to 15 minute office visit, appointments are unrushed, you have direct '
+        'access to your physician, and care stays preventive and longevity-focused, with the same team '
+        'through independent living, assisted living, and skilled nursing. Dr. Chapman has served as '
+        'Medical Director for The Glenridge and Village on the Isle. Membership is intentionally '
+        'limited, and details are discussed during a private consultation.']],
 }
 
 # Headings the canvas wrote as "Concierge Medicine in <town>". Where Semrush
