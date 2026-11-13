@@ -175,6 +175,12 @@ body { background: var(--neutral-100); }
   position: relative; z-index: 3; margin-top: -26vh; background: transparent;
   padding: 0 clamp(24px, 5vw, 56px) clamp(64px, 8vw, 104px);
 }
+/* Landing on /#contact (the QR code) must not tuck the eyebrow under the sticky
+   top bar, so the jump stops a bar's height plus a little air above the section. */
+.h-begin, .h-anchor-alias { scroll-margin-top: 96px; }
+.h-anchor-alias { position: absolute; top: 0; left: 0; width: 1px; height: 1px; }
+/* The phone bar is shorter and the section already carries 40px of top padding. */
+@media (max-width: 900px) { .h-begin, .h-anchor-alias { scroll-margin-top: 56px; } }
 .h-begin .inner { position: relative; max-width: 660px; margin: 0 auto; text-align: center; }
 .h-begin .h-eyebrow { margin-bottom: 20px; }
 .h-begin .h-title { font-size: clamp(2rem, 4.4vw, 3.1rem); line-height: 1.08; margin: 0 0 16px; }
