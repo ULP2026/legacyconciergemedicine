@@ -2,6 +2,124 @@
 (function () {
   'use strict';
 
+  /* ==== Ad click attribution: BEGIN ========================================
+     KEEP IN STEP: this block is identical in assets/js/main.js and
+     landing/assets/js/landing.js. The landing site is its own Vercel project
+     and can only load files under landing/, so it cannot share the file.
+     Change one, change the other, then run tools/minify_assets.py.
+
+     A visitor who comes from an ad has utm_* and gclid/fbclid on the URL of
+     whichever page they land on, but often fills in the survey later, on
+     another page or on the other site. So the seven keys the CRM's hidden
+     fields read are kept in a first-party cookie, lcm_attr (the last ad
+     click wins: any of the keys on the URL replaces the whole stored set),
+     and added to every GoHighLevel survey or form iframe on the page. Only
+     those seven, never the whole query string, which would reach the CRM
+     as junk. No network call, nothing visible.
+
+     It runs first, before anything else in this file, so a deferred survey's
+     data-src already carries the keys when the lazy loader copies it to src.
+     That is one ordering guarantee inside one file, rather than a second
+     call to remember in every loader. */
+  var attribution = (function () {
+    var KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid'];
+    var COOKIE = 'lcm_attr';
+    var MAX_LEN = 500;
+    var MAX_AGE = 90 * 24 * 60 * 60;
+
+    /* The seven keys out of any source, each a non-empty string of at most
+       500 characters. null when none of them is there. */
+    var pick = function (get) {
+      var set = {};
+      var found = false;
+      KEYS.forEach(function (key) {
+        var value = get(key);
+        if (typeof value === 'string' && value !== '') {
+          set[key] = value.slice(0, MAX_LEN);
+          found = true;
+        }
+      });
+      return found ? set : null;
+    };
+
+    var fromUrl = function () {
+      try {
+        var query = new URLSearchParams(window.location.search);
+        return pick(function (key) { return query.get(key); });
+      } catch (e) { return null; }
+    };
+
+    var readCookie = function () {
+      try {
+        var parts = document.cookie ? document.cookie.split(';') : [];
+        for (var i = 0; i < parts.length; i++) {
+          var part = parts[i].replace(/^\s+/, '');
+          if (part.indexOf(COOKIE + '=') === 0) {
+            var data = JSON.parse(decodeURIComponent(part.slice(COOKIE.length + 1)));
+            return data && typeof data === 'object' ? pick(function (key) { return data[key]; }) : null;
+          }
+        }
+      } catch (e) {}
+      return null;
+    };
+
+    /* Shared by www. and landing. on the real domain; host-only anywhere
+       else (localhost, *.vercel.app previews), where a Domain would be refused. */
+    var writeCookie = function (set) {
+      try {
+        var host = window.location.hostname;
+        var domain = /(^|\.)legacyconciergemedicine\.com$/.test(host) ? '; Domain=.legacyconciergemedicine.com' : '';
+        document.cookie = COOKIE + '=' + encodeURIComponent(JSON.stringify(set)) +
+          '; Path=/; Max-Age=' + MAX_AGE + '; SameSite=Lax; Secure' + domain;
+      } catch (e) {}
+    };
+
+    /* This visit's keys if it has any (stored for later), else the stored
+       set. If the cookie cannot be read or written, the URL's own keys are
+       still used for this page. */
+    var current = fromUrl();
+    if (current) { writeCookie(current); } else { current = readCookie() || {}; }
+
+    var isSurvey = function (url) {
+      return !!url && (url.indexOf('leadconnectorhq.com/widget/survey') >= 0 || url.indexOf('/widget/form') >= 0);
+    };
+
+    /* url plus every stored key it does not already have. A key already on
+       the iframe (put there by hand or by form_embed.js) is left as it is.
+       Returns the very same string when nothing was added. */
+    var addTo = function (url) {
+      try {
+        var next = new URL(url, window.location.href);
+        var added = false;
+        KEYS.forEach(function (key) {
+          if (current[key] && !next.searchParams.has(key)) {
+            next.searchParams.set(key, current[key]);
+            added = true;
+          }
+        });
+        return added ? next.toString() : url;
+      } catch (e) { return url; }
+    };
+
+    /* data-src (a survey that waits for the visitor) and src alike. The
+       attribute is written only when a key was actually added: setting src,
+       even to the same value, reloads a frame that has already loaded. */
+    var apply = function () {
+      Array.prototype.forEach.call(document.querySelectorAll('iframe'), function (frame) {
+        ['data-src', 'src'].forEach(function (attr) {
+          var url = frame.getAttribute(attr);
+          if (!isSurvey(url)) { return; }
+          var next = addTo(url);
+          if (next !== url) { frame.setAttribute(attr, next); }
+        });
+      });
+    };
+
+    return { apply: apply };
+  })();
+  attribution.apply();
+  /* ==== Ad click attribution: END ========================================== */
+
   /* Top bar: on the home page it floats over the hero until you scroll past it */
   var bar = document.querySelector('.lcm-bar');
   if (bar) {
